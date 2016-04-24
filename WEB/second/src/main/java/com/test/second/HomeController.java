@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.second.*;
-import com.test.second.parser.*;
-import com.test.second.parser_object.*;;
+import com.test.second.object.*;
+import com.test.second.parser.*;;
 
 /**
  * Handles requests for the application home page.
