@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,7 +49,18 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<c:forEach items="${list}" var="schedule">
+					<tr>
+						<td>${schedule.time}</td>
+						<td>${schedule.monday}</td>
+						<td>${schedule.tuesday}</td>
+						<td>${schedule.wednesday}</td>
+						<td>${schedule.thirsday}</td>
+						<td>${schedule.friday}</td>
+						<td>${schedule.saturday}</td>						
+					</tr>
+				</c:forEach>
+				<%--<tr>
 					<td><center>
 							1A<br>(09:00~09:30)
 						</center></td>
@@ -333,7 +345,7 @@
 					<td><center></center></td>
 					<td><center></center></td>
 					<td><center></center></td>
-				</tr>
+				</tr> --%>
 			</tbody>
 		</table>
 	</div>

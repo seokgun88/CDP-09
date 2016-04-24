@@ -58,10 +58,11 @@ public class HomeController {
 		System.out.println("login()");
 
 		model.addAttribute("request", request);
-		command = new LoginCommand();
-		command.excute(model);
-
-		return "redirect:timetable";
+		command = new LoginCommand();		
+		if(command.excute(model)) 
+			return "redirect:timetable";
+		else 
+			return "redirect:home";
 	}
 
 	@RequestMapping("/gettimetable")
@@ -100,6 +101,10 @@ public class HomeController {
 
 	@RequestMapping("/timetable")
 	public String timetable(Model model) {
+		for(int i = 0 ;i<Constant.scheduleList.size();i++){			
+			System.out.println(Constant.scheduleList.get(i).toString());
+		}
+		model.addAttribute("list", Constant.scheduleList);
 		return "timetable";
 	}
 }

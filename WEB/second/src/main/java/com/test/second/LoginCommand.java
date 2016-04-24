@@ -9,11 +9,12 @@ import org.springframework.ui.Model;
 
 import com.test.second.parser.UserSchedulePlan;
 import com.test.second.object.ScheduleAttr;
+import com.test.second.Constant;
 
 public class LoginCommand implements Command {
 
 	@Override
-	public void excute(Model model) {
+	public boolean excute(Model model) {
 		// TODO Auto-generated method stub
 			Map<String, Object> map = model.asMap();
 			HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -22,19 +23,20 @@ public class LoginCommand implements Command {
 			
 			UserSchedulePlan UserTime = new UserSchedulePlan();
 
-			System.out.println("==Request 테스트==");
 			if(UserTime.StartRequest(id, pwd) == false){
 				System.out.println("Request 실패 !!");
+				return false;
 			}
 			else{
 				System.out.println("Request 성공 !!");
 				ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
-
-				for(int i = 0 ;i<attrList.size();i++){			
+				Constant.scheduleList = attrList;
+				/*for(int i = 0 ;i<attrList.size();i++){			
 					System.out.println(attrList.get(i).toString());
-				}
+				}*/
 			}
 			System.out.println(id + " and " + pwd);
+			return true;
 	}
 
 }
