@@ -1,4 +1,4 @@
-package parser;
+package com.test.second.parser;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import object.HolidayObj;
+import com.test.second.object.HolidayObj;
 
 public class HolidayPlan {
 	ArrayList<HolidayObj> HolidayList;
@@ -41,8 +41,8 @@ public class HolidayPlan {
 	}
 
 
-	// ÆÄ½ÌÇØ¼­ outputÀ» ´øÁ®ÁØ´Ù.
-	// output : ³¯Â¥, ÀÏÁ¤ÀÌ¸§
+	// íŒŒì‹±í•´ì„œ outputì„ ë˜ì ¸ì¤€ë‹¤.
+	// output : ë‚ ì§œ, ì¼ì •ì´ë¦„
 	public void ParseStart(int year, int month){
 		URL url = null;
 		String strmonth = String.format("%02d", month);
@@ -63,7 +63,7 @@ public class HolidayPlan {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		connection.setRequestProperty("Content-Type", "application/xml"); // ¹ŞÀ»¿äÃ»Å¸ÀÔ
+		connection.setRequestProperty("Content-Type", "application/xml"); // ë°›ì„ìš”ì²­íƒ€ì…
 
 		BufferedReader rd = null;
 		try {
