@@ -1,7 +1,7 @@
-package com.test.second.object;
+package object;
 
 public class ScheduleAttr {
-	//String []daylist = { "ï¿½Ã°ï¿½", "ï¿½ï¿½", "È­","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½" };
+	//String []daylist = { "½Ã°£", "¿ù", "È­","¼ö","¸ñ","±Ý","Åä","ÀÏ" };
 	String time;
 	String monday;
 	String tuesday;
@@ -26,7 +26,7 @@ public class ScheduleAttr {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return String.format("[%s] ï¿½ï¿½ : %s È­: %s ï¿½ï¿½: %s ï¿½ï¿½: %s ï¿½ï¿½: %s ï¿½ï¿½: %s ï¿½ï¿½: %s", time, monday, tuesday, wednesday,
+		return String.format("[%s] ¿ù : %s È­: %s ¼ö: %s ¸ñ: %s ±Ý: %s Åä: %s ÀÏ: %s", time, monday, tuesday, wednesday,
 				thirsday,friday,saturday,sunday);
 	}
 	public void setThirsday(String thirsday) {
