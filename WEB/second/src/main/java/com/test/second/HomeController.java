@@ -1,6 +1,10 @@
 package com.test.second;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -14,51 +18,88 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.test.second.*;
+import com.test.second.parser.*;
+import com.test.second.parser_object.*;;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
-	
+
 	Command command;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+
+		model.addAttribute("serverTime", formattedDate);
+
 		return "home";
 	}
 
 	@RequestMapping("/home")
-	public String home(Model model){		
+	public String home(Model model) {
 		return "home";
 	}
-	
+
 	@RequestMapping("/login")
-	public String login(HttpServletRequest request, Model model){
+	public String login(HttpServletRequest request, Model model) {
 		System.out.println("login()");
-		
+
 		model.addAttribute("request", request);
 		command = new LoginCommand();
 		command.excute(model);
-		
+
 		return "redirect:timetable";
 	}
-	
+
+	@RequestMapping("/gettimetable")
+	public String gettimetable(Model model) {
+		BufferedWriter write = null;
+
+		try {
+			write = new BufferedWriter(new FileWriter("output.txt"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		LecturePlan lp = new LecturePlan();
+		lp.TotalParse();
+		ArrayList<LectureObj> LectureList = lp.getLectureList();
+
+		for (LectureObj e : LectureList) {
+			System.out.println("[List] " + e.toString());
+			try {
+				write.write("[List] " + e.toString() + "\n");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		try {
+			write.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:home";
+	}
+
 	@RequestMapping("/timetable")
-	public String timetable(Model model){		
+	public String timetable(Model model) {
 		return "timetable";
 	}
 }
