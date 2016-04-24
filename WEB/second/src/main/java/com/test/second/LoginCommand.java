@@ -1,10 +1,14 @@
 package com.test.second;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+
+import com.test.second.parser.UserSchedulePlan;
+import com.test.second.object.ScheduleAttr;
 
 public class LoginCommand implements Command {
 
@@ -16,6 +20,20 @@ public class LoginCommand implements Command {
 			String id = request.getParameter("id");
 			String pwd = request.getParameter("pwd");
 			
+			UserSchedulePlan UserTime = new UserSchedulePlan();
+
+			System.out.println("==Request 테스트==");
+			if(UserTime.StartRequest(id, pwd) == false){
+				System.out.println("Request 실패 !!");
+			}
+			else{
+				System.out.println("Request 성공 !!");
+				ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
+
+				for(int i = 0 ;i<attrList.size();i++){			
+					System.out.println(attrList.get(i).toString());
+				}
+			}
 			System.out.println(id + " and " + pwd);
 	}
 
