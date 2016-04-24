@@ -52,12 +52,12 @@
 				<c:forEach items="${list}" var="schedule">
 					<tr>
 						<td>${schedule.time}</td>
-						<td>${schedule.monday}</td>
-						<td>${schedule.tuesday}</td>
-						<td>${schedule.wednesday}</td>
-						<td>${schedule.thirsday}</td>
-						<td>${schedule.friday}</td>
-						<td>${schedule.saturday}</td>						
+						<td nowrap width="100">${schedule.monday}</td>
+						<td nowrap width="100">${schedule.tuesday}</td>
+						<td nowrap width="100">${schedule.wednesday}</td>
+						<td nowrap width="100">${schedule.thirsday}</td>
+						<td nowrap width="100">${schedule.friday}</td>
+						<td nowrap width="100">${schedule.saturday}</td>						
 					</tr>
 				</c:forEach>
 				<%--<tr>
