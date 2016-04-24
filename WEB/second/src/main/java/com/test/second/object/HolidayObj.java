@@ -1,4 +1,4 @@
-package object;
+package com.test.second.object;
 
 public class HolidayObj {
 	private String date;

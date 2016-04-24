@@ -1,4 +1,4 @@
-package object;
+package com.test.second.object;
 
 public class CollegeObj {
 	private String date;

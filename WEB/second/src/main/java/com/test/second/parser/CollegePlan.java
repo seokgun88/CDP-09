@@ -1,4 +1,4 @@
-package parser;
+package com.test.second.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import object.CollegeObj;
+import com.test.second.object.CollegeObj;
 
 public class CollegePlan {
 	ArrayList<CollegeObj> CollegeList;
