@@ -10,66 +10,70 @@ import org.jsoup.nodes.Element;
 import object.CollegeObj;
 import object.HolidayObj;
 import object.LectureObj;
+import object.ScheduleAttr;
 import parser.CollegePlan;
 import parser.HolidayPlan;
 import parser.LecturePlan;
+import parser.UserSchedulePlan;
 
 public class Test {
 
 	public static void main(String[] args) {
-		
-//		for(int n=1; n <= 12 ; n++){
-//			System.out.println("month : " + n);
-//			HolidayPlan obj = new HolidayPlan(2016,n);
-//			ArrayList<HolidayObj> HolidayList = obj.getHolidayList();
-//
-//			for(int i=0 ; i < HolidayList.size() ; i++){			
-//				System.out.println("[List] "+HolidayList.get(i).toString());
-//			}
-//		}
-		
-//		-----------------------------------------------
-		
-//		CollegePlan collobj = new CollegePlan(2016);
+		//		-----------------------------------------------
+		//		[*]°øÈÞÀÏ ÆÄ½Ì
+
+		//		for(int n=1; n <= 12 ; n++){
+		//			System.out.println("month : " + n);
+		//			HolidayPlan obj = new HolidayPlan(2016,n);
+		//			ArrayList<HolidayObj> HolidayList = obj.getHolidayList();
+		//
+		//			for(int i=0 ; i < HolidayList.size() ; i++){			
+		//				System.out.println("[List] "+HolidayList.get(i).toString());
+		//			}
+		//		}
+
+		//		-----------------------------------------------
+		//		[*]ÇÐ»ç ÀÏÁ¤ ÆÄ½Ì
+
+		//		CollegePlan collobj = new CollegePlan(2016);
 
 
-//		ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
-//		for(CollegeObj e: CollegeList){
-//			System.out.println("[List] "+ e.toString());		
-//		}
+		//		ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
+		//		for(CollegeObj e: CollegeList){
+		//			System.out.println("[List] "+ e.toString());		
+		//		}
+
+		//		-----------------------------------------------
+		//		[*]°­ÀÇ°èÈ¹¼­ ÆÄ½Ì
+
+		//		LecturePlan lp = new LecturePlan();
+		//		lp.TotalParse();
+		//		//lp.SectionParse(1);
+		//		ArrayList<LectureObj> LectureList = lp.getLectureList();
+		//		
+		//		for(LectureObj e: LectureList){
+		//			System.out.println("[List] "+ e.toString());
+		//		}
+
+		//		-----------------------------------------
+		//		[*]À¯Àú ½ºÄÉÁÙ ÆÄ½Ì(lms)
+		String id = "aa0507a";
+		String pw = "123123";
+		UserSchedulePlan UserTime = new UserSchedulePlan();
 		
-//		-----------------------------------------------
 		
-		BufferedWriter write = null;
-		
-		try {		
-			write = new BufferedWriter(new FileWriter("output.txt"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(UserTime.StartRequest(id, pw) == false){
+			System.out.println("Request ½ÇÆÐ !!");
 		}
+		else{
+			System.out.println("Request ¼º°ø !!");
+			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
 
-		LecturePlan lp = new LecturePlan();
-		lp.TotalParse();
-		//lp.SectionParse(1);
-		ArrayList<LectureObj> LectureList = lp.getLectureList();
-		
-		for(LectureObj e: LectureList){
-			System.out.println("[List] "+ e.toString());
-			try {
-				write.write("[List] "+ e.toString() + "\n" );
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			for(int i = 0 ;i<attrList.size();i++){			
+				System.out.println(attrList.get(i).toString());
 			}
 		}
-		
-		try {
-			write.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+
 	}
 
 }
