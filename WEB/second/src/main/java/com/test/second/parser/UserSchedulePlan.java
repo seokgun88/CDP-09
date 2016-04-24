@@ -1,4 +1,4 @@
-package com.test.second.parser;
+package parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +16,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.test.second.object.ScheduleAttr;
+import object.ScheduleAttr;
 
 public class UserSchedulePlan {
 	String StrCookie = "";
@@ -34,11 +34,11 @@ public class UserSchedulePlan {
 	
 	public boolean StartRequest(String id, String pw){
 		if(YesLoginPOSTRequest(id, pw) == false){
-			System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!");
+			System.out.println("·Î±×ÀÎ ½ÇÆÐ!!");
 			return false;
 		}
 		else{
-			System.out.println("ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!!");
+			System.out.println("·Î±×ÀÎ ¼º°ø!!");
 			YesScheduleGETRequest();
 			return true;
 		}		
@@ -52,7 +52,7 @@ public class UserSchedulePlan {
 		Elements titles = doc.select("table.bbslist tbody tr td.schedule");
 		
 		String []tempstrlist = new String[8];
-//		String []daylist = { "ï¿½Ã°ï¿½", "ï¿½ï¿½", "È­","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½","ï¿½ï¿½" };
+//		String []daylist = { "½Ã°£", "¿ù", "È­","¼ö","¸ñ","±Ý","Åä","ÀÏ" };
 		int cnt = 0;
 		for(int i=0;i< titles.size() ; i++){
 			Element e = titles.get(i);			
@@ -95,10 +95,10 @@ public class UserSchedulePlan {
 			url = new URL(urlstr);
 			URLConnection con = url.openConnection();
 
-			// POST requestï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// POST requestÀÓÀ» ¼³Á¤
 			con.setDoOutput(true);
 
-			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// Çì´õ Á¤º¸ ¼³Á¤
 			con.setRequestProperty("Accept-Language",  "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4");
 			con.setRequestProperty("Cookie", "_language_=ko; WMONID=NFhakRD7cNz; "
 					+ "PHPSESSID=b1b67aa7164e5db765f63df01faa587e; "
@@ -113,15 +113,15 @@ public class UserSchedulePlan {
 
 			OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
 			wr.write(parameter);
-			wr.flush();  // ï¿½ï¿½ flushï¿½ï¿½ È£ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½.			
+			wr.flush();  // ²À flush¸¦ È£ÃâÇØ¾ß ÇÑ´Ù.			
 
-			// ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+			// ÀÀ´ä Ã³¸®
 			BufferedReader rd = null;
 
 			rd = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
 //			String line = null;
 //			while ((line = rd.readLine()) != null) {
-//				// ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+//				// ·ÎÁ÷ Ã³¸®
 //				System.out.println(line);
 //			}
 			//Cookie: _language_=ko; WMONID=DfEd6GBGwgI; SESSION_NEWLMS=g1lGXcjXCgqsL9Tj87f0HX2QvClRw2tY8T5yyQH62KhGfl3znWKS!-1103523962
@@ -166,10 +166,10 @@ public class UserSchedulePlan {
 			url = new URL(urlstr);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-			// GET requestï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// GET requestÀÓÀ» ¼³Á¤
 			con.setRequestMethod("GET");
 
-			// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			// Çì´õ Á¤º¸ ¼³Á¤
 			con.setRequestProperty("Accept-Language",  "ko-KR,ko;q=0.8,en-US;q=0.6,en;q=0.4");
 			con.setRequestProperty("Cookie", "_language_=ko; WMONID=NFhakRD7cNz; "
 					+ "PHPSESSID=b1b67aa7164e5db765f63df01faa587e; "

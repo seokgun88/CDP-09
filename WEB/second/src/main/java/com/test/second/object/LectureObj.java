@@ -1,7 +1,7 @@
-package com.test.second.object;
+package object;
 
 public class LectureObj {
-	//ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ : 2 , 3 , 4 , 8 , 9 , 10
+	//±³¾ç ÀÎµ¦½º : 2 , 3 , 4 , 8 , 9 , 10
 	int num;
 	String reg_college;
 	String subject_number;

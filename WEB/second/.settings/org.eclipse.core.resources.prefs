@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/test/second/object/LectureObj.java=EUC-KR
+encoding//src/main/java/com/test/second/parser/UserSchedulePlan.java=EUC-KR
 encoding//src/main/webapp/WEB-INF/views/home.jsp=UTF-8
 encoding/<project>=UTF-8

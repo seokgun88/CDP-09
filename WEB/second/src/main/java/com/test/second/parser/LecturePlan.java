@@ -1,4 +1,4 @@
-package com.test.second.parser;
+package parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.test.second.object.LectureObj;
+import object.LectureObj;
 
 public class LecturePlan {
 	private ArrayList<LectureObj> LectureList;
@@ -30,7 +30,7 @@ public class LecturePlan {
 	}
 	
 	// input : [1,57]
-	// output : true ï¿½Ï·ï¿½ , false ï¿½ï¿½ï¿½ï¿½
+	// output : true ¿Ï·á , false ½ÇÆÐ
 	public boolean SectionParse(int n){
 		
 		if(1<=n&&n<=3){
@@ -47,8 +47,8 @@ public class LecturePlan {
 		return true;
 	}
 
-	// input : ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ 1, ï¿½ï¿½ï¿½ï¿½ 2, ï¿½ï¿½ï¿½ï¿½ 3,
-	// outpu : tru ï¿½ï¿½ï¿½ï¿½ , false ï¿½ï¿½ï¿½ï¿½
+	// input : ½º¸¶Æ®·¯´× 1, ¿ø¾î 2, °èÀý 3,
+	// outpu : tru ¼º°ø , false ½ÇÆÐ
 	public boolean ParseEtc(int n){
 		if( 1 > n && n > 3 ){			
 			return false;
@@ -70,11 +70,11 @@ public class LecturePlan {
 
 		Elements refs = doc.select("tbody tbody tbody td strong a[href]");
 		
-		// ï¿½ï¿½ï¿½ï¿½ [0,2] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+		// ¿ø·¡ [0,2] ±¸°£ ¼øÈ¯¹® °¡´É
 		int start = n - offset;
 		int end = n - offset;
 		
-		// ï¿½Îµï¿½ï¿½ï¿½ 3 ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4ï¿½ï¿½  ; ï¿½Ë»ï¿½, ï¿½ï¿½ï¿½Ç°ï¿½È¹ï¿½ï¿½, ï¿½Ç¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½
+		// ÀÎµ¦½º 3 ÀÌ»óÀÇ ³ª¸ÓÁö 4°³  ; °Ë»ö, °­ÀÇ°èÈ¹¼­, °Ç¹° ¹× ±³°ú±¸ºÐÄÚµå, ¼ö¾÷½Ã°£
 		for(int i=start;i<=end;i++){
 			Element e = refs.get(i);
 
@@ -92,7 +92,7 @@ public class LecturePlan {
 				e1.printStackTrace();
 			}
 
-			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¹ï¿½ï¿½ ï¿½Ä½ï¿½
+			// ±³¾ç °­ÀÇ °èÈ¹¼­ ÆÄ½Ì
 			Elements tables = subcolldoc.select("table.courTable tbody tr td");
 			String []tempvalue = new String[13];
 			int subcnt = 0;
@@ -101,7 +101,7 @@ public class LecturePlan {
 			String temphref = "NULL";
 			int hrefcnt = 0;
 
-			//ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ : 2 , 3 , 7 , 8 , 9			
+			//±³¾ç ÀÎµ¦½º : 2 , 3 , 7 , 8 , 9			
 			for(Element ele: tables){			
 				tempvalue[subcnt] = ele.text();
 								
@@ -131,8 +131,8 @@ public class LecturePlan {
 		return true;		
 	}
 
-	// input : 4ï¿½ï¿½ï¿½ï¿½ 57ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-	// output : false : ï¿½ï¿½ï¿½ï¿½,  true : ï¿½ï¿½ï¿½ï¿½
+	// input : 4ºÎÅÍ 57±îÁö °¡´É
+	// output : false : ½ÇÆÐ,  true : ¼º°ø
 	public boolean ParseStart(int n){
 		if( 4 > n && n > 57 ){
 			return false;
@@ -151,13 +151,13 @@ public class LecturePlan {
 			e1.printStackTrace();
 		}
 
-		// ï¿½ï¿½ï¿½Ð°ï¿½ ï¿½ï¿½ï¿½Ð¿ï¿½
+		// ´ëÇÐ°ú ´ëÇÐ¿ø
 		//		Elements titles = doc.select("tbody tbody tbody span.style2");
 		Elements refs = doc.select("tbody tbody tbody span.style2 a[href]");
 
 		int start = n - offset;
 		int end = n - offset;
-		//ï¿½ï¿½ï¿½ï¿½ [0, refs.size()) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
+		//¿ø·¡ [0, refs.size()) ±¸°£ ±îÁö ¼øÈ¯¹® °¡´ÉÇÏ´Ù.
 		for(int i=start;i<=end;i++){
 			Element e = refs.get(i);
 			String ref = e.attr("abs:href");
@@ -165,7 +165,7 @@ public class LecturePlan {
 //			System.out.println("name: " + e.text());
 			
 			if(i<13){
-				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½				
+				// ±³¾ç ÆäÀÌÁöÀÇ ³Ñ¹ö¸µ				
 				Document subdoc = null;
 				try {					
 					Connection con1 = Jsoup.connect(ref);
@@ -176,7 +176,7 @@ public class LecturePlan {
 					e1.printStackTrace();
 				}
 
-				// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¹ï¿½ï¿½ ï¿½Ä½ï¿½
+				// ±³¾ç °­ÀÇ °èÈ¹¼­ ÆÄ½Ì
 				Elements tds = subdoc.select("table.courTable tbody tr td");
 				String []tempvalue = new String[14];
 				
@@ -185,7 +185,7 @@ public class LecturePlan {
 				int hrefcnt = 0;
 								
 				int cnt = 0;
-				//ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ : 2 , 3 , 4 , 8 , 9 , 10			
+				//±³¾ç ÀÎµ¦½º : 2 , 3 , 4 , 8 , 9 , 10			
 				for(Element ele: tds){			
 					tempvalue[cnt] = ele.text();
 					
@@ -231,7 +231,7 @@ public class LecturePlan {
 //					System.out.println("collref : " + collsuburl);
 //					System.out.println("collname : " + collname);
 					
-					// ï¿½ï¿½ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½				
+					// ±³¾çÀÌ¿Ü ´ëÇÐ ÆäÀÌÁöÀÇ ³Ñ¹ö¸µ				
 					Document subcolldoc = null;
 					try {						
 						Connection con3 = Jsoup.connect(collsuburl);
@@ -242,7 +242,7 @@ public class LecturePlan {
 						e1.printStackTrace();
 					}
 
-					// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¹ï¿½ï¿½ ï¿½Ä½ï¿½
+					// ±³¾ç °­ÀÇ °èÈ¹¼­ ÆÄ½Ì
 					Elements tables = subcolldoc.select("table.courTable tbody tr td");
 					String []tempvalue = new String[13];
 					int subcnt = 0;
@@ -251,7 +251,7 @@ public class LecturePlan {
 					String temphref = "NULL";
 					int hrefcnt = 0;
 
-					//ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ : 2 , 3 , 7 , 8 , 9			
+					//±³¾ç ÀÎµ¦½º : 2 , 3 , 7 , 8 , 9			
 					for(Element ele: tables){
 						
 						tempvalue[subcnt] = ele.text();
