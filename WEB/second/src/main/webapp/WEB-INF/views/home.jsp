@@ -24,8 +24,8 @@
 				</div>
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">시간표</a></li>
-					<li><a href="#">빈강의실</a></li>
+					<li><a href="timetable">시간표</a></li>
+					<li><a href="knumap">빈강의실</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>

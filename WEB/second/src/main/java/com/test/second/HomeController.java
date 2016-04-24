@@ -107,4 +107,10 @@ public class HomeController {
 		model.addAttribute("list", Constant.scheduleList);
 		return "timetable";
 	}
+	
+	@RequestMapping("/knumap")
+	public String knumap(Model model) {
+		
+		return "knumap";
+	}
 }
