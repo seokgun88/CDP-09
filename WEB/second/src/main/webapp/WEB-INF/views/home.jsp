@@ -16,7 +16,8 @@
 		<a href="home"> <img src="resources/KNUPLAN.png"
 			class="img-rounded" alt="Cinque Terre">
 		</a>
-		<nav class="navbar navbar-inverse">
+		
+        <nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">KNU PLAN</a>
@@ -123,35 +124,23 @@
 					<div class="row">
 						<p></p>
 					</div>
-
-					<div class="col-md-3">
-						<div class="form-group">
-							<div class="col-md-offset-0">
-								<button type="submit" class="btn btn-default btn-lg">로그인</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<div class="col-md-offset-1">
-								<button type="submit" class="btn btn-default btn-lg">ID찾기</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="form-group">
-							<div class="col-md-offset-1">
-								<button type="submit" class="btn btn-default btn-lg">PW찾기</button>
-							</div>
-						</div>
-					</div>
-
-
-				</div>
-
-			</div>
-		</form>
-
-	</div>
+                    
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-default btn-lg">로그인</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-default btn-lg">ID찾기</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-default btn-lg">PW찾기</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
