@@ -85,6 +85,7 @@ public class UserSchedulePlan {
 		
 	}
 
+	@SuppressWarnings("finally")
 	public boolean YesLoginPOSTRequest(String user_id, String user_pw){
 
 		URL url = null;
