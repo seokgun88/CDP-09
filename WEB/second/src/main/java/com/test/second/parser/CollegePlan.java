@@ -36,17 +36,16 @@ public class CollegePlan {
 		Elements titles = doc.select("div#body_content div#calendar dl dd ul li");
 		
 		for(Element e: titles){
-			String cdate = e.text().substring(0, 8);
+			String cdate = e.text().substring(0, 5);
 			String cname = e.text().substring(8);
 			CollegeObj colobj = new CollegeObj();
 			
-			colobj.setDate(year+"."+cdate);
+			colobj.setDate(cdate);
 			colobj.setName(cname);
 			
 			CollegeList.add(colobj);
 						
-			System.out.println("date: " + cdate);
-			System.out.println("name: " + cname);
+			System.out.println(colobj.toString());
 		}
 		
 	}

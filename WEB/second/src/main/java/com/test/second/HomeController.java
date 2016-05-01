@@ -113,4 +113,11 @@ public class HomeController {
 		
 		return "knumap";
 	}
+	
+	@RequestMapping("/calendar")
+	public String calendar(Model model){
+		CollegePlan colplan = new CollegePlan(2016);
+		model.addAttribute("college_plan_list", colplan.getCollegeList());
+		return "calendar";
+	}
 }

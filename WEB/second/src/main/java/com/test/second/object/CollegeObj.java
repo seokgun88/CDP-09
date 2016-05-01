@@ -20,7 +20,7 @@ public class CollegeObj {
 	@Override
 	public String toString() {
 	
-		return "Date : " + getDate() + " Name : "+ getName();
+		return getDate() + "/"+ getName();
 	}
 
 }
