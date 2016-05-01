@@ -1,5 +1,7 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.util.StringTokenizer" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -115,11 +117,26 @@ td {
 					int nowYear = cal.get(Calendar.YEAR);
 					int nowMonth = cal.get(Calendar.MONTH) + 1;
 					int nowDay = cal.get(Calendar.DAY_OF_MONTH);
+					ArrayList<String> colplan_list = (ArrayList<String>) request.getAttribute("college_plan_list");
+					int cur_colplan_list = 0;
 				%>
 				<div id="diaryTitle">
 					<span id="dayTitle"> <%=nowYear%>.<%=nowMonth%>
 					</span>
 				</div>
+				<%
+					int cur_holiday_month;
+					while(true){
+						cur_holiday_month = Integer.parseInt(colplan_list.get(cur_colplan_list).split(",")[0]);
+						System.out.println(nowMonth + " " + cur_holiday_month);
+						if (nowMonth > cur_holiday_month){
+							cur_colplan_list++;
+						}
+						else{
+							break;
+						}
+					}
+				%>
 				<div id="diaryContent">
 					<table class="dTable">
 						<thead>
@@ -154,7 +171,19 @@ td {
 								} //end for
 									}//end switch
 							%>
-							<td><%=tempDay%></td>
+							<td><%=tempDay%>
+							<%
+								String[] split_colplan = colplan_list.get(cur_colplan_list).split(",");
+								String holiday = split_colplan[2];
+								int holiday_month = Integer.parseInt(split_colplan[0]);
+								int holiday_day =  Integer.parseInt(split_colplan[1]);
+								if(tempDay == holiday_day){
+									cur_colplan_list++;
+							%>
+								<%=holiday %>
+							<%
+								}
+							%></td>
 							<%
 								//설정된 일자가 토요일이면 행을 변경한다.
 									switch (cal.get(Calendar.DAY_OF_WEEK)) {

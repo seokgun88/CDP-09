@@ -117,7 +117,7 @@ public class HomeController {
 	@RequestMapping("/calendar")
 	public String calendar(Model model){
 		CollegePlan colplan = new CollegePlan(2016);
-		model.addAttribute("college_plan_list", colplan.getCollegeList());
+		model.addAttribute("college_plan_list", colplan.getCollegeStringList());
 		return "calendar";
 	}
 }

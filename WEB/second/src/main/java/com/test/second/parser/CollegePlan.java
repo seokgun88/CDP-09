@@ -12,13 +12,19 @@ import com.test.second.object.CollegeObj;
 
 public class CollegePlan {
 	ArrayList<CollegeObj> CollegeList;
+	ArrayList<String> CollegeStringList;
 	
 	public ArrayList<CollegeObj> getCollegeList() {
 		return CollegeList;
 	}
 	
+	public ArrayList<String> getCollegeStringList(){
+		return CollegeStringList;
+	}
+	
 	public CollegePlan(int year){
 		CollegeList = new ArrayList<CollegeObj>();
+		CollegeStringList = new ArrayList<String>();
 		ParseStart(year);
 	}
 	
@@ -36,15 +42,18 @@ public class CollegePlan {
 		Elements titles = doc.select("div#body_content div#calendar dl dd ul li");
 		
 		for(Element e: titles){
-			String cdate = e.text().substring(0, 5);
+			String cmonth = e.text().substring(0, 2);
+			String cDay = e.text().substring(3, 5);
 			String cname = e.text().substring(8);
 			CollegeObj colobj = new CollegeObj();
 			
-			colobj.setDate(cdate);
+			colobj.setMonth(cmonth);
+			colobj.setDay(cDay);
 			colobj.setName(cname);
 			
 			CollegeList.add(colobj);
-						
+			CollegeStringList.add(colobj.toString());
+			
 			System.out.println(colobj.toString());
 		}
 		
