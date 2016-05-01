@@ -53,12 +53,14 @@ th {
 .sunTitle {
 	background-color: #FF0000;
 	font-weight: bold;
+	text-align: center;
 	color: #FFFFFF
 }
 
 .setTitle {
 	background-color: #0000FF;
 	font-weight: bold;
+	text-align: center;
 	color: #FFFFFF
 }
 
@@ -142,11 +144,11 @@ td {
 						<thead>
 							<tr>
 								<th class="sunTitle">일</th>
-								<th>월</th>
-								<th>화</th>
-								<th>수</th>
-								<th>목</th>
-								<th>금</th>
+								<th><center>월</center></th>
+								<th><center>화</center></th>
+								<th><center>수</center></th>
+								<th><center>목</center></th>
+								<th><center>금</center></th>
 								<th class="setTitle">토</th>
 							</tr>
 						</thead>
