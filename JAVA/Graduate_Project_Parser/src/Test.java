@@ -19,29 +19,29 @@ import parser.UserSchedulePlan;
 public class Test {
 
 	public static void main(String[] args) {
-		//		-----------------------------------------------
-		//		[*]°øÈÞÀÏ ÆÄ½Ì
+		
+//				-----------------------------------------------
+//				[*]°øÈÞÀÏ ÆÄ½Ì
 
-		//		for(int n=1; n <= 12 ; n++){
-		//			System.out.println("month : " + n);
-		//			HolidayPlan obj = new HolidayPlan(2016,n);
-		//			ArrayList<HolidayObj> HolidayList = obj.getHolidayList();
-		//
-		//			for(int i=0 ; i < HolidayList.size() ; i++){			
-		//				System.out.println("[List] "+HolidayList.get(i).toString());
-		//			}
-		//		}
+				/*for(int n=1; n <= 12 ; n++){
+					System.out.println("month : " + n);
+					HolidayPlan obj = new HolidayPlan(2016,n);
+					ArrayList<HolidayObj> HolidayList = obj.getHolidayList();
+		
+					for(int i=0 ; i < HolidayList.size() ; i++){			
+						System.out.println("[List] "+HolidayList.get(i).toString());
+					}
+				}*/
 
 		//		-----------------------------------------------
 		//		[*]ÇÐ»ç ÀÏÁ¤ ÆÄ½Ì
 
-		//		CollegePlan collobj = new CollegePlan(2016);
-
-
-		//		ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
-		//		for(CollegeObj e: CollegeList){
-		//			System.out.println("[List] "+ e.toString());		
-		//		}
+//				CollegePlan collobj = new CollegePlan(2016);
+//
+//				ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
+//				for(CollegeObj e: CollegeList){
+//					System.out.println("[List] "+ e.toString());		
+//				}
 
 		//		-----------------------------------------------
 		//		[*]°­ÀÇ°èÈ¹¼­ ÆÄ½Ì
@@ -57,22 +57,22 @@ public class Test {
 
 		//		-----------------------------------------
 		//		[*]À¯Àú ½ºÄÉÁÙ ÆÄ½Ì(lms)
-		String id = "aa0507a";
-		String pw = "123123";
-		UserSchedulePlan UserTime = new UserSchedulePlan();
-		
-		
-		if(UserTime.StartRequest(id, pw) == false){
-			System.out.println("Request ½ÇÆÐ !!");
-		}
-		else{
-			System.out.println("Request ¼º°ø !!");
-			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
-
-			for(int i = 0 ;i<attrList.size();i++){			
-				System.out.println(attrList.get(i).toString());
-			}
-		}
+//		String id = "aa0507a";
+//		String pw = "123123";
+//		UserSchedulePlan UserTime = new UserSchedulePlan();
+//		
+//		
+//		if(UserTime.StartRequest(id, pw) == false){
+//			System.out.println("Request ½ÇÆÐ !!");
+//		}
+//		else{
+//			System.out.println("Request ¼º°ø !!");
+//			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
+//
+//			for(int i = 0 ;i<attrList.size();i++){			
+//				System.out.println(attrList.get(i).toString());
+//			}
+//		}
 
 	}
 

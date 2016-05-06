@@ -40,7 +40,7 @@ public class CollegePlan {
 			String cname = e.text().substring(8);
 			CollegeObj colobj = new CollegeObj();
 			
-			colobj.setDate(year+"."+cdate);
+			colobj.setDate(year+"-"+cdate.substring(0, 2)+"-"+cdate.substring(3));
 			colobj.setName(cname);
 			
 			CollegeList.add(colobj);

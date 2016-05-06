@@ -12,16 +12,13 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.css' />
-<link
-	href='
-	${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.print.css'
-	rel='stylesheet' media='print' />
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/jquery.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
+
 <script>
 	function addSchedule(title, start, end) {
 		$.post("schedule", {
@@ -66,7 +63,6 @@
 							editable : true,
 							eventLimit : true, // allow "more" link when too many events
 						})
-
 			});
 </script>
 <title>full calendar</title>

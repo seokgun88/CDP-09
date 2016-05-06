@@ -102,8 +102,11 @@ public class HolidayPlan {
 					String dateName = getTagValue("dateName", eElement);
 					//String isHoliday = getTagValue("isHoliday", eElement);
 					String locdate = getTagValue("locdate", eElement);
+					String TempDate = "";
+					TempDate += locdate.substring(0, 4) + "-" + locdate.substring(4,6) + "-" + locdate.substring(6); 
+						
 
-					HoObj.setDate(locdate);
+					HoObj.setDate(TempDate);
 					HoObj.setName(dateName);
 					HolidayList.add(HoObj);
 
