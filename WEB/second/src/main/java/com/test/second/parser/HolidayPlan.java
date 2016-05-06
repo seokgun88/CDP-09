@@ -18,18 +18,37 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.test.second.object.CalendarObj;
+import com.test.second.object.CollegeObj;
 import com.test.second.object.HolidayObj;
 
 public class HolidayPlan {
 	ArrayList<HolidayObj> HolidayList;
+	ArrayList<CalendarObj> calList;
 
 	public HolidayPlan(int year, int month){
 		HolidayList = new ArrayList<HolidayObj>();
+		calList = new ArrayList<CalendarObj>();
+		
 		ParseStart(year, month);		
 	}
 
 	public ArrayList<HolidayObj> getHolidayList() {
 		return HolidayList;
+	}
+	
+	public ArrayList<CalendarObj> getCalList() {		
+		
+		for(HolidayObj e: HolidayList){
+			CalendarObj tempvalue2 = new CalendarObj();
+			String tempvalue1 = "";
+			tempvalue1 = e.getDate();
+			tempvalue2.setStart(tempvalue1);
+			tempvalue1 = e.getName();
+			tempvalue2.setTitle(tempvalue1);
+			calList.add(tempvalue2);			
+		}
+		return calList;
 	}
 
 	public String getTagValue(String sTag, Element eElement) {
@@ -102,8 +121,10 @@ public class HolidayPlan {
 					String dateName = getTagValue("dateName", eElement);
 					//String isHoliday = getTagValue("isHoliday", eElement);
 					String locdate = getTagValue("locdate", eElement);
+					String TempDate = "";
+					TempDate += locdate.substring(0, 4) + "-" + locdate.substring(4,6) + "-" + locdate.substring(6);
 
-					HoObj.setDate(locdate);
+					HoObj.setDate(TempDate);
 					HoObj.setName(dateName);
 					HolidayList.add(HoObj);
 

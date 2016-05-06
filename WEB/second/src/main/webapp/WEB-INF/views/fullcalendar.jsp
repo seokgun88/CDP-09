@@ -43,6 +43,23 @@
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
 							},
+							eventSources: [
+
+							               // your event source
+							               {
+							                   url: '/second/calendarcollege', // use the `url` property
+							                   color: 'yellow',    // an option!
+							                   textColor: 'black'  // an option!
+							               },
+							               {
+							                   url: '/second/calendarholiday', // use the `url` property
+							                   color: 'red',    // an option!
+							                   textColor: 'black'  // an option!
+							               }
+
+							               // any other sources...
+
+							           ],			
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {

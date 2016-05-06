@@ -38,12 +38,12 @@ public class Test {
 		//		-----------------------------------------------
 		//		[*]ÇÐ»ç ÀÏÁ¤ ÆÄ½Ì
 
-//				CollegePlan collobj = new CollegePlan(2016);
-//
-//				ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
-//				for(CollegeObj e: CollegeList){
-//					System.out.println("[List] "+ e.toString());		
-//				}
+				CollegePlan collobj = new CollegePlan(2016);
+
+				ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
+				for(CollegeObj e: CollegeList){
+					System.out.println("[List] "+ e.toString());		
+				}
 
 		//		-----------------------------------------------
 		//		[*]°­ÀÇ°èÈ¹¼­ ÆÄ½Ì
