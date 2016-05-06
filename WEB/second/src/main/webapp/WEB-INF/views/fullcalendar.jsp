@@ -12,6 +12,10 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.css' />
+<link
+	href='
+	${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.print.css'
+	rel='stylesheet' media='print' />
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/jquery.min.js'></script>
 <script
@@ -19,25 +23,38 @@
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(
+			function() {
 
-		// page is now ready, initialize the calendar...
+				// page is now ready, initialize the calendar...
 
-		$('#calendar').fullCalendar({
-			// put your options and callbacks here
-			dayClick : function(date, jsEvent, view) {
+				$('#calendar').fullCalendar(
+						{
+							header: {
+								left: 'prev,next today',
+								center: 'title',
+								right: 'month,agendaWeek,agendaDay'
+							},
+							selectable: true,
+							selectHelper: true,
+							select: function(start, end) {
+								var title = prompt('Event Title:');
+								var eventData;
+								if (title) {
+									eventData = {
+										title: title,
+										start: start,
+										end: end
+									};
+									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+								}
+								$('#calendar').fullCalendar('unselect');
+							},
+							editable: true,
+							eventLimit: true, // allow "more" link when too many events
+						})
 
-				alert('Clicked on: ' + date.format() + '\n' +
-						'Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY + '\n' +
-						'Current view: ' + view.name);
-
-				// change the day's background color just for fun
-				$(this).css('background-color', 'red');
-
-			}
-		})
-
-	});
+			});
 </script>
 <title>full calendar</title>
 </head>
