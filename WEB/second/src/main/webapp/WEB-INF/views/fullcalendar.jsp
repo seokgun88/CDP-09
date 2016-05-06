@@ -18,12 +18,18 @@
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
+	
 <script>
 	$(document).ready(function() {
 
 		// page is now ready, initialize the calendar...
 
 		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
 			// put your options and callbacks here
 			dayClick : function(date, jsEvent, view) {
 
