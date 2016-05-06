@@ -16,6 +16,8 @@ import parser.HolidayPlan;
 import parser.LecturePlan;
 import parser.UserSchedulePlan;
 
+// TEST
+
 public class Test {
 
 	public static void main(String[] args) {
