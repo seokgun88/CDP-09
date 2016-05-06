@@ -18,57 +18,52 @@
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
-	
+
 <script>
-	$(document).ready(function() {
-
-		// page is now ready, initialize the calendar...
-
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,basicWeek,basicDay'
-			},
-			// put your options and callbacks here
-			dayClick : function(date, jsEvent, view) {
+	function addSchedule(title, start, end) {
+		$.post("schedule", {
+			"title" : title,
+			"start" : start,
+			"end" : end
+		}, function(jsonResult) {
+			alert(jsonResult);
+		}, 'json').done(function(jsonResult) {
+			console.log(jsonResult);
+		}).fail(function(jsonResult) {
+			console.log(jsonResult);
+		});
+	};
+	$(document).ready(
+			function() {
+				// page is now ready, initialize the calendar...
 				$('#calendar').fullCalendar(
 						{
-							header: {
-								left: 'prev,next today',
-								center: 'title',
-								right: 'month,agendaWeek,agendaDay'
+							header : {
+								left : 'prev,next today',
+								center : 'title',
+								right : 'month,agendaWeek,agendaDay'
 							},
-							selectable: true,
-							selectHelper: true,
-							select: function(start, end) {
-								var title = prompt('Event Title:');
+							selectable : true,
+							selectHelper : true,
+							select : function(start, end) {
+								var title = prompt('일정 제목:');
 								var eventData;
 								if (title) {
 									eventData = {
-										title: title,
-										start: start,
-										end: end
+										title : title,
+										start : start,
+										end : end
 									};
-									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+									$('#calendar').fullCalendar('renderEvent',
+											eventData, true); // stick? = true
+									addSchedule(title, strat, end);
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
-							editable: true,
-							eventLimit: true, // allow "more" link when too many events
+							editable : true,
+							eventLimit : true, // allow "more" link when too many events
 						})
-
-				alert('Clicked on: ' + date.format() + '\n' +
-						'Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY + '\n' +
-						'Current view: ' + view.name);
-
-				// change the day's background color just for fun
-				$(this).css('background-color', 'red');
-
-			}
-		})
-
-	});
+			});
 </script>
 <title>full calendar</title>
 </head>
