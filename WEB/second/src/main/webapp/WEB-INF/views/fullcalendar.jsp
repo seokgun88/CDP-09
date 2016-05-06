@@ -20,7 +20,7 @@
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
 
 <script>
-	function addSchedule(title, start, end) {
+	$(function addSchedule(title, start, end) {
 		$.post("schedule", {
 			"title" : title,
 			"start" : start,
@@ -32,7 +32,7 @@
 		}).fail(function(jsonResult) {
 			console.log(jsonResult);
 		});
-	};
+	});
 	$(document).ready(
 			function() {
 				// page is now ready, initialize the calendar...
@@ -54,9 +54,9 @@
 										start : start,
 										end : end
 									};
+									addSchedule(title, strat, end);
 									$('#calendar').fullCalendar('renderEvent',
 											eventData, true); // stick? = true
-									addSchedule(title, strat, end);
 								}
 								$('#calendar').fullCalendar('unselect');
 							},

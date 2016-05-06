@@ -4,9 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -123,6 +121,16 @@ public class HomeController {
 	
 	@RequestMapping("/fullcalendar")
 	public String fullcalendar(Model model){
+		return "fullcalendar";
+	}
+	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
+	public String schedule(Model model){
+		Map<String, Object> map = model.asMap();
+		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		String title = request.getParameter("title");
+		String start = request.getParameter("start");
+		String end = request.getParameter("end");
+		System.out.println(title + ' '  + start + ' ' + end);
 		return "fullcalendar";
 	}
 }
