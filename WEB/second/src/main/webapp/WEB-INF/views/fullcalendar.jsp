@@ -23,35 +23,48 @@
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
 <script>
+	function addSchedule(title, start, end) {
+		$.post("schedule", {
+			"title" : title,
+			"start" : start,
+			"end" : end
+		}, function(jsonResult) {
+			alert(jsonResult);
+		}, 'json').done(function(jsonResult) {
+			console.log(jsonResult);
+		}).fail(function(jsonResult) {
+			console.log(jsonResult);
+		});
+	};
 	$(document).ready(
 			function() {
-
 				// page is now ready, initialize the calendar...
-
 				$('#calendar').fullCalendar(
 						{
-							header: {
-								left: 'prev,next today',
-								center: 'title',
-								right: 'month,agendaWeek,agendaDay'
+							header : {
+								left : 'prev,next today',
+								center : 'title',
+								right : 'month,agendaWeek,agendaDay'
 							},
-							selectable: true,
-							selectHelper: true,
-							select: function(start, end) {
-								var title = prompt('Event Title:');
+							selectable : true,
+							selectHelper : true,
+							select : function(start, end) {
+								var title = prompt('일정 제목:');
 								var eventData;
 								if (title) {
 									eventData = {
-										title: title,
-										start: start,
-										end: end
+										title : title,
+										start : start,
+										end : end
 									};
-									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+									$('#calendar').fullCalendar('renderEvent',
+											eventData, true); // stick? = true
+									addSchedule(title, strat, end);
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
-							editable: true,
-							eventLimit: true, // allow "more" link when too many events
+							editable : true,
+							eventLimit : true, // allow "more" link when too many events
 						})
 
 			});
