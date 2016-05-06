@@ -32,6 +32,31 @@
 			},
 			// put your options and callbacks here
 			dayClick : function(date, jsEvent, view) {
+				$('#calendar').fullCalendar(
+						{
+							header: {
+								left: 'prev,next today',
+								center: 'title',
+								right: 'month,agendaWeek,agendaDay'
+							},
+							selectable: true,
+							selectHelper: true,
+							select: function(start, end) {
+								var title = prompt('Event Title:');
+								var eventData;
+								if (title) {
+									eventData = {
+										title: title,
+										start: start,
+										end: end
+									};
+									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+								}
+								$('#calendar').fullCalendar('unselect');
+							},
+							editable: true,
+							eventLimit: true, // allow "more" link when too many events
+						})
 
 				alert('Clicked on: ' + date.format() + '\n' +
 						'Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY + '\n' +
