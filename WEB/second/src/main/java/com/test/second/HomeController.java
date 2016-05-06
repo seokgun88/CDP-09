@@ -12,8 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.test.second.*;
 import com.test.second.object.*;
@@ -39,10 +38,6 @@ public class HomeController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
 		return "home";
 	}
 
@@ -56,10 +51,10 @@ public class HomeController {
 		System.out.println("login()");
 
 		model.addAttribute("request", request);
-		command = new LoginCommand();		
-		if(command.excute(model)) 
+		command = new LoginCommand();
+		if (command.excute(model))
 			return "redirect:timetable";
-		else 
+		else
 			return "redirect:home";
 	}
 
@@ -93,44 +88,42 @@ public class HomeController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "redirect:home";
 	}
 
 	@RequestMapping("/timetable")
 	public String timetable(Model model) {
-		for(int i = 0 ;i<Constant.scheduleList.size();i++){			
+		for (int i = 0; i < Constant.scheduleList.size(); i++) {
 			System.out.println(Constant.scheduleList.get(i).toString());
 		}
 		model.addAttribute("list", Constant.scheduleList);
 		return "timetable";
 	}
-	
+
 	@RequestMapping("/knumap")
 	public String knumap(Model model) {
-		
+
 		return "knumap";
 	}
-	
+
 	@RequestMapping("/calendar")
-	public String calendar(Model model){
+	public String calendar(Model model) {
 		CollegePlan colplan = new CollegePlan(2016);
 		model.addAttribute("college_plan_list", colplan.getCollegeStringList());
 		return "calendar";
-	}	
-	
+	}
+
 	@RequestMapping("/fullcalendar")
-	public String fullcalendar(Model model){
+	public String fullcalendar(Model model) {
 		return "fullcalendar";
 	}
+
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
-	public String schedule(Model model){
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String title = request.getParameter("title");
-		String start = request.getParameter("start");
-		String end = request.getParameter("end");
-		System.out.println(title + ' '  + start + ' ' + end);
+	@ResponseBody
+	public String schedule(@RequestParam String title, @RequestParam String start, @RequestParam String end) {
+		System.out.println(title + ' ' + start + ' ' + end);
+		System.out.println("dd");
 		return "fullcalendar";
 	}
 }
