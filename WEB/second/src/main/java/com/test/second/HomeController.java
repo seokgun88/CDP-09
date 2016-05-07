@@ -35,7 +35,7 @@ import com.test.second.parser.*;;
 @Controller
 public class HomeController {
 	Command command;
-	
+
 	@Autowired
 	private AbstractDAO dao;
 
@@ -122,7 +122,7 @@ public class HomeController {
 
 	@RequestMapping("/calendar")
 	public String calendar(Model model){
-		CollegePlan colplan = new CollegePlan(2016,"05");
+		CollegePlan colplan = new CollegePlan(2016,5);
 		model.addAttribute("college_plan_list", colplan.getCollegeStringList());
 		return "calendar";
 	}
@@ -132,7 +132,7 @@ public class HomeController {
 		return "fullcalendar";
 	}
 
-	
+
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
 	public String schedule(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		System.out.println(title + ' ' + start + ' ' + end);
@@ -144,34 +144,105 @@ public class HomeController {
 		}
 		return "fullcalendar";
 	}
-	
+
 	@RequestMapping(value = "/calendarholiday", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendarholiday(@RequestParam(value="month",
-		required=false, defaultValue="05") String month){		
-		HolidayPlan obj = new HolidayPlan(2016,Integer.parseInt(month));
-		
-		return obj.getCalList();
+	public List<CalendarObj> calendarholiday(@RequestParam(value="start",required=false,defaultValue="") String start,
+			@RequestParam(value="end",required=false,defaultValue="") String end) {
+
+		int styear,stmonth,edyear,edmonth;		
+		HolidayPlan obj;
+		ArrayList<CalendarObj> calList;
+
+		if(start.equals("") == false){
+			styear = Integer.parseInt(start.substring(0,4));
+			stmonth = Integer.parseInt(start.substring(5,7));
+			edyear = Integer.parseInt(start.substring(0,4));
+			edmonth = Integer.parseInt(end.substring(5,7));
+
+			obj = new HolidayPlan(styear,stmonth);
+			calList = obj.getCalList();
+
+			if(stmonth != edmonth){
+				obj = new HolidayPlan(edyear,edmonth);
+				ArrayList<CalendarObj> tempcalList = obj.getCalList();
+				for(CalendarObj e : tempcalList){
+					calList.add(e);
+				}
+			}
+		}
+		else{
+			obj = new HolidayPlan(2016,5);
+			calList = obj.getCalList();
+		}
+
+		return calList;
 	}
-	
+
 	@RequestMapping(value = "/calendarcollege", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendarcollege(@RequestParam(value="month",
-		required=false, defaultValue="05") String month){
-				
-		CollegePlan collobj = new CollegePlan(2016 , month);
-				
-		return collobj.getCalList();
+	public List<CalendarObj> calendarcollege(@RequestParam(value="start",required=false,defaultValue="") String start,
+			@RequestParam(value="end",required=false,defaultValue="") String end) {
+
+		int styear,stmonth,edyear,edmonth;
+		CollegePlan collobj;
+		ArrayList<CalendarObj> calList;
+
+		if(start.equals("") == false){
+			styear = Integer.parseInt(start.substring(0,4));
+			stmonth = Integer.parseInt(start.substring(5,7));
+			edyear = Integer.parseInt(start.substring(0,4));
+			edmonth = Integer.parseInt(end.substring(5,7));
+
+			collobj = new CollegePlan(styear,stmonth);
+			calList = collobj.getCalList();
+			HolidayPlan obj = new HolidayPlan(styear,stmonth);
+			ArrayList<CalendarObj> tempHoliList = obj.getCalList();
+			// 공휴일 중복 삭제
+			for(int i=0;i<tempHoliList.size();i++){
+				for(int j=0;j<calList.size();j++){
+					if(tempHoliList.get(i).getTitle().equals(calList.get(j).getTitle())){
+						calList.remove(j);
+						break;
+					}
+				}				
+			}
+			
+			if(stmonth != edmonth){
+				collobj = new CollegePlan(edyear,edmonth);
+				ArrayList<CalendarObj> tempcalList = collobj.getCalList();
+				obj = new HolidayPlan(edyear,edmonth);
+				tempHoliList = obj.getCalList();
+
+				// 공휴일 중복 삭제
+				for(int i=0;i<tempHoliList.size();i++){
+					for(int j=0;j<tempcalList.size();j++){
+						if(tempHoliList.get(i).getTitle().equals(tempcalList.get(j).getTitle())){
+							tempcalList.remove(j);
+							break;
+						}
+					}				
+				}
+				for(CalendarObj e : tempcalList){
+					calList.add(e);
+				}
+			}			
+		}
+		else{
+			collobj = new CollegePlan(2016,5);
+			calList = collobj.getCalList();
+		}
+
+		return calList;
 	}
-	
-//	@RequestMapping("/calendarusertime")
-//	public String calendarusertime(@RequestParam(value="month", required=false, defaultValue="1") String month
-//			)
-//	{
-//		
-//	}
-	
-	
+
+	@RequestMapping(value = "/calendarusertime", method = RequestMethod.GET)
+	@ResponseBody
+	public List<CalendarObj> calendarusertime(@RequestParam(value="start",required=false,defaultValue="") String start,
+			@RequestParam(value="end",required=false,defaultValue="") String end) {
+		
+		return null;
+	}
 
 
 }

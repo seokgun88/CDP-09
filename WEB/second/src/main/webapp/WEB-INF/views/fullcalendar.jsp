@@ -20,7 +20,13 @@
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
 
 <script>
-	$(document).ready(
+	function my_func() {
+	    var moment = $('#calendar').fullCalendar('getDate');
+	    var res = moment.format().substr(5, 2);
+	    alert("The current date of the calendar is " + moment.format());
+	    console.log(res);
+	}
+	$(document).ready(			
 			function() {
 				// page is now ready, initialize the calendar...
 				$('#calendar').fullCalendar(
@@ -30,10 +36,8 @@
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
 							},
-							eventSources: [
-
-							               // your event source
-							               {
+							eventSources: [ // your event source
+							               {							            	   
 							                   url: '/second/calendarcollege', // use the `url` property
 							                   color: 'yellow',    // an option!
 							                   textColor: 'black'  // an option!
@@ -43,9 +47,6 @@
 							                   color: 'red',    // an option!
 							                   textColor: 'black'  // an option!
 							               }
-
-							               // any other sources...
-
 							           ],			
 							selectable : true,
 							selectHelper : true,
@@ -79,6 +80,8 @@
 							eventLimit : true, // allow "more" link when too many events
 						})
 			});
+	
+	
 </script>
 <title>full calendar</title>
 </head>
@@ -112,5 +115,6 @@
 		</div>
 		</nav>
 		<div id='calendar'></div>
+		<button id=my-button onclick="my_func()">Click me</button>
 </body>
 </html>

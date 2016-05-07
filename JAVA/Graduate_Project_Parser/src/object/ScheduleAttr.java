@@ -2,7 +2,7 @@ package object;
 
 public class ScheduleAttr {
 	//String []daylist = { "시간", "월", "화","수","목","금","토","일" };
-	String time;
+	String time;	
 	String monday;
 	String tuesday;
 	String wednesday;
@@ -10,7 +10,7 @@ public class ScheduleAttr {
 	String friday;
 	String saturday;
 	String sunday;
-	
+		
 	public ScheduleAttr(String time,String monday,String tuesday,String wednesday,
 			String thirsday,String friday,String saturday,String sunday) {
 		this.time = time;
@@ -20,7 +20,8 @@ public class ScheduleAttr {
 		this.thirsday = thirsday;
 		this.friday = friday;
 		this.saturday = saturday;
-		this.sunday = sunday;		
+		this.sunday = sunday;
+		
 	}
 	
 	@Override

@@ -38,7 +38,7 @@ public class CollegePlan {
 		return CollegeStringList;
 	}
 	
-	public CollegePlan(int year, String month){
+	public CollegePlan(int year, int month){
 		CollegeList = new ArrayList<CollegeObj>();
 		CollegeStringList = new ArrayList<String>();
 		calList = new ArrayList<CalendarObj>();
@@ -46,8 +46,8 @@ public class CollegePlan {
 		ParseStart(year, month);
 	}
 	
-	public void ParseStart(int year, String month){
-
+	public void ParseStart(int year, int month){
+		String strmonth = String.format("%02d", month);
 		Document doc = null;
 		try {
 			doc = Jsoup.connect("http://knu.ac.kr/wbbs/wbbs/user/yearSchedule"
@@ -62,7 +62,7 @@ public class CollegePlan {
 		for(Element e: titles){
 			
 			String cmonth = e.text().substring(0, 2);
-			if(cmonth.equals(month) == false) continue;
+			if(cmonth.equals(strmonth) == false) continue;
 			String cday = e.text().substring(3, 5);
 			String cname = e.text().substring(8);
 			
@@ -74,7 +74,7 @@ public class CollegePlan {
 			CollegeList.add(colobj);			
 			CollegeStringList.add(colobj.toString());
 			
-			System.out.println(colobj.toString());
+			//System.out.println(colobj.toString());
 		}
 		
 	}
