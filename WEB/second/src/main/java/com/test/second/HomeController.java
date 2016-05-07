@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
@@ -35,9 +36,9 @@ import com.test.second.parser.*;;
 @Controller
 public class HomeController {
 	Command command;
-
+	
 	@Autowired
-	private AbstractDAO dao;
+	private SqlSession sqlSession;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -136,12 +137,8 @@ public class HomeController {
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
 	public String schedule(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		System.out.println(title + ' ' + start + ' ' + end);
-		try {
-			dao.calendar();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Dao dao = sqlSession.getMapper(Dao.class);
+		dao.insert(Constant.user_id, title, start, end);		
 		return "fullcalendar";
 	}
 

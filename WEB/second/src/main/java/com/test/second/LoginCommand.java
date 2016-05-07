@@ -30,6 +30,7 @@ public class LoginCommand implements Command {
 			else{
 				System.out.println("Request 성공 !!");
 				ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
+				Constant.user_id = id;
 				Constant.scheduleList = attrList;
 				/*for(int i = 0 ;i<attrList.size();i++){			
 					System.out.println(attrList.get(i).toString());
