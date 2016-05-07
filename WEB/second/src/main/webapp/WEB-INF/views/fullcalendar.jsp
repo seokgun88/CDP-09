@@ -46,6 +46,9 @@
 							                   url: '/second/calendarholiday', // use the `url` property
 							                   color: 'red',    // an option!
 							                   textColor: 'black'  // an option!
+							               },
+							               {
+							            	   url: '/second/calendarusertime'
 							               }
 							           ],			
 							selectable : true,

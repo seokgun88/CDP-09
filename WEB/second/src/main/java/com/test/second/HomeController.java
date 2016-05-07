@@ -136,9 +136,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
 	public String schedule(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
-		System.out.println(title + ' ' + start + ' ' + end);
+		title = title.replace("\"", "");
+		start = start.replace("\"", "");
+		end = end.replace("\"", "");
+		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.insert(Constant.user_id, title, start, end);		
+		dao.insert(Constant.user_id, title, start, end);
 		return "fullcalendar";
 	}
 
@@ -235,11 +238,15 @@ public class HomeController {
 
 	@RequestMapping(value = "/calendarusertime", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendarusertime(@RequestParam(value="start",required=false,defaultValue="") String start,
-			@RequestParam(value="end",required=false,defaultValue="") String end) {
+	public List<CalendarObj> calendarusertime() {
+		ArrayList<CalendarObj> calList;
 		
-		return null;
+		Dao dao = sqlSession.getMapper(Dao.class);
+		calList = dao.select(Constant.user_id);
+
+		for(CalendarObj list : calList){
+			System.out.println(list);
+		}
+		return calList;
 	}
-
-
 }
