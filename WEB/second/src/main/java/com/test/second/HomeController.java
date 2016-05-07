@@ -119,6 +119,7 @@ public class HomeController {
 		return "fullcalendar";
 	}
 
+	
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
 	@ResponseBody
 	public String schedule(@RequestParam String title, @RequestParam String start, @RequestParam String end) {
