@@ -30,6 +30,23 @@
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
 							},
+							eventSources: [
+
+							               // your event source
+							               {
+							                   url: '/second/calendarcollege', // use the `url` property
+							                   color: 'yellow',    // an option!
+							                   textColor: 'black'  // an option!
+							               },
+							               {
+							                   url: '/second/calendarholiday', // use the `url` property
+							                   color: 'red',    // an option!
+							                   textColor: 'black'  // an option!
+							               }
+
+							               // any other sources...
+
+							           ],			
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -41,23 +58,20 @@
 										start : start,
 										end : end
 									};
-									$(function addSchedule(title, start, end) {
-										$.post("schedule", {
-											"title" : title,
-											"start" : start,
-											"end" : end
-										}, 
-										function(jsonResult) {
-											alert(jsonResult);
-										}, 'json').done(function(jsonResult) {
-											console.log(jsonResult);
-										}).fail(function(jsonResult) {
-											console.log(jsonResult);
-										});
-										alert("end of post");
+									$.ajax({
+										url : "schedule",
+										type : "POST",
+										data : {
+											"title" : JSON.stringify(title),
+											"start" : JSON.stringify(start),
+											"end" : JSON.stringify(end)
+										},
+										success : function(response) {
+											//get the response from server and process it
+											alert("일정이 등록됬습니다.")
+										}
 									});
-									$('#calendar').fullCalendar('renderEvent',
-											eventData, true); // stick? = true
+									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
