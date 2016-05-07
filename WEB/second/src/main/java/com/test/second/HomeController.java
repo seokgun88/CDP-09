@@ -3,6 +3,7 @@ package com.test.second;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.*;
 import java.text.DateFormat;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.second.*;
+import com.test.second.dao.*;
 import com.test.second.object.*;
 import com.test.second.parser.*;;
 
@@ -31,8 +34,10 @@ import com.test.second.parser.*;;
  */
 @Controller
 public class HomeController {
-
 	Command command;
+	
+	@Autowired
+	private AbstractDAO dao;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -128,10 +133,14 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
-	@ResponseBody
-	public String schedule(@RequestParam String title, @RequestParam String start, @RequestParam String end) {
+	public String schedule(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		System.out.println(title + ' ' + start + ' ' + end);
-		System.out.println("dd");
+		try {
+			dao.calendar();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "fullcalendar";
 	}
 	
