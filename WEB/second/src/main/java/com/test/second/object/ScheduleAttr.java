@@ -3,6 +3,7 @@ package com.test.second.object;
 public class ScheduleAttr {
 	//String []daylist = { "시간", "월", "화","수","목","금","토","일" };
 	String time;
+	String []day = new String[7];
 	String monday;
 	String tuesday;
 	String wednesday;
@@ -11,9 +12,24 @@ public class ScheduleAttr {
 	String saturday;
 	String sunday;
 	
+	public void setDay(String[] day) {
+		this.day = day;
+	}
+	public String[] getDay() {
+		return day;
+	}
+	
 	public ScheduleAttr(String time,String monday,String tuesday,String wednesday,
 			String thirsday,String friday,String saturday,String sunday) {
 		this.time = time;
+		day[0] = sunday;
+		day[1] = monday;
+		day[2] = tuesday;
+		day[3] = wednesday;
+		day[4] = thirsday;
+		day[5] = friday;
+		day[6] = saturday;
+		
 		this.monday = monday;
 		this.tuesday = tuesday;
 		this.wednesday = wednesday;

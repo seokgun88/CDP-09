@@ -67,22 +67,30 @@
 								left : 'prev,next today',
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
-							},
+							},							
 							eventSources: [ // your event source
 							               {							            	   
 							                   url: '/second/calendarcollege', // use the `url` property
 							                   color: 'yellow',    // an option!
-							                   textColor: 'black'  // an option!
+							                   textColor: 'black',  // an option!
+							                   editable : false
 							               },
 							               {
 							                   url: '/second/calendarholiday', // use the `url` property
 							                   color: 'red',    // an option!
-							                   textColor: 'black'  // an option!
+							                   textColor: 'black',  // an option!
+							                   editable : false
 							               },
 							               {
-							            	   url: '/second/calendarusertime'
+							                   url: '/second/calendartimetable', // use the `url` property
+							                   color: 'green',    // an option!
+							                   textColor: 'black',  // an option!
+							                   editable : false
+							               },
+							               {
+							            		url: '/second/calendarusertime'   
 							               }
-							           ],			
+							           ],	
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -153,6 +161,5 @@
 		</nav>
 		
 		<div id='calendar'></div>
-		<button id=my-button onclick="my_func()">Click me</button>
 </body>
 </html>
