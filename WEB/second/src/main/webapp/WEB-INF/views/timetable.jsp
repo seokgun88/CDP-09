@@ -17,23 +17,22 @@
 		<a href="home"> <img src="resources/KNUPLAN.png"
 			class="img-rounded" alt="Cinque Terre">
 		</a>
-
-
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">KNU PLAN</a>
+		
+        <nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">KNU PLAN</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="fullcalendar">일정</a>
+					<li class="active"><a href="#">시간표</a></li>
+					<li><a href="knumap">빈강의실</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+							Login</a></li>
+				</ul>
 			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="timetable">시간표</a></li>
-				<li><a href="knumap">빈강의실</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-						Login</a></li>
-			</ul>
-		</div>
 		</nav>
 
 		<table class="table table-striped table-bordered">

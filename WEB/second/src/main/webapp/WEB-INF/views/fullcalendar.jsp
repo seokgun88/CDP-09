@@ -18,6 +18,8 @@
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lang/ko.js'></script>
 
 <script>
 	function my_func() {
@@ -26,11 +28,26 @@
 	    alert("The current date of the calendar is " + moment.format());
 	    console.log(res);
 	}
-	$(document).ready(			
+	function addSchedule(title, start, end) {
+		$.ajax({
+			url : "schedule",
+			type : "POST",
+			data : {
+				"title" : title,
+				"start" : start,
+				"end" : end
+			},
+			success : function(response) {
+				//get the response from server and process it
+				//alert("일정이 등록됬습니다.")
+			}
+		});
+	}
+	$(document).ready(
 			function() {
 				// page is now ready, initialize the calendar...
-				$('#calendar').fullCalendar(
-						{
+				$('#calendar').fullCalendar(	{
+		            		lang: 'ko',
 							header : {
 								left : 'prev,next today',
 								center : 'title',
@@ -62,24 +79,23 @@
 										start : start,
 										end : end
 									};
-									$.ajax({
-										url : "schedule",
-										type : "POST",
-										data : {
-											"title" : JSON.stringify(title),
-											"start" : JSON.stringify(start),
-											"end" : JSON.stringify(end)
-										},
-										success : function(response) {
-											//get the response from server and process it
-											alert("일정이 등록됬습니다.")
-										}
-									});
+									addSchedule(JSON.stringify(title), JSON.stringify(start), JSON.stringify(end));
 									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
 							editable : true,
+							eventDragStart: function( event, jsEvent, ui, view ) { 
+								
+							},
+						    eventDrop: function(event, delta, revertFunc) {
+						        //alert(event.title + " was dropped on " + event.start.format());
+						        addSchedule(JSON.stringify(event.title), JSON.stringify(event.start), JSON.stringify(event.end))
+
+						        if (!confirm("일정을 변경 하시겠습니까?")) {
+						            revertFunc(); //cancel change
+						        }						        
+						    },
 							eventLimit : true, // allow "more" link when too many events
 						})
 			});
@@ -90,23 +106,17 @@
 </head>
 <body>
 	<div class="container">
-		<a href="KNUPLAN_HOME.html"> <img src="resources/KNUPLAN.png"
+		<a href="home"> <img src="resources/KNUPLAN.png"
 			class="img-rounded" alt="Cinque Terre">
 		</a>
-
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">KNU PLAN</a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
+		
+        <nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">KNU PLAN</a>
+				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="#">일정</a>
 					<li><a href="timetable">시간표</a></li>
 					<li><a href="knumap">빈강의실</a></li>
 				</ul>
@@ -115,8 +125,8 @@
 							Login</a></li>
 				</ul>
 			</div>
-		</div>
 		</nav>
+		
 		<div id='calendar'></div>
 		<button id=my-button onclick="my_func()">Click me</button>
 </body>

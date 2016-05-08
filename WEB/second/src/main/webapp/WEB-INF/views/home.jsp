@@ -23,7 +23,7 @@
 					<a class="navbar-brand" href="#">KNU PLAN</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
+					<li><a href="fullcalendar">일정</a>
 					<li><a href="timetable">시간표</a></li>
 					<li><a href="knumap">빈강의실</a></li>
 				</ul>
