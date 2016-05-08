@@ -153,14 +153,14 @@
 						            revertFunc(); //cancel change
 						        }
 						    },
-					        eventClick: function(calEvent, jsEvent, view)
-					        {
-					            var r=confirm(calEvent.title + " 일정을 삭제 할까요?");
-					            if (r===true)
-					              {
-					                  $('#calendar').fullCalendar('removeEvents', calEvent._id);
-					                  deleteSchedule(JSON.stringify(calEvent.title), JSON.stringify(calEvent.start), JSON.stringify(calEvent.end));
-					              }
+					        eventClick: function(event, jsEvent, view) {
+					        	if ("rgb(58, 135, 173)" == $(this).css('background-color')){ // check user event using bg-color
+						            var r=confirm(event.title + " 일정을 삭제 할까요?");
+						            if (r===true) {
+						                  $('#calendar').fullCalendar('removeEvents', event._id);
+						                  deleteSchedule(JSON.stringify(event.title), JSON.stringify(event.start), JSON.stringify(event.end));
+						            }
+					        	}
 					        },
 							eventLimit : true, // allow "more" link when too many events
 						})
