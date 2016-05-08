@@ -24,8 +24,8 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.test.second.controller" />
-	
-		<mvc:interceptors>
+
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/*" />
 			<mvc:exclude-mapping path="/**/home" /> 

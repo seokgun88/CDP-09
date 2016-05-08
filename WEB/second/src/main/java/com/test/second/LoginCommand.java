@@ -32,9 +32,7 @@ public class LoginCommand implements Command {
 		        Map<String, Object> login_map = new HashMap<String,Object>();
 		        login_map.put("user_id", id);
 		        login_map.put("scheduleList", attrList);
-		        request.getSession().setAttribute("login", login_map);
-				Constant con = new Constant();
-				con.getCalList(attrList);
+		        request.getSession().setAttribute("login", login_map);				
 			}
 			
 			return true;

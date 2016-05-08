@@ -10,8 +10,6 @@ import com.test.second.object.CalendarObj;
 import com.test.second.object.ScheduleAttr;
 
 public class Constant {
-	public static String user_id;
-	public static ArrayList<ScheduleAttr> scheduleList;
 	public ArrayList<CalendarObj> calList;
 
 	public String ConvertTimesymbol(String time){
@@ -32,7 +30,7 @@ public class Constant {
 		return result;
 	}
 
-	public ArrayList<CalendarObj> getCalList() {
+	public ArrayList<CalendarObj> getCalList(ArrayList<ScheduleAttr> scheduleList) {
 		calList = new ArrayList<CalendarObj>();
 
 		// 초기화
@@ -91,12 +89,12 @@ public class Constant {
 	}
 
 	/**
-	 * 특정 날짜에 대하여 요일을 구함(일 ~ 토)
-	 * @param date
-	 * @param dateType
-	 * @return
-	 * @throws Exception
-	 */
+	 * 특정 날짜에 대하여 요일을 구함(일 ~ 토)
+	 * @param date
+	 * @param dateType
+	 * @return
+	 * @throws Exception
+	 */
 	public int getDateDay(String date, String dateType){
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat(dateType) ;
