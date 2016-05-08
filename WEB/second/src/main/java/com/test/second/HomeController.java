@@ -67,7 +67,7 @@ public class HomeController {
 		model.addAttribute("request", request);
 		command = new LoginCommand();
 		if (command.excute(model))
-			return "redirect:timetable";
+			return "redirect:fullcalendar";
 		else
 			return "redirect:home";
 	}
