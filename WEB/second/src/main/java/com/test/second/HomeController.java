@@ -36,7 +36,7 @@ import com.test.second.parser.*;;
 @Controller
 public class HomeController {
 	Command command;
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 
@@ -144,7 +144,7 @@ public class HomeController {
 		dao.insert(Constant.user_id, title, start, end);
 		return "fullcalendar";
 	}
-	
+
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		title = title.replace("\"", "");
@@ -169,7 +169,7 @@ public class HomeController {
 		dao.update(Constant.user_id, title, cstart, cend, start, end);
 		return "fullcalendar";
 	}
-	
+
 	@RequestMapping(value = "/calendarholiday", method = RequestMethod.GET)
 	@ResponseBody
 	public List<CalendarObj> calendarholiday(@RequestParam(value="start",required=false,defaultValue="") String start,
@@ -311,9 +311,13 @@ public class HomeController {
 		}
 
 		int month = startmonth;
-		if(month>= 3 && month <7){
+		if(month>= 3 && month <= 6 ){
 			int y = con.getDateDay(startyear+"-"+month+"-"+startday, "yyyy-MM-dd");
 			for(int j = startday ; j<=31 ; j++){
+				if(month == 3 && j < 2){
+					y+=1;
+					continue;
+				}
 				String ymd = String.format("%s-%02d-%02dT", startyear,month,j);
 
 				for(CalendarObj e :days[y%7]){
@@ -323,8 +327,8 @@ public class HomeController {
 					tempobj.setEnd(ymd+e.getEnd());
 					resultcalobj.add(tempobj);
 				}
-				y+=1;
-				if(month == 6 && j == 20){
+				y+=1;				
+				if(month == 6 && j >= 20){
 					break;
 				}
 			}
@@ -332,9 +336,13 @@ public class HomeController {
 
 		if(startmonth != endmonth-1){
 			month = endmonth-1;
-			if(month>= 3 && month <7){
+			if(month>= 3 && month <=6){
 				int y = con.getDateDay(startyear+"-"+month+"-"+"01", "yyyy-MM-dd");
 				for(int j = 01 ; j<=31 ; j++){
+					if(month == 3 && j < 2){
+						y+=1;
+						continue;
+					}
 					String ymd = String.format("%s-%02d-%02dT", startyear,month,j);
 
 					for(CalendarObj e :days[y%7]){
@@ -344,8 +352,8 @@ public class HomeController {
 						tempobj.setEnd(ymd+e.getEnd());
 						resultcalobj.add(tempobj);
 					}
-					y+=1;
-					if(month == 6 && j == 20){
+					y+=1;					
+					if(month == 6 && j >= 20){
 						break;
 					}
 				}	
@@ -356,6 +364,10 @@ public class HomeController {
 		if(month>= 3 && month <7){
 			int y = con.getDateDay(startyear+"-"+month+"-"+"01", "yyyy-MM-dd");
 			for(int j = 01 ; j<=endday ; j++){
+				if(month == 3 && j < 2){
+					y+=1;
+					continue;
+				}
 				String ymd = String.format("%s-%02d-%02dT", startyear,month,j);
 
 				for(CalendarObj e :days[y%7]){
@@ -364,19 +376,23 @@ public class HomeController {
 					tempobj.setTitle(e.getTitle());
 					tempobj.setEnd(ymd+e.getEnd());
 					resultcalobj.add(tempobj);
-				}
+				}				
 				y+=1;
 			}
 		}
+//		System.out.println("***********************************");
+//		for(CalendarObj e : resultcalobj){
+//			System.out.println(resultcalobj.toString());
+//		}
 
 		return resultcalobj;
 	}	
-	
+
 	@RequestMapping(value = "/calendarusertime", method = RequestMethod.GET)
 	@ResponseBody
 	public List<CalendarObj> calendarusertime() {
 		ArrayList<CalendarObj> calList;
-		
+
 		Dao dao = sqlSession.getMapper(Dao.class);
 		calList = dao.select(Constant.user_id);
 
