@@ -1,3 +1,4 @@
+
 package com.test.second.controller;
 
 import java.io.BufferedWriter;
@@ -5,11 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.text.DateFormat;
-
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,17 +70,20 @@ public class HomeController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, Model model) {
 		System.out.println("logout()");
-		Constant.user_id = "";
-		Constant.scheduleList=null;
+		
+		request.getSession().invalidate();
 		
 		return "redirect:home";
 	}
 
+	
+
 	@RequestMapping("/knumap")
-	public String knumap(Model model) {
-		System.out.println("**************************");
+	public String knumap(HttpServletRequest request, Model model) {
+        System.out.println("user_id " + request.getSession().getAttribute("user_id"));
+        System.out.println("**************************");
 		PlaceManage PM = new PlaceManage();
-				
+		
 		return "knumap";
 	}
 
@@ -93,6 +94,9 @@ public class HomeController {
 		return "calendar";
 	}
 
-
+	@RequestMapping("/fullcalendar")
+	public String fullcalendar(Model model) {
+		return "fullcalendar";
+	}
 
 }
