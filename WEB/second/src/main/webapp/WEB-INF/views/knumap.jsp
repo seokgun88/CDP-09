@@ -24,7 +24,7 @@
 	
 	<div class="container">
 		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-rounded" alt="Cinque Terre">
+			class="img-rounded" alt="Knu Plan">
 		</a>
 		
         <nav class="navbar navbar-inverse">

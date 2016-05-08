@@ -14,10 +14,23 @@
 <body>
 	<div class="container">
 		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-rounded" alt="Cinque Terre">
+			class="img-rounded" alt="Knu Plan">
 		</a>
-		
-        <nav class="navbar navbar-inverse">
+
+		<div style="float: right; margin: 20px 0 0 0;">
+			<script id="_wauppr">
+				var _wau = _wau || [];
+				_wau.push([ "classic", "y6zuzfup1c67", "ppr" ]);
+				(function() {
+					var s = document.createElement("script");
+					s.async = true;
+					s.src = "http://widgets.amung.us/classic.js";
+					document.getElementsByTagName("head")[0].appendChild(s);
+				})();
+			</script>
+		</div>
+
+		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">KNU PLAN</a>
