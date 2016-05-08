@@ -73,6 +73,7 @@ public class UserSchedulePlan {
 				attrobj = new ScheduleAttr(
 						tempstrlist[0], tempstrlist[1], tempstrlist[2], tempstrlist[3],
 						tempstrlist[4], tempstrlist[5], tempstrlist[6], tempstrlist[7]);
+				
 				ScheduleList.add(attrobj);
 				
 

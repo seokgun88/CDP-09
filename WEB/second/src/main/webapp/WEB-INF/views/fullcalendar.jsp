@@ -19,13 +19,7 @@
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
 
-<script>
-	function my_func() {
-	    var moment = $('#calendar').fullCalendar('getDate');
-	    var res = moment.format().substr(5, 2);
-	    alert("The current date of the calendar is " + moment.format());
-	    console.log(res);
-	}
+<script>	
 	$(document).ready(			
 			function() {
 				// page is now ready, initialize the calendar...
@@ -45,6 +39,11 @@
 							               {
 							                   url: '/second/calendarholiday', // use the `url` property
 							                   color: 'red',    // an option!
+							                   textColor: 'black'  // an option!
+							               },
+							               {
+							                   url: '/second/calendarusertime', // use the `url` property
+							                   color: 'green',    // an option!
 							                   textColor: 'black'  // an option!
 							               }
 							           ],			
@@ -115,6 +114,5 @@
 		</div>
 		</nav>
 		<div id='calendar'></div>
-		<button id=my-button onclick="my_func()">Click me</button>
 </body>
 </html>

@@ -3,11 +3,20 @@ package com.test.second.object;
 public class CalendarObj {
 	private String title;
 	private String start;
+	private String end;
 	
 	public CalendarObj() {
 		// TODO Auto-generated constructor stub
 		title = "";
 		start = "";
+		end = "";
+	}
+	
+	public void setEnd(String end) {
+		this.end = end;
+	}
+	public String getEnd() {
+		return end;
 	}
 	
 	public void setStart(String start) {
@@ -26,7 +35,7 @@ public class CalendarObj {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return getTitle() +","+ getStart();
+		return getTitle() +","+ getStart() +","+getEnd();
 	}
 
 }
