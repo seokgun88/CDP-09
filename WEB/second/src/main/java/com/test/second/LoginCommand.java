@@ -36,7 +36,6 @@ public class LoginCommand implements Command {
 					System.out.println(attrList.get(i).toString());
 				}*/
 			}
-			System.out.println(id + " and " + pwd);
 			Constant con = new Constant();
 			con.getCalList();
 			
