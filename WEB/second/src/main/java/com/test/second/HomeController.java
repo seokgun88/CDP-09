@@ -5,11 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.text.DateFormat;
-
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -75,8 +72,8 @@ public class HomeController {
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request, Model model) {
 		System.out.println("logout()");
-		Constant.user_id = "";
-		Constant.scheduleList=null;
+		
+		request.getSession().invalidate();
 		
 		return "redirect:home";
 	}
@@ -116,17 +113,20 @@ public class HomeController {
 	}
 
 	@RequestMapping("/timetable")
-	public String timetable(Model model) {
+	public String timetable(HttpServletRequest request, Model model) {
 		//		for (int i = 0; i < Constant.scheduleList.size(); i++) {
 		//			System.out.println(Constant.scheduleList.get(i).toString());
 		//		}
-		model.addAttribute("list", Constant.scheduleList);
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
+		model.addAttribute("list", map.get("scheduleList"));
+		
 		return "timetable";
 	}
 
 	@RequestMapping("/knumap")
-	public String knumap(Model model) {
-
+	public String knumap(HttpServletRequest request, Model model) {
+        System.out.println("user_id " + request.getSession().getAttribute("user_id"));
+		
 		return "knumap";
 	}
 
@@ -144,38 +144,41 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+	public String add(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
+		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.insert(Constant.user_id, title, start, end);
+		dao.insert((String)map.get("user_id"), title, start, end);
 		return "fullcalendar";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+	public String delete(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
+		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.delete(Constant.user_id,  title, start, end);
+		dao.delete((String)map.get("user_id"),  title, start, end);
 		return "fullcalendar";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@RequestParam("title") String title, @RequestParam("cstart") String cstart, @RequestParam("cend") String cend, 
+	public String update(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("cstart") String cstart, @RequestParam("cend") String cend, 
 			@RequestParam("start") String start, @RequestParam("end") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		cstart = cstart.replace("\"", "");
 		cend = cend.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println("update " + Constant.user_id + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
+		System.out.println("update " + (String)map.get("user_id") + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.update(Constant.user_id, title, cstart, cend, start, end);
+		dao.update((String)map.get("user_id"), title, cstart, cend, start, end);
 		return "fullcalendar";
 	}
 
@@ -285,8 +288,9 @@ public class HomeController {
 
 	@RequestMapping(value = "/calendartimetable", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendartimetable(@RequestParam(value="start",required=false,defaultValue="2016-05-01") String start,
+	public List<CalendarObj> calendartimetable(HttpServletRequest request, @RequestParam(value="start",required=false,defaultValue="2016-05-01") String start,
 			@RequestParam(value="end",required=false,defaultValue="2016-06-04") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		Constant con = new Constant();
 		ArrayList<CalendarObj> resultcalobj = new ArrayList<CalendarObj>();
 
@@ -300,7 +304,7 @@ public class HomeController {
 
 		// start(2016-05-01) to end(2016-05-31)
 		// ex) second/calendarcollege?start=2016-05-29&end=2016-07-10&_=1462640344776
-		ArrayList<CalendarObj> calobj = con.getCalList();
+		ArrayList<CalendarObj> calobj = con.getCalList((ArrayList<ScheduleAttr>) map.get("scheduleList"));
 		ArrayList<CalendarObj>[] days = new ArrayList[7];
 		for(int i=0; i<7;i++){
 			days[i] = new ArrayList<CalendarObj>();
@@ -399,11 +403,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/calendarusertime", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendarusertime() {
+	public List<CalendarObj> calendarusertime(HttpServletRequest request) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		ArrayList<CalendarObj> calList;
 
 		Dao dao = sqlSession.getMapper(Dao.class);
-		calList = dao.select(Constant.user_id);
+		calList = dao.select((String)map.get("user_id"));
 
 		for(CalendarObj list : calList){
 			System.out.println(list);

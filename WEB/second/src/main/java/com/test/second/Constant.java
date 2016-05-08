@@ -10,8 +10,6 @@ import com.test.second.object.CalendarObj;
 import com.test.second.object.ScheduleAttr;
 
 public class Constant {
-	public static String user_id;
-	public static ArrayList<ScheduleAttr> scheduleList;
 	public ArrayList<CalendarObj> calList;
 
 	public String ConvertTimesymbol(String time){
@@ -32,7 +30,7 @@ public class Constant {
 		return result;
 	}
 
-	public ArrayList<CalendarObj> getCalList() {
+	public ArrayList<CalendarObj> getCalList(ArrayList<ScheduleAttr> scheduleList) {
 		calList = new ArrayList<CalendarObj>();
 
 		// 초기화

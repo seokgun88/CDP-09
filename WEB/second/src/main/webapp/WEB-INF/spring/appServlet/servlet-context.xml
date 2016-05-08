@@ -5,7 +5,9 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	>
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -22,7 +24,18 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.test.second" />
-	
-	
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/*" />
+			<mvc:exclude-mapping path="/**/home" /> 
+			<mvc:exclude-mapping path="/**/login" />
+			<!-- 여러개 컨트롤러 추가 가능 -->
+			<!-- <mvc:mapping path="/admin_write"/> <mvc:mapping path="/admin_update"/> 
+				<mvc:mapping path="/admin_delete"/> . . . -->
+			<!-- 로그인체크 인터셉터 클래스 -->
+			<beans:bean class="com.test.second.interceptor.Interceptor"></beans:bean>
+		</mvc:interceptor>
+	</mvc:interceptors>	
 	
 </beans:beans>
