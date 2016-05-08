@@ -29,24 +29,27 @@
 								left : 'prev,next today',
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
-							},
+							},							
 							eventSources: [ // your event source
 							               {							            	   
 							                   url: '/second/calendarcollege', // use the `url` property
 							                   color: 'yellow',    // an option!
-							                   textColor: 'black'  // an option!
+							                   textColor: 'black',  // an option!
+							                   editable : false
 							               },
 							               {
 							                   url: '/second/calendarholiday', // use the `url` property
 							                   color: 'red',    // an option!
-							                   textColor: 'black'  // an option!
+							                   textColor: 'black',  // an option!
+							                   editable : false
 							               },
 							               {
 							                   url: '/second/calendarusertime', // use the `url` property
 							                   color: 'green',    // an option!
-							                   textColor: 'black'  // an option!
+							                   textColor: 'black',  // an option!
+							                   editable : false
 							               }
-							           ],			
+							           ],	
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
