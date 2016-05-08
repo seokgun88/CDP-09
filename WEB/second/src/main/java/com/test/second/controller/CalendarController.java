@@ -1,28 +1,141 @@
-package com.test.second.controller;
+package com.test.second;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.*;
+import java.text.DateFormat;
+import java.util.*;
+import java.util.Date;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.session.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.test.second.Constant;
-import com.test.second.dao.Dao;
-import com.test.second.object.CalendarObj;
-import com.test.second.parser.CollegePlan;
-import com.test.second.parser.HolidayPlan;
+import com.test.second.*;
+import com.test.second.dao.*;
+import com.test.second.object.*;
+import com.test.second.parser.*;;
 
+/**
+ * Handles requests for the application home page.
+ */
 @Controller
-public class CalendarController {
+public class HomeController {
+	Command command;
+
 	@Autowired
 	private SqlSession sqlSession;
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+		return "home";
+	}
+
+	@RequestMapping("/home")
+	public String home(Model model) {
+		return "home";
+	}
+
+	@RequestMapping("/login")
+	public String login(HttpServletRequest request, Model model) {
+		System.out.println("login()");
+
+		model.addAttribute("request", request);
+		command = new LoginCommand();
+		if (command.excute(model))
+			return "redirect:fullcalendar";
+		else
+			return "redirect:home";
+	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request, Model model) {
+		System.out.println("logout()");
+		
+		request.getSession().invalidate();
+		
+		return "redirect:home";
+	}
+
+	@RequestMapping("/gettimetable")
+	public String gettimetable(Model model) {
+		BufferedWriter write = null;
+
+		try {
+			write = new BufferedWriter(new FileWriter("output.txt"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		LecturePlan lp = new LecturePlan();
+		lp.TotalParse();
+		ArrayList<LectureObj> LectureList = lp.getLectureList();
+
+		for (LectureObj e : LectureList) {
+			//			System.out.println("[List] " + e.toString());
+			try {
+				write.write("[List] " + e.toString() + "\n");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+
+		try {
+			write.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return "redirect:home";
+	}
+
+	@RequestMapping("/timetable")
+	public String timetable(HttpServletRequest request, Model model) {
+		//		for (int i = 0; i < Constant.scheduleList.size(); i++) {
+		//			System.out.println(Constant.scheduleList.get(i).toString());
+		//		}
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
+		model.addAttribute("list", map.get("scheduleList"));
+		
+		return "timetable";
+	}
+
+	@RequestMapping("/knumap")
+	public String knumap(HttpServletRequest request, Model model) {
+        System.out.println("user_id " + request.getSession().getAttribute("user_id"));
+		
+		return "knumap";
+	}
+
+	@RequestMapping("/calendar")
+	public String calendar(Model model){
+		CollegePlan colplan = new CollegePlan(2016,5);
+		model.addAttribute("college_plan_list", colplan.getCollegeStringList());
+		return "calendar";
+	}
 
 	@RequestMapping("/fullcalendar")
 	public String fullcalendar(Model model) {
@@ -31,41 +144,44 @@ public class CalendarController {
 
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+	public String add(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
+		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.insert(Constant.user_id, title, start, end);
+		dao.insert((String)map.get("user_id"), title, start, end);
 		return "fullcalendar";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+	public String delete(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
+		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.delete(Constant.user_id,  title, start, end);
+		dao.delete((String)map.get("user_id"),  title, start, end);
 		return "fullcalendar";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@RequestParam("title") String title, @RequestParam("cstart") String cstart, @RequestParam("cend") String cend, 
+	public String update(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("cstart") String cstart, @RequestParam("cend") String cend, 
 			@RequestParam("start") String start, @RequestParam("end") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		cstart = cstart.replace("\"", "");
 		cend = cend.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println("update " + Constant.user_id + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
+		System.out.println("update " + (String)map.get("user_id") + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.update(Constant.user_id, title, cstart, cend, start, end);
+		dao.update((String)map.get("user_id"), title, cstart, cend, start, end);
 		return "fullcalendar";
 	}
-	
+
 	@RequestMapping(value = "/calendarholiday", method = RequestMethod.GET)
 	@ResponseBody
 	public List<CalendarObj> calendarholiday(@RequestParam(value="start",required=false,defaultValue="") String start,
@@ -172,8 +288,9 @@ public class CalendarController {
 
 	@RequestMapping(value = "/calendartimetable", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendartimetable(@RequestParam(value="start",required=false,defaultValue="2016-05-01") String start,
+	public List<CalendarObj> calendartimetable(HttpServletRequest request, @RequestParam(value="start",required=false,defaultValue="2016-05-01") String start,
 			@RequestParam(value="end",required=false,defaultValue="2016-06-04") String end) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		Constant con = new Constant();
 		ArrayList<CalendarObj> resultcalobj = new ArrayList<CalendarObj>();
 
@@ -187,7 +304,7 @@ public class CalendarController {
 
 		// start(2016-05-01) to end(2016-05-31)
 		// ex) second/calendarcollege?start=2016-05-29&end=2016-07-10&_=1462640344776
-		ArrayList<CalendarObj> calobj = con.getCalList();
+		ArrayList<CalendarObj> calobj = con.getCalList((ArrayList<ScheduleAttr>) map.get("scheduleList"));
 		ArrayList<CalendarObj>[] days = new ArrayList[7];
 		for(int i=0; i<7;i++){
 			days[i] = new ArrayList<CalendarObj>();
@@ -286,16 +403,16 @@ public class CalendarController {
 
 	@RequestMapping(value = "/calendarusertime", method = RequestMethod.GET)
 	@ResponseBody
-	public List<CalendarObj> calendarusertime() {
+	public List<CalendarObj> calendarusertime(HttpServletRequest request) {
+		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		ArrayList<CalendarObj> calList;
 
 		Dao dao = sqlSession.getMapper(Dao.class);
-		calList = dao.select(Constant.user_id);
+		calList = dao.select((String)map.get("user_id"));
 
 		for(CalendarObj list : calList){
 			System.out.println(list);
 		}
 		return calList;
 	}
-
 }

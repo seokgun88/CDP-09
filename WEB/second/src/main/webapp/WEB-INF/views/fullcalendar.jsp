@@ -108,6 +108,7 @@
 							            		url: '/second/calendarusertime'   
 							               }
 							           ],	
+					        longPressDelay : 150,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -165,7 +166,6 @@
 							eventLimit : true, // allow "more" link when too many events
 						})
 			});
-	
 	
 </script>
 <title>full calendar</title>
