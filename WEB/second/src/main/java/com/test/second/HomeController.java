@@ -135,16 +135,31 @@ public class HomeController {
 
 
 	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
-	public String schedule(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+	public String schedule(@RequestParam("schedule_id") String schedule_id, @RequestParam("title") String title, 
+			@RequestParam("start") String start, @RequestParam("end") String end) {
+		schedule_id = schedule_id.replace("\"", "");
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
 		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.insert(Constant.user_id, title, start, end);
+		dao.insert(Constant.user_id, schedule_id, title, start, end);
 		return "fullcalendar";
 	}
-
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String delete(@RequestParam("schedule_id") String schedule_id, @RequestParam("title") String title, 
+			@RequestParam("start") String start, @RequestParam("end") String end) {
+		schedule_id = schedule_id.replace("\"", "");
+		title = title.replace("\"", "");
+		start = start.replace("\"", "");
+		end = end.replace("\"", "");
+		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
+		Dao dao = sqlSession.getMapper(Dao.class);
+		dao.delete(Constant.user_id, schedule_id, title, start, end);
+		return "fullcalendar";
+	}
+	
 	@RequestMapping(value = "/calendarholiday", method = RequestMethod.GET)
 	@ResponseBody
 	public List<CalendarObj> calendarholiday(@RequestParam(value="start",required=false,defaultValue="") String start,

@@ -28,9 +28,25 @@
 	    alert("The current date of the calendar is " + moment.format());
 	    console.log(res);
 	}
-	function addSchedule(title, start, end) {
+	function addSchedule(schedule_id, title, start, end) {
 		$.ajax({
-			url : "schedule",
+			url : "add",
+			type : "POST",
+			data : {
+				"schedule_id" : id,
+				"title" : title,
+				"start" : start,
+				"end" : end
+			},
+			success : function(response) {
+				//get the response from server and process it
+				//alert("일정이 등록됬습니다.")
+			}
+		});
+	}
+	function deleteSchedule(title, start, end) {
+		$.ajax({
+			url : "delete",
 			type : "POST",
 			data : {
 				"title" : title,
@@ -39,7 +55,6 @@
 			},
 			success : function(response) {
 				//get the response from server and process it
-				//alert("일정이 등록됬습니다.")
 			}
 		});
 	}
@@ -79,7 +94,7 @@
 										start : start,
 										end : end
 									};
-									addSchedule(JSON.stringify(title), JSON.stringify(start), JSON.stringify(end));
+									addSchedule(JSON.stringify(title), JSON.stringify(title), JSON.stringify(start), JSON.stringify(end));
 									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 								}
 								$('#calendar').fullCalendar('unselect');
@@ -89,13 +104,23 @@
 								
 							},
 						    eventDrop: function(event, delta, revertFunc) {
-						        //alert(event.title + " was dropped on " + event.start.format());
-						        addSchedule(JSON.stringify(event.title), JSON.stringify(event.start), JSON.stringify(event.end))
-
-						        if (!confirm("일정을 변경 하시겠습니까?")) {
-						            revertFunc(); //cancel change
+						        if (confirm("일정을 변경 할까요?")) {
+							        addSchedule(JSON.stringify(event.title), JSON.stringify(event.start), JSON.stringify(event.end))
 						        }						        
+						        else{
+						            revertFunc(); //cancel change
+						        }
 						    },
+					        eventClick: function(calEvent, jsEvent, view)
+					        {
+					        	alert(calEvent.id);
+					            var r=confirm(calEvent.title + " 일정을 삭제 할까요?");
+					            if (r===true)
+					              {
+					                  $('#calendar').fullCalendar('removeEvents', calEvent._id);
+					                  deleteSchedule(JSON.stringify(calEvent.title), JSON.stringify(calEvent.start), JSON.stringify(calEvent.end));
+					              }
+					        },
 							eventLimit : true, // allow "more" link when too many events
 						})
 			});
