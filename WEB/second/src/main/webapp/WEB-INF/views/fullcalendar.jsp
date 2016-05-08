@@ -140,6 +140,19 @@
 						            revertFunc(); //cancel change
 						        }
 						    },
+						    eventResizeStart: function(event){ 
+								currentStart = event.start;
+								currentEnd = event.end;						    	
+						    },
+						    eventResize: function(event, delta, revertFunc) {
+						        if (confirm("시간을 변경 할까요?")) {
+							        updateSchedule(JSON.stringify(event.title), JSON.stringify(currentStart), JSON.stringify(currentEnd), 
+							        		JSON.stringify(event.start), JSON.stringify(event.end));
+						        }						        
+						        else{
+						            revertFunc(); //cancel change
+						        }
+						    },
 					        eventClick: function(calEvent, jsEvent, view)
 					        {
 					            var r=confirm(calEvent.title + " 일정을 삭제 할까요?");
@@ -174,8 +187,9 @@
 					<li><a href="knumap">빈강의실</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							Login</a></li>
+					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>
+						Lgout</a>
+					</li>
 				</ul>
 			</div>
 		</nav>

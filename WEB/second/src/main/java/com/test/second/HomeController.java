@@ -71,6 +71,15 @@ public class HomeController {
 		else
 			return "redirect:home";
 	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request, Model model) {
+		System.out.println("logout()");
+		Constant.user_id = "";
+		Constant.scheduleList=null;
+		
+		return "redirect:home";
+	}
 
 	@RequestMapping("/gettimetable")
 	public String gettimetable(Model model) {
