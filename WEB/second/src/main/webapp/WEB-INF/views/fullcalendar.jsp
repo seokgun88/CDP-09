@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/loading.css" type="text/css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script
@@ -108,6 +109,14 @@
 							            		url: '/second/calendarusertime'   
 							               }
 							           ],	
+					        loading: function(isLoading) {				
+								if (isLoading){
+									$('#loading').show();
+								}
+								else{
+									$('#loading').hide();
+								}
+							},
 					        longPressDelay : 150,
 							selectable : true,
 							selectHelper : true,
@@ -120,53 +129,65 @@
 										start : start,
 										end : end
 									};
-									addSchedule(JSON.stringify(title), JSON.stringify(start), JSON.stringify(end));
-									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+									addSchedule(JSON.stringify(title), JSON
+											.stringify(start), JSON
+											.stringify(end));
+									$('#calendar').fullCalendar('renderEvent',
+											eventData, true); // stick? = true
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
 							editable : true,
-							eventDragStart: function(event) {
+							eventDragStart : function(event) {
 								//var myResource = $('#calendar').fullCalendar('getResourceById', event.resourceId);
 								//currentType = myResource.type; // the variable of your resource 
 								currentStart = event.start;
 								currentEnd = event.end;
 							},
-						    eventDrop: function(event, delta, revertFunc) {
-						        if (confirm("일정을 변경 할까요?")) {
-							        updateSchedule(JSON.stringify(event.title), JSON.stringify(currentStart), JSON.stringify(currentEnd), 
-							        		JSON.stringify(event.start), JSON.stringify(event.end));
-						        }						        
-						        else{
-						            revertFunc(); //cancel change
-						        }
-						    },
-						    eventResizeStart: function(event){ 
+							eventDrop : function(event, delta, revertFunc) {
+								if (confirm("일정을 변경 할까요?")) {
+									updateSchedule(JSON.stringify(event.title),
+											JSON.stringify(currentStart), JSON
+													.stringify(currentEnd),
+											JSON.stringify(event.start), JSON
+													.stringify(event.end));
+								} else {
+									revertFunc(); //cancel change
+								}
+							},
+							eventResizeStart : function(event) {
 								currentStart = event.start;
-								currentEnd = event.end;						    	
-						    },
-						    eventResize: function(event, delta, revertFunc) {
-						        if (confirm("시간을 변경 할까요?")) {
-							        updateSchedule(JSON.stringify(event.title), JSON.stringify(currentStart), JSON.stringify(currentEnd), 
-							        		JSON.stringify(event.start), JSON.stringify(event.end));
-						        }						        
-						        else{
-						            revertFunc(); //cancel change
-						        }
-						    },
-					        eventClick: function(event, jsEvent, view) {
-					        	if ("rgb(58, 135, 173)" == $(this).css('background-color')){ // check user event using bg-color
-						            var r=confirm(event.title + " 일정을 삭제 할까요?");
-						            if (r===true) {
-						                  $('#calendar').fullCalendar('removeEvents', event._id);
-						                  deleteSchedule(JSON.stringify(event.title), JSON.stringify(event.start), JSON.stringify(event.end));
-						            }
-					        	}
-					        },
+								currentEnd = event.end;
+							},
+							eventResize : function(event, delta, revertFunc) {
+								if (confirm("시간을 변경 할까요?")) {
+									updateSchedule(JSON.stringify(event.title),
+											JSON.stringify(currentStart), JSON
+													.stringify(currentEnd),
+											JSON.stringify(event.start), JSON
+													.stringify(event.end));
+								} else {
+									revertFunc(); //cancel change
+								}
+							},
+							eventClick : function(event, jsEvent, view) {
+								if ("rgb(58, 135, 173)" == $(this).css(
+										'background-color')) { // check user event using bg-color
+									var r = confirm(event.title
+											+ " 일정을 삭제 할까요?");
+									if (r === true) {
+										$('#calendar').fullCalendar(
+												'removeEvents', event._id);
+										deleteSchedule(JSON
+												.stringify(event.title), JSON
+												.stringify(event.start), JSON
+												.stringify(event.end));
+									}
+								}
+							},
 							eventLimit : true, // allow "more" link when too many events
 						})
 			});
-	
 </script>
 <title>full calendar</title>
 </head>
@@ -194,6 +215,11 @@
 			</div>
 		</nav>
 		
+		<div id="loading">
+			<img id="loading-image" src="resources/KNUPLAN.png" alt="Loading..." />
+		</div>
+		
 		<div id='calendar'></div>
+	</div>
 </body>
 </html>
