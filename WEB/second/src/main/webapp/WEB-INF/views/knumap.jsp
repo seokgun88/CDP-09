@@ -18,6 +18,8 @@
 	</script>
 
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
+
+
 </head>
     
 <body>
@@ -46,25 +48,11 @@
 		</nav>
 		
 		<div id = "testMap" style="border:1px solid #000; width:500px; height:400px; margin:20px;"></div>
+		<script type="text/javascript" src="resources/navermap.js"></script>
 			
 	</div>
 	<table cellpadding="0" cellspacing="0" width="536"> <tr> 
 	
-	<script type="text/javascript">
-		var oPoint = new nhn.api.map.LatLng(35.8900362,128.610107);
-		nhn.api.map.setDefaultPoint('LatLng');
-		oMap = new nhn.api.map.Map('testMap' ,{
-					point : oPoint,
-					zoom : 11,
-					enableWheelZoom : true,
-					enableDragPan : true,
-					enableDblClickZoom : false,
-					mapMode : 0,
-					activateTrafficMap : false,
-					activateBicycleMap : false,
-					minMaxLevel : [ 1, 14 ],
-					size : new nhn.api.map.Size(1100, 600)
-				});
-	</script>
+	
 </body>
 </html>

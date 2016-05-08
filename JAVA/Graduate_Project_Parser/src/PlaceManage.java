@@ -1,12 +1,12 @@
-package com.test.second;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.test.second.object.ClassObj;
-import com.test.second.object.LectureObj;
-import com.test.second.object.PlaceObj;
-import com.test.second.parser.LecturePlan;
+import object.ClassObj;
+import object.LectureObj;
+import object.PlaceObj;
+import parser.LecturePlan;
 
 
 public class PlaceManage {
@@ -19,19 +19,8 @@ public class PlaceManage {
 		setPlace();
 	}
 	
-	public PlaceObj getElementPlaceList(String place) {
-		
-		PlaceObj result = null;
-		
-		for(PlaceObj e: PlaceList){
-        	System.out.println(e);
-        	if(e.getPlaceName().equals(place)){
-        		result = e;
-        		break;
-        	}
-        }
-		
-		return result;
+	public ArrayList<PlaceObj> getPlaceList() {
+		return PlaceList;
 	}
 	
 	public void setPlace(){		
@@ -42,7 +31,7 @@ public class PlaceManage {
 			
 			LectureObj e = LectureList.get(i);
 			String pl = e.getPlace();
-			if(pl.contains("ÏÉÅÏ£ºÏ∫†ÌçºÏä§")){
+			if(pl.contains("ªÛ¡÷ƒ∑∆€Ω∫")){
 				continue;
 			}
 			if(pl.equals("-")){
@@ -57,7 +46,7 @@ public class PlaceManage {
 			ClassObj ClassE = new ClassObj();
 			
 			if(e.getNum() == 1){
-				ClassE.setSubject(e.getSubject_name()+" Ïò®ÎùºÏù∏Í∞ïÏùò");				
+				ClassE.setSubject(e.getSubject_name()+" ø¬∂Û¿Œ∞≠¿«");				
 			}
 			else{
 				ClassE.setSubject(e.getSubject_name());
@@ -75,38 +64,48 @@ public class PlaceManage {
 			
 		}
 		
+		//[*]
+		HashMap<String, String> STRmap = new HashMap<String, String>();
+		
 		int cnt=1;
         for( String key : map.keySet() ){
-//        	System.out.println( String.format("ÌÇ§ : %s, Í∞í : %s", key, map.get(key)) );
+//        	System.out.println( String.format("≈∞ : %s, ∞™ : %s", key, map.get(key)) );
             String []Placearr = key.split("-");
             PlaceObj e;
             if(Placearr.length==1){            	
-            	e = new PlaceObj(cnt, Placearr[0], "NULL", map.get(key));            	
+            	e = new PlaceObj(cnt, Placearr[0], "NULL", map.get(key));
+            	STRmap.put(Placearr[0], "PLACE");
             }
             else{
-//            	System.out.println( String.format("ÌÇ§ : %s _ %s, Í∞í : %s", Placearr[0], Placearr[1], map.get(key)) );
+//            	System.out.println( String.format("≈∞ : %s _ %s, ∞™ : %s", Placearr[0], Placearr[1], map.get(key)) );
             	e = new PlaceObj(cnt, Placearr[0], Placearr[1], map.get(key));
+            	STRmap.put(Placearr[0], "PLACE");
             }
                         
             PlaceList.add(e);
             cnt+=1;
         }
-        for(PlaceObj e: PlaceList){
-        	System.out.println(e);
+        
+        for( String key : STRmap.keySet() ){
+        	System.out.println( String.format("≈∞ : %s, ∞™ : %s", key, STRmap.get(key)) );
         }
+//        for(PlaceObj e: PlaceList){
+//        	System.out.println(e);
+//        }
 	}
 	
 	public void getLecture(){
 		LecturePlan lp = new LecturePlan();
 		
-//		for(int i=1;i<=57;i++){
-//			// Í≥ÑÏ†àÌïôÍ∏∞
-//			if(i==3) continue;
-//			lp.SectionParse(i);
-//		}	
+		for(int i=1;i<=57;i++){
+			// ∞Ë¿˝«–±‚
+			if(i==3) continue;
+			lp.SectionParse(i);
+		}	
 		
-		// ITÎåÄÌïô ÌååÏã±		
-		lp.SectionParse(33);
+//		lp.SectionParse(1);
+//		lp.SectionParse(2);
+//		lp.SectionParse(4);
 		LectureList = lp.getLectureList();
 		
 //		for(LectureObj e: LectureList){

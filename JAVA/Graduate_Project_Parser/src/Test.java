@@ -76,6 +76,9 @@ public class Test {
 		//				System.out.println(attrList.get(i).toString());
 		//			}
 		//		}
+		
+		System.out.println("**************************");
+		PlaceManage PM = new PlaceManage();
 
 
 	}
