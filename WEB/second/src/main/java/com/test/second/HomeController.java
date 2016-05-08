@@ -130,13 +130,6 @@ public class HomeController {
 		return "knumap";
 	}
 
-	@RequestMapping("/calendar")
-	public String calendar(Model model){
-		CollegePlan colplan = new CollegePlan(2016,5);
-		model.addAttribute("college_plan_list", colplan.getCollegeStringList());
-		return "calendar";
-	}
-
 	@RequestMapping("/fullcalendar")
 	public String fullcalendar(Model model) {
 		return "fullcalendar";
