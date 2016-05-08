@@ -134,29 +134,39 @@ public class HomeController {
 	}
 
 
-	@RequestMapping(value = "/schedule", method = RequestMethod.POST)
-	public String schedule(@RequestParam("schedule_id") String schedule_id, @RequestParam("title") String title, 
-			@RequestParam("start") String start, @RequestParam("end") String end) {
-		schedule_id = schedule_id.replace("\"", "");
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String add(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
 		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.insert(Constant.user_id, schedule_id, title, start, end);
+		dao.insert(Constant.user_id, title, start, end);
 		return "fullcalendar";
 	}
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam("schedule_id") String schedule_id, @RequestParam("title") String title, 
-			@RequestParam("start") String start, @RequestParam("end") String end) {
-		schedule_id = schedule_id.replace("\"", "");
+	public String delete(@RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
 		System.out.println(Constant.user_id + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
-		dao.delete(Constant.user_id, schedule_id, title, start, end);
+		dao.delete(Constant.user_id,  title, start, end);
+		return "fullcalendar";
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@RequestParam("title") String title, @RequestParam("cstart") String cstart, @RequestParam("cend") String cend, 
+			@RequestParam("start") String start, @RequestParam("end") String end) {
+		title = title.replace("\"", "");
+		cstart = cstart.replace("\"", "");
+		cend = cend.replace("\"", "");
+		start = start.replace("\"", "");
+		end = end.replace("\"", "");
+		System.out.println("update " + Constant.user_id + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
+		Dao dao = sqlSession.getMapper(Dao.class);
+		dao.update(Constant.user_id, title, cstart, cend, start, end);
 		return "fullcalendar";
 	}
 	

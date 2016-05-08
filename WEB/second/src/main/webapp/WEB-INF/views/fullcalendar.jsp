@@ -28,12 +28,11 @@
 	    alert("The current date of the calendar is " + moment.format());
 	    console.log(res);
 	}
-	function addSchedule(schedule_id, title, start, end) {
+	function addSchedule(title, start, end) {
 		$.ajax({
 			url : "add",
 			type : "POST",
 			data : {
-				"schedule_id" : id,
 				"title" : title,
 				"start" : start,
 				"end" : end
@@ -58,8 +57,26 @@
 			}
 		});
 	}
+	function updateSchedule(title, cstart, cend, start, end) {
+		$.ajax({
+			url : "update",
+			type : "POST",
+			data : {
+				"title" : title,
+				"cstart" : cstart,
+				"cend" : cend,
+				"start" : start,
+				"end" : end
+			},
+			success : function(response) {
+				//get the response from server and process it
+			}
+		});
+	}
 	$(document).ready(
 			function() {
+				var currentStart = null;
+				var currentEnd = null;
 				// page is now ready, initialize the calendar...
 				$('#calendar').fullCalendar(	{
 		            		lang: 'ko',
@@ -102,18 +119,22 @@
 										start : start,
 										end : end
 									};
-									addSchedule(JSON.stringify(title), JSON.stringify(title), JSON.stringify(start), JSON.stringify(end));
+									addSchedule(JSON.stringify(title), JSON.stringify(start), JSON.stringify(end));
 									$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
 								}
 								$('#calendar').fullCalendar('unselect');
 							},
 							editable : true,
-							eventDragStart: function( event, jsEvent, ui, view ) { 
-								
+							eventDragStart: function(event) {
+								//var myResource = $('#calendar').fullCalendar('getResourceById', event.resourceId);
+								//currentType = myResource.type; // the variable of your resource 
+								currentStart = event.start;
+								currentEnd = event.end;
 							},
 						    eventDrop: function(event, delta, revertFunc) {
 						        if (confirm("일정을 변경 할까요?")) {
-							        addSchedule(JSON.stringify(event.title), JSON.stringify(event.start), JSON.stringify(event.end))
+							        updateSchedule(JSON.stringify(event.title), JSON.stringify(currentStart), JSON.stringify(currentEnd), 
+							        		JSON.stringify(event.start), JSON.stringify(event.end));
 						        }						        
 						        else{
 						            revertFunc(); //cancel change
@@ -121,7 +142,6 @@
 						    },
 					        eventClick: function(calEvent, jsEvent, view)
 					        {
-					        	alert(calEvent.id);
 					            var r=confirm(calEvent.title + " 일정을 삭제 할까요?");
 					            if (r===true)
 					              {
