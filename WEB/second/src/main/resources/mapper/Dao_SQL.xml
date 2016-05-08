@@ -5,9 +5,12 @@
         SELECT * from calendar where user_id=#{param1}
     </select>
     <insert id="insert">
-    	INSERT INTO CALENDAR (USER_ID, SCHEDULE_ID, TITLE, START, END) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+    	INSERT INTO CALENDAR (USER_ID, TITLE, START, END) VALUES (#{param1}, #{param2}, #{param3}, #{param4})
     </insert>
     <delete id="delete">
-    	DELETE FROM CALENDAR WHERE USER_ID=#{param1} AND SCHEDULE_ID=#{param2} AND TITLE=#{param3} AND START=#{param4} AND END=#{param5}
+    	DELETE FROM CALENDAR WHERE USER_ID=#{param1} AND TITLE=#{param2} AND START=#{param3} AND END=#{param4}
     </delete>
+    <update id="update">
+    	UPDATE CALENDAR SET START=#{param5}, END=#{param6} WHERE USER_ID=#{param1} AND TITLE=#{param2} AND START=#{param3} AND END=#{param4}
+    </update>
 </mapper>

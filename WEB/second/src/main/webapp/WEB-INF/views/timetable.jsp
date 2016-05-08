@@ -29,9 +29,10 @@
 					<li><a href="knumap">빈강의실</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							Login</a></li>
-				</ul>
+					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>
+						Lgout</a>
+					</li>
+			</ul>
 			</div>
 		</nav>
 
