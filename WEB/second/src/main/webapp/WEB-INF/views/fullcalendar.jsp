@@ -24,10 +24,10 @@
 
 <script>
 	function my_func() {
-	    var moment = $('#calendar').fullCalendar('getDate');
-	    var res = moment.format().substr(5, 2);
-	    alert("The current date of the calendar is " + moment.format());
-	    console.log(res);
+		var moment = $('#calendar').fullCalendar('getDate');
+		var res = moment.format().substr(5, 2);
+		alert("The current date of the calendar is " + moment.format());
+		console.log(res);
 	}
 	function addSchedule(title, start, end) {
 		$.ajax({
@@ -79,45 +79,41 @@
 				var currentStart = null;
 				var currentEnd = null;
 				// page is now ready, initialize the calendar...
-				$('#calendar').fullCalendar(	{
-		            		lang: 'ko',
+				$('#calendar').fullCalendar(
+						{
+							lang : 'ko',
 							header : {
 								left : 'prev,next today',
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
-							},							
-							eventSources: [ // your event source
-							               {							            	   
-							                   url: '/second/calendarcollege', // use the `url` property
-							                   color: 'yellow',    // an option!
-							                   textColor: 'black',  // an option!
-							                   editable : false
-							               },
-							               {
-							                   url: '/second/calendarholiday', // use the `url` property
-							                   color: 'red',    // an option!
-							                   textColor: 'black',  // an option!
-							                   editable : false
-							               },
-							               {
-							                   url: '/second/calendartimetable', // use the `url` property
-							                   color: 'green',    // an option!
-							                   textColor: 'black',  // an option!
-							                   editable : false
-							               },
-							               {
-							            		url: '/second/calendarusertime'   
-							               }
-							           ],	
-					        loading: function(isLoading) {				
-								if (isLoading){
+							},
+							eventSources : [ // your event source
+							{
+								url : '/second/calendarcollege', // use the `url` property
+								color : 'yellow', // an option!
+								textColor : 'black', // an option!
+								editable : false
+							}, {
+								url : '/second/calendarholiday', // use the `url` property
+								color : 'red', // an option!
+								textColor : 'black', // an option!
+								editable : false
+							}, {
+								url : '/second/calendartimetable', // use the `url` property
+								color : 'green', // an option!
+								textColor : 'black', // an option!
+								editable : false
+							}, {
+								url : '/second/calendarusertime'
+							} ],
+							loading : function(isLoading) {
+								if (isLoading) {
 									$('#loading').show();
-								}
-								else{
+								} else {
 									$('#loading').hide();
 								}
 							},
-					        longPressDelay : 150,
+							longPressDelay : 150,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -194,32 +190,31 @@
 <body>
 	<div class="container">
 		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-rounded" alt="Cinque Terre">
+			class="img-rounded" alt="Knu Plan">
 		</a>
-		
-        <nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">KNU PLAN</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">일정</a>
-					<li><a href="timetable">시간표</a></li>
-					<li><a href="knumap">빈강의실</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>
-						Lgout</a>
-					</li>
-				</ul>
+
+		<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">KNU PLAN</a>
 			</div>
-		</nav>
-		
-		<div id="loading">
-			<img id="loading-image" src="resources/KNUPLAN.png" alt="Loading..." />
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">일정</a></li>
+				<li><a href="timetable">시간표</a></li>
+				<li><a href="knumap">빈강의실</a></li>
+				<li>
+					<div id="loading"></div>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="logout"><span
+						class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
+			</ul>
 		</div>
-		
-		<div id='calendar'></div>
+		</nav>
+
+		<div id='calendar'>
+		</div>
 	</div>
 </body>
 </html>
