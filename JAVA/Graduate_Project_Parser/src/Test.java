@@ -38,43 +38,43 @@ public class Test {
 		//		-----------------------------------------------
 		//		[*]학사 일정 파싱
 
-				CollegePlan collobj = new CollegePlan(2016);
-
-				ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
-				for(CollegeObj e: CollegeList){
-					System.out.println("[List] "+ e.toString());		
-				}
+//				CollegePlan collobj = new CollegePlan(2016);
+//
+//				ArrayList<CollegeObj> CollegeList = collobj.getCollegeList();
+//				for(CollegeObj e: CollegeList){
+//					System.out.println("[List] "+ e.toString());		
+//				}
 
 		//		-----------------------------------------------
 		//		[*]강의계획서 파싱
 
-		//		LecturePlan lp = new LecturePlan();
-		//		lp.TotalParse();
-		//		//lp.SectionParse(1);
-		//		ArrayList<LectureObj> LectureList = lp.getLectureList();
-		//		
-		//		for(LectureObj e: LectureList){
-		//			System.out.println("[List] "+ e.toString());
-		//		}
+				LecturePlan lp = new LecturePlan();
+				lp.TotalParse();
+				//lp.SectionParse(1);
+				ArrayList<LectureObj> LectureList = lp.getLectureList();
+				
+				for(LectureObj e: LectureList){
+					System.out.println("[List] "+ e.toString());
+				}
 
 		//		-----------------------------------------
 		//		[*]유저 스케줄 파싱(lms)
-		String id = "aa0507a";
-		String pw = "ss885522..";
-		UserSchedulePlan UserTime = new UserSchedulePlan();
-		
-		
-		if(UserTime.StartRequest(id, pw) == false){
-			System.out.println("Request 실패 !!");
-		}
-		else{
-			System.out.println("Request 성공 !!");
-			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
-
-			for(int i = 0 ;i<attrList.size();i++){			
-				System.out.println(attrList.get(i).toString());
-			}
-		}
+//		String id = "aa0507a";
+//		String pw = "ss885522..";
+//		UserSchedulePlan UserTime = new UserSchedulePlan();
+//		
+//		
+//		if(UserTime.StartRequest(id, pw) == false){
+//			System.out.println("Request 실패 !!");
+//		}
+//		else{
+//			System.out.println("Request 성공 !!");
+//			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
+//
+//			for(int i = 0 ;i<attrList.size();i++){			
+//				System.out.println(attrList.get(i).toString());
+//			}
+//		}
 
 	}
 
