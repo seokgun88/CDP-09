@@ -314,15 +314,13 @@
 						class="icon-bar"></span>
 				</button>
 				<a class="navbar-brand" href="#">KNU PLAN</a>
+				<div id="loading"></div>
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">일정</a></li>
 					<li><a href="timetable">시간표</a></li>
 					<li><a href="knumap">빈강의실</a></li>
-					<li>
-						<div id="loading"></div>
-					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="logout"><span
