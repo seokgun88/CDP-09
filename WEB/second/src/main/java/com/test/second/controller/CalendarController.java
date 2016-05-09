@@ -27,8 +27,8 @@ public class CalendarController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
+	public String insert(HttpServletRequest request, @RequestParam("new_title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
 		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
@@ -36,7 +36,7 @@ public class CalendarController {
 		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
 		dao.insert((String)map.get("user_id"), title, start, end);
-		return "fullcalendar";
+		return "redirect:fullcalendar";
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -48,7 +48,7 @@ public class CalendarController {
 		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
 		dao.delete((String)map.get("user_id"),  title, start, end);
-		return "fullcalendar";
+		return "redirect:fullcalendar";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -63,7 +63,7 @@ public class CalendarController {
 		System.out.println("update " + (String)map.get("user_id") + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
 		dao.update((String)map.get("user_id"), title, cstart, cend, start, end);
-		return "fullcalendar";
+		return "redirect:fullcalendar";
 	}
 
 	@RequestMapping(value = "/calendarholiday", method = RequestMethod.GET)
