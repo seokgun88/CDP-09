@@ -4,6 +4,8 @@ package com.test.second.controller;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.*;
 import java.text.DateFormat;
 import java.util.*;
@@ -79,10 +81,11 @@ public class HomeController {
 	
 
 	@RequestMapping("/knumap")
-	public String knumap(HttpServletRequest request, Model model) {
-        System.out.println("user_id " + request.getSession().getAttribute("user_id"));
-        System.out.println("**************************");
-		PlaceManage PM = new PlaceManage();
+//	public String knumap(HttpServletRequest request, Model model) {
+	public String knumap(Model model) {
+//        System.out.println("user_id " + request.getSession().getAttribute("user_id"));
+//        System.out.println("**************************");
+//		PlaceManage PM = new PlaceManage();
 		
 		return "knumap";
 	}
@@ -97,6 +100,18 @@ public class HomeController {
 	@RequestMapping("/fullcalendar")
 	public String fullcalendar(Model model) {
 		return "fullcalendar";
+	}
+	
+	
+	@RequestMapping(value = "/buildingdata", method = RequestMethod.GET)
+	@ResponseBody
+	public PlaceObj buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
+		
+		System.out.println(place);
+		System.out.println("**************************");
+		PlaceManage PM = new PlaceManage();
+				
+		return PM.getElementPlaceList(place);		
 	}
 
 }

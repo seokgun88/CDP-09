@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 
 import object.LectureObj;
 
+
 public class LecturePlan {
 	private ArrayList<LectureObj> LectureList;
 

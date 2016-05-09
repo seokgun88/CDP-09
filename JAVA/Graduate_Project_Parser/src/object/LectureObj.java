@@ -30,6 +30,12 @@ public class LectureObj {
 		return String.format("[%d] %s %s %s %s %s %s %s", num,reg_college,
 				subject_number,subject_name,professor,time,place,LectureExplainUrl);
 	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	
 	public void setPlace(String place) {
 		this.place = place;
