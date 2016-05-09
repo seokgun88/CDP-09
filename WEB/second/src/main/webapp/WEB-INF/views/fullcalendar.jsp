@@ -125,7 +125,7 @@
 							viewRender : function(view, element) {
 								var h;
 								if (view.name == "month") {
-									h = 800; // high enough to avoid scrollbars
+									h = 700; // high enough to avoid scrollbars
 								} else {
 									h = NaN;
 								}
@@ -252,7 +252,7 @@
 								document.getElementById('modalNewTitle').style.display = "none";
 								document.getElementById('modalNewTitle').required = false;
 								if(event.allDay == true){
-									if(checkOnedaySchedule(event.start, event.end))
+									if(checkOnedaySchedule(event.start, event.end) || event.end == null)
 										$('#modalBody').html(
 												moment(event.start).format(
 												'YYYY/MM/DD'));
@@ -308,20 +308,27 @@
 		<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
 				<a class="navbar-brand" href="#">KNU PLAN</a>
 			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">일정</a></li>
-				<li><a href="timetable">시간표</a></li>
-				<li><a href="knumap">빈강의실</a></li>
-				<li>
-					<div id="loading"></div>
-				</li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="logout"><span
-						class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
-			</ul>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">일정</a></li>
+					<li><a href="timetable">시간표</a></li>
+					<li><a href="knumap">빈강의실</a></li>
+					<li>
+						<div id="loading"></div>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout"><span
+							class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
+				</ul>
+			</div>
 		</div>
 		</nav>
 
@@ -355,6 +362,7 @@
 		</div>
 
 		<div id='calendar'></div>
+		<div><br /><br /><br /></div>
 	</div>
 </body>
 </html>
