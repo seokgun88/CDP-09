@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script
@@ -14,32 +15,30 @@
 </head>
 <body>
 	<div class="container">
-		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-rounded" alt="Knu Plan">
-		</a>
-		
-        <nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">KNU PLAN</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li><a href="fullcalendar">일정</a>
-					<li class="active"><a href="#">시간표</a></li>
-					<li><a href="knumap">빈강의실</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>
-						Lgout</a>
-					</li>
-			</ul>
+		<a href="home"><img src="resources/KNUPLAN.png"
+			class="img-responsive" alt="Knu Plan"> </a>
+
+		<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">KNU PLAN</a>
 			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="fullcalendar">일정</a>
+				<li class="active"><a href="#">시간표</a></li>
+				<li><a href="knumap">빈강의실</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="logout"><span
+						class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
+			</ul>
+		</div>
 		</nav>
 
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th width="50"><center>시간</center></th>
+					<th width="45"><center>시간</center></th>
 					<th><center>월</center></th>
 					<th><center>화</center></th>
 					<th><center>수</center></th>
@@ -52,12 +51,12 @@
 				<c:forEach items="${list}" var="schedule">
 					<tr>
 						<td>${schedule.time}</td>
-						<td nowrap width="100">${schedule.monday}</td>
-						<td nowrap width="100">${schedule.tuesday}</td>
-						<td nowrap width="100">${schedule.wednesday}</td>
-						<td nowrap width="100">${schedule.thirsday}</td>
-						<td nowrap width="100">${schedule.friday}</td>
-						<td nowrap width="100">${schedule.saturday}</td>						
+						<td>${schedule.monday}</td>
+						<td>${schedule.tuesday}</td>
+						<td>${schedule.wednesday}</td>
+						<td>${schedule.thirsday}</td>
+						<td>${schedule.friday}</td>
+						<td>${schedule.saturday}</td>
 					</tr>
 				</c:forEach>
 				<%--<tr>

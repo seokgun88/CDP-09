@@ -9,7 +9,6 @@ public class Interceptor extends HandlerInterceptorAdapter{
     
    @Override
    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-	   System.out.println("테스트");
        try {
            //admin이라는 세션key를 가진 정보가 널일경우 로그인페이지로 이동
            if(request.getSession().getAttribute("login") == null ){

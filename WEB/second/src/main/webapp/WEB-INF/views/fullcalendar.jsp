@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <link rel="stylesheet" href="resources/loading.css" type="text/css">
@@ -19,8 +20,6 @@
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
-<script
-	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lang/ko.js'></script>
 
 <script>
 	function my_func() {
@@ -81,7 +80,6 @@
 				// page is now ready, initialize the calendar...
 				$('#calendar').fullCalendar(
 						{
-							lang : 'ko',
 							header : {
 								left : 'prev,next today',
 								center : 'title',
@@ -113,7 +111,17 @@
 									$('#loading').hide();
 								}
 							},
-							longPressDelay : 150,
+							viewRender : function(view, element) {
+								var h;
+								if (view.name == "month") {
+									h = 1000; // high enough to avoid scrollbars
+								} else {
+									h = NaN;
+								}
+								$('#calendar').fullCalendar('option',
+										'contentHeight', h);
+							},
+							longPressDelay : 200,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -190,7 +198,7 @@
 <body>
 	<div class="container">
 		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-rounded" alt="Knu Plan">
+			class="img-responsive" alt="Knu Plan">
 		</a>
 
 		<nav class="navbar navbar-inverse">
@@ -213,8 +221,7 @@
 		</div>
 		</nav>
 
-		<div id='calendar'>
-		</div>
+		<div id='calendar'></div>
 	</div>
 </body>
 </html>

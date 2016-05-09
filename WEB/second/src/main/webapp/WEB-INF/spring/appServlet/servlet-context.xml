@@ -30,9 +30,7 @@
 			<mvc:mapping path="/**/*" />
 			<mvc:exclude-mapping path="/**/home" /> 
 			<mvc:exclude-mapping path="/**/login" />
-			<!-- 여러개 컨트롤러 추가 가능 -->
-			<!-- <mvc:mapping path="/admin_write"/> <mvc:mapping path="/admin_update"/> 
-				<mvc:mapping path="/admin_delete"/> . . . -->
+			<mvc:exclude-mapping path="/**/KNUPLAN.png" />
 			<!-- 로그인체크 인터셉터 클래스 -->
 			<beans:bean class="com.test.second.interceptor.Interceptor"></beans:bean>
 		</mvc:interceptor>
