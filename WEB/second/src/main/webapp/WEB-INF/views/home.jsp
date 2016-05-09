@@ -82,7 +82,7 @@
 						</div> -->
 						<div class="form-group">
 							<div class="col-md-12">
-								<button type="submit" class="btn btn-info btn-block btn-lg">로그인</button>
+								<button type="submit" class="btn btn-danger btn-block btn-lg">로그인</button>
 							</div>
 						</div>
 					</div>
