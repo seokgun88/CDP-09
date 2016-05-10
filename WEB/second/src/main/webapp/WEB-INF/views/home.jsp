@@ -68,8 +68,7 @@
 						<div class="form-group">
 							<div class="col-md-12">
 								<input type="password" class="form-control" name="pwd"
-									placeholder="비밀번호를 입력해주세요" required> <label
-									class="login-field-icon fui-lock" for="login-pass"></label>
+									placeholder="비밀번호를 입력해주세요" required>
 							</div>
 						</div>
 <!-- 

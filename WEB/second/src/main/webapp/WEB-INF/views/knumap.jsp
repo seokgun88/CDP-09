@@ -5,7 +5,8 @@
 <head>
 <title>KNU PLAN</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1 user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -28,17 +29,24 @@
 		<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
 				<a class="navbar-brand" href="#">KNU PLAN</a>
 			</div>
-			<ul class="nav navbar-nav">
-				<li><a href="fullcalendar">일정</a>
-				<li><a href="timetable">시간표</a></li>
-				<li class="active"><a href="#">빈강의실</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="logout"><span
-						class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
-			</ul>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a href="fullcalendar">일정</a>
+					<li><a href="timetable">시간표</a></li>
+					<li class="active"><a href="#">빈강의실</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout"><span
+							class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
+				</ul>
+			</div>
 		</div>
 		</nav>
 
