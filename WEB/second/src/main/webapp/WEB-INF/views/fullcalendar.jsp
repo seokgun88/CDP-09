@@ -125,14 +125,18 @@
 							viewRender : function(view, element) {
 								var h;
 								if (view.name == "month") {
-									h = 700; // high enough to avoid scrollbars
+									if($( window ).height() < 800){
+										h = 'auto';
+									}
+									else
+										h = 800; // high enough to avoid scrollbars
 								} else {
-									h = NaN;
+									h = 'auto';
 								}
 								$('#calendar').fullCalendar('option',
 										'contentHeight', h);
 							},
-							longPressDelay : 200,
+							longPressDelay : 300,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -293,7 +297,7 @@
 								}
 								$('#calendarModal').modal();
 							},
-							eventLimit : true, // allow "more" link when too many events
+							eventLimit : 4, // allow "more" link when too many events
 						})
 			});
 </script>
