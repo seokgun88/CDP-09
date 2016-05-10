@@ -48,7 +48,6 @@ public class CollegePlan {
 			System.out.println("date: " + cdate);
 			System.out.println("name: " + cname);
 		}
-		
 	}
 
 }
