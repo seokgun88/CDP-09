@@ -104,7 +104,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/buildingdata", method = RequestMethod.GET)
 	@ResponseBody
-	public PlaceObj buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
+	public ArrayList<PlaceObj> buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
 		
 		System.out.println(place);
 		System.out.println("**************************");
