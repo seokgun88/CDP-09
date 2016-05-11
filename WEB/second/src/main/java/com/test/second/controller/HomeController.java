@@ -113,10 +113,16 @@ public class HomeController {
 		return PM.getElementPlaceList(place);		
 	}
 	
+	//강의실별 시간표 파싱
 	@RequestMapping("/classRoomParse")
 	public String classRoomParse(Model model) {
 		System.out.println("**************************");
+		command = new ClassRoomParseCommand();
+		if(command.excute(model))
+			System.out.println("강의실 시간표 파싱 성공");
+		else
+			System.out.println("강의실 시간표 파싱 실패");
 				
-		return "timetable";		
+		return "redirect:fullcalendar";
 	}
 }

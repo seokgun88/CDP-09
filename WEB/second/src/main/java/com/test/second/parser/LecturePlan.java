@@ -23,7 +23,7 @@ public class LecturePlan {
 	}
 	
 	public void TotalParse(){
-				
+	    System.out.println("total pare start");
 		for(int i=1;i<=57;i++){
 			SectionParse(i);
 		}		
@@ -120,7 +120,7 @@ public class LecturePlan {
 					
 					LectureList.add(Aobj);
 
-//					System.out.println(Aobj.toString());
+					System.out.println(Aobj.toString());
 					
 					subcnt = 0;
 					hrefcnt+=1;
@@ -204,7 +204,7 @@ public class LecturePlan {
 						
 						LectureList.add(Aobj);
 
-//						System.out.println(Aobj.toString());
+						System.out.println(Aobj.toString());
 						
 						cnt = 0;
 					}
@@ -268,7 +268,7 @@ public class LecturePlan {
 							Aobj.setLectureExplainUrl(temphref);
 							LectureList.add(Aobj);
 
-//							System.out.println(Aobj.toString());
+							System.out.println(Aobj.toString());
 							
 							subcnt = 0;
 						}
