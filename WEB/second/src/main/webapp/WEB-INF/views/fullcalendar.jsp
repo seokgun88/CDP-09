@@ -7,18 +7,18 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1 user-scalable=no">
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/loading.css" type="text/css">
+	href="${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/css/bootstrap.min.css" />
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/jquery.min.js'></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	src='${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.css' />
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
+<link rel="stylesheet" href="resources/loading.css" type="text/css">
 <style type="text/css">
 .modal-vertical-centered {
 	transform: translate(0, 100%) !important;
@@ -136,7 +136,7 @@
 								$('#calendar').fullCalendar('option',
 										'contentHeight', h);
 							},
-							longPressDelay : 300,
+							longPressDelay : 500,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -181,6 +181,10 @@
 											eventData, true); // stick? = true
 								} */
 								$('#calendar').fullCalendar('unselect');
+							},
+							eventRender: function(event, element) {
+								if($( window ).height() >= 800)
+							    	$(element).tooltip({title: event.title});
 							},
 							editable : true,
 							eventDragStart : function(event) {
@@ -297,7 +301,7 @@
 								}
 								$('#calendarModal').modal();
 							},
-							eventLimit : 4, // allow "more" link when too many events
+							eventLimit : 5, // allow "more" link when too many events
 						})
 			});
 </script>
