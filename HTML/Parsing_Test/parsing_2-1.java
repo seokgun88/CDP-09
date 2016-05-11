@@ -8,11 +8,11 @@ import java.net.URL;
 public abstract class Web_Parser
 {
  
-    private final String USER_AGENT = "Mozilla/5.0"; //Á¢¼Ó »ç¿ëÀÚ Á¤º¸ [¼±ÅÃ]
-    private String Address; // Á¢¼ÓÇÒ ÁÖ¼Ò
-    private URL Url; // URL°´Ã¼
-    private BufferedReader br; // ³»¿ëÀ» ÀĞ¾îµå¸®±â À§ÇÑ ¹öÆÛ¸®´õ
-    private HttpURLConnection con; // À¥°úÀÇ ¿¬°á Ä¿³Ø¼Ç
+    private final String USER_AGENT = "Mozilla/5.0"; //ì ‘ì† ì‚¬ìš©ì ì •ë³´ [ì„ íƒ]
+    private String Address; // ì ‘ì†í•  ì£¼ì†Œ
+    private URL Url; // URLê°ì²´
+    private BufferedReader br; // ë‚´ìš©ì„ ì½ì–´ë“œë¦¬ê¸° ìœ„í•œ ë²„í¼ë¦¬ë”
+    private HttpURLConnection con; // ì›¹ê³¼ì˜ ì—°ê²° ì»¤ë„¥ì…˜
   
     private Web_Parser()
     {
@@ -50,7 +50,7 @@ public abstract class Web_Parser
             {
                 con = (HttpURLConnection)Url.openConnection();
                 con.setRequestMethod(protocol);
-                con.setRequestProperty("User-Agent", USER_AGENT);  // Á¢¼Ó »ç¿ëÀÚ Á¤º¸ ¼±ÅÃ
+                con.setRequestProperty("User-Agent", USER_AGENT);  // ì ‘ì† ì‚¬ìš©ì ì •ë³´ ì„ íƒ
                
                 br = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
                 return true;
