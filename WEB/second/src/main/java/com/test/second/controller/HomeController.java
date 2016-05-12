@@ -117,26 +117,4 @@ public class HomeController {
 				
 		return PM.getElementPlaceList(place);		
 	}
-
-	//강의실별 시간표 파싱
-	@RequestMapping("/classRoomParse")
-	public String classRoomParse(Model model) {
-		if(isClassRoomParse){
-			isClassRoomParse = false;
-			System.out.println("**************************");
-			LecturePlan lecturePlan = new LecturePlan();
-			int cnt = 0;
-			ArrayList<ClassroomScheduleObj> classScheduleList = lecturePlan.TotalParse();
-			int scheduleLen = classScheduleList.size();
-			Dao dao = sqlSession.getMapper(Dao.class);
-			for(int i=0; i<scheduleLen; i++){
-				dao.class_insert(classScheduleList.get(i).getBuilding(), classScheduleList.get(i).getRoom(), classScheduleList.get(i).getDay(), 
-						classScheduleList.get(i).getStart(), classScheduleList.get(i).getEnd(), classScheduleList.get(i).getSchedule());	
-				cnt++;
-				System.out.println(cnt + " / " + scheduleLen);
-			}
-		}
-		isClassRoomParse = true;
-		return "redirect:fullcalendar";
-	}
 }

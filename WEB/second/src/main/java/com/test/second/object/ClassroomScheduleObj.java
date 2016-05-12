@@ -10,6 +10,16 @@ public class ClassroomScheduleObj {
 	int end;
 	String schedule;
 	
+	public ClassroomScheduleObj() {
+		// TODO Auto-generated constructor stub
+		building = "";
+		room = "";
+		day = 0;
+		start = 0;
+		end = 0;
+		schedule = "";
+	}
+	
 	public ClassroomScheduleObj(String building , String room ,int day ,int start, int end, String schedule){
 		this.building = building;
 		this.room = room;
