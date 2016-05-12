@@ -2,6 +2,7 @@ package com.test.second.object;
 
 import java.util.*;
 
+//강의실 시간표를 db에 저장할 형식 즉 dbo
 public class ClassroomScheduleObj {
 	String building;
 	String room;

@@ -1,7 +1,9 @@
 package com.test.second.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,7 +27,7 @@ public class ClassTimetableController {
 	
 	boolean isClassRoomParse = true;
 
-	//강의실별 시간표 파싱
+	//강의실별 시간표 파싱(특정 사용자만 접속 가능)
 	@RequestMapping("/classRoomParse")
 	public String classRoomParse(Model model) {
 		if(isClassRoomParse){
@@ -53,6 +55,35 @@ public class ClassTimetableController {
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
 		classTimetable.printTimetable(dao.class_select("공대9호관", "417"));
+		
+		return "redirect:fullcalendar";
+	}
+	
+	//현재 시간에 해당 건물의 강의실들 사용 여부 알아오기
+	@RequestMapping("/getRoomUsalbe")
+	public String getRoomUsalbe(Model model, HttpServletRequest request){
+		Dao dao = sqlSession.getMapper(Dao.class);
+		ClassTimetable classTimetable = new ClassTimetable();
+		Calendar calendar = Calendar.getInstance();
+        java.util.Date date = calendar.getTime();
+        String time = (new SimpleDateFormat("HHmm").format(date));
+        String day = (new SimpleDateFormat("E").format(date));
+        System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
+		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", 1, 130)){
+			System.out.println(classObj.getRoom());
+		}
+		
+		return "redirect:fullcalendar";
+	}
+	
+	//해당 건물의 강의실들 전부 가져오기
+	@RequestMapping("/getRoom")
+	public String getRoom(Model model, HttpServletRequest request){
+		Dao dao = sqlSession.getMapper(Dao.class);
+		ClassTimetable classTimetable = new ClassTimetable();
+		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
+			System.out.println(classObj.getRoom());
+		}
 		
 		return "redirect:fullcalendar";
 	}

@@ -108,18 +108,18 @@
 							eventSources : [ // your event source
 							{
 								url : '/second/calendarcollege', // use the `url` property
-								color : '#ffff91', // an option!
-								textColor : 'black', // an option!
+								color : '#f7d17c', // an option!
+								textColor : 'white', // an option!
 								editable : false
 							}, {
 								url : '/second/calendarholiday', // use the `url` property
-								color : '#cf406e', // an option!
+								color : '#eb5d71', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
 								url : '/second/calendartimetable', // use the `url` property
-								color : '#dfd8df', // an option!
-								textColor : 'black', // an option!
+								color : '#03a28b', // an option!
+								textColor : 'white', // an option!
 								editable : false
 							}, {
 								url : '/second/calendarusertime'

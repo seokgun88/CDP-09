@@ -17,4 +17,6 @@ public interface Dao {
     public void update(String id, String title, String cstart, String cend, String start, String end); //cstart, cend : 변경전 시간
     public void class_insert(String building , String room ,int day ,int start, int end, String schedule);
     public ArrayList<ClassroomScheduleObj> class_select(String building, String room);
+    public ArrayList<ClassroomScheduleObj> building_select(String building, int day, int time);
+    public ArrayList<ClassroomScheduleObj> room_select(String building);
 }
