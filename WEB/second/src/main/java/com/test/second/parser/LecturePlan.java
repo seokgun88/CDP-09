@@ -2,17 +2,24 @@ package com.test.second.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.*;
 
+import org.apache.ibatis.session.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.*;
 
-import com.test.second.object.LectureObj;
+import com.test.second.ClassTimetable;
+import com.test.second.dao.*;
+import com.test.second.object.*;
 
 public class LecturePlan {
 	private ArrayList<LectureObj> LectureList;
+	private ArrayList<ClassroomScheduleObj> classScheduleList;
+	ClassTimetable classTimetable = new ClassTimetable();
 
 	public ArrayList<LectureObj> getLectureList() {
 		return LectureList;
@@ -22,11 +29,15 @@ public class LecturePlan {
 		LectureList = new ArrayList<LectureObj>();
 	}
 	
-	public void TotalParse(){
-				
-		for(int i=1;i<=57;i++){
+	public ArrayList<ClassroomScheduleObj> TotalParse(){
+	    System.out.println("total pare start");
+	    classScheduleList = new ArrayList<ClassroomScheduleObj>();
+		SectionParse(1);
+		SectionParse(2);
+		for(int i=4;i<=57;i++){
 			SectionParse(i);
-		}		
+		}
+		return classScheduleList;
 	}
 	
 	// input : [1,57]
@@ -120,7 +131,15 @@ public class LecturePlan {
 					
 					LectureList.add(Aobj);
 
-//					System.out.println(Aobj.toString());
+					//System.out.println(Aobj.toString());
+					ArrayList<ClassroomScheduleObj> classObjList = 
+							classTimetable.getClassScheduleObj(
+									Aobj.getPlace(), Aobj.getTime(), Aobj.getSubject_name(), 
+									Aobj.getProfessor(), Aobj.getLectureExplainUrl());
+					if(classObjList != null)
+						for(ClassroomScheduleObj classObj : classObjList){
+							classScheduleList.add(classObj);
+						}
 					
 					subcnt = 0;
 					hrefcnt+=1;
@@ -204,7 +223,15 @@ public class LecturePlan {
 						
 						LectureList.add(Aobj);
 
-//						System.out.println(Aobj.toString());
+						//System.out.println(Aobj.toString());
+						ArrayList<ClassroomScheduleObj> classObjList = 
+								classTimetable.getClassScheduleObj(
+										Aobj.getPlace(), Aobj.getTime(), Aobj.getSubject_name(), 
+										Aobj.getProfessor(), Aobj.getLectureExplainUrl());
+						if(classObjList != null)
+							for(ClassroomScheduleObj classObj : classObjList){
+								classScheduleList.add(classObj);
+							}
 						
 						cnt = 0;
 					}
@@ -268,7 +295,15 @@ public class LecturePlan {
 							Aobj.setLectureExplainUrl(temphref);
 							LectureList.add(Aobj);
 
-//							System.out.println(Aobj.toString());
+							//System.out.println(Aobj.toString());
+							ArrayList<ClassroomScheduleObj> classObjList = 
+									classTimetable.getClassScheduleObj(
+											Aobj.getPlace(), Aobj.getTime(), Aobj.getSubject_name(), 
+											Aobj.getProfessor(), Aobj.getLectureExplainUrl());
+							if(classObjList != null)
+								for(ClassroomScheduleObj classObj : classObjList){
+									classScheduleList.add(classObj);
+								}
 							
 							subcnt = 0;
 						}
@@ -284,5 +319,4 @@ public class LecturePlan {
 		return true;
 
 	}
-
 }

@@ -35,6 +35,11 @@
 			<!-- 로그인체크 인터셉터 클래스 -->
 			<beans:bean class="com.test.second.interceptor.Interceptor"></beans:bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/classRoomParse" />
+			<!-- 파싱 관리자 체크 인터셉터 클래스 -->
+			<beans:bean class="com.test.second.interceptor.AdminInterceptor"></beans:bean>
+		</mvc:interceptor>
 	</mvc:interceptors>	
 	
 </beans:beans>

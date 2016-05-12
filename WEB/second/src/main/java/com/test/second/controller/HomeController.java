@@ -35,7 +35,12 @@ import com.test.second.parser.*;;
  */
 @Controller
 public class HomeController {
+	@Autowired
+	private SqlSession sqlSession;
+	
 	Command command;	
+	
+	boolean isClassRoomParse = true;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -102,7 +107,6 @@ public class HomeController {
 		return "fullcalendar";
 	}
 	
-	
 	@RequestMapping(value = "/buildingdata", method = RequestMethod.GET)
 	@ResponseBody
 	public ArrayList<PlaceObj> buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
@@ -113,5 +117,4 @@ public class HomeController {
 				
 		return PM.getElementPlaceList(place);		
 	}
-
 }

@@ -1,5 +1,8 @@
 package com.test.second.object;
 
+import java.util.*;
+import java.util.regex.*;
+
 public class LectureObj {
 	//교양 인덱스 : 2 , 3 , 4 , 8 , 9 , 10
 	int num;
@@ -30,6 +33,7 @@ public class LectureObj {
 		return String.format("[%d] %s %s %s %s %s %s %s", num,reg_college,
 				subject_number,subject_name,professor,time,place,LectureExplainUrl);
 	}
+	
 	public int getNum() {
 		return num;
 	}

@@ -6,25 +6,34 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1 user-scalable=no">
+<script
+	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/jquery.min.js'></script>
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/loading.css" type="text/css">
+	href="${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/css/bootstrap.min.css" />
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.css' />
+	src='${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/moment.min.js'></script>
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.min.css' />
 <script
-	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.js'></script>
+	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.min.js'></script>
+<link rel="stylesheet" href="resources/loading.css" type="text/css">
 <style type="text/css">
 .modal-vertical-centered {
 	transform: translate(0, 100%) !important;
 	-ms-transform: translate(0, 100%) !important; /* IE 9 */
 	-webkit-transform: translate(0, 100%) !important;
 	/* Safari and Chrome */
+}
+
+#calendar .fc-day-number {
+    text-decoration: underline;
+    text-align: right;
+}
+
+#calendar .fc-day-number:hover {
+    cursor: pointer;
 }
 </style>
 <script>
@@ -99,17 +108,17 @@
 							eventSources : [ // your event source
 							{
 								url : '/second/calendarcollege', // use the `url` property
-								color : 'yellow', // an option!
+								color : '#ffff91', // an option!
 								textColor : 'black', // an option!
 								editable : false
 							}, {
 								url : '/second/calendarholiday', // use the `url` property
-								color : 'red', // an option!
-								textColor : 'black', // an option!
+								color : '#cf406e', // an option!
+								textColor : 'white', // an option!
 								editable : false
 							}, {
 								url : '/second/calendartimetable', // use the `url` property
-								color : 'green', // an option!
+								color : '#dfd8df', // an option!
 								textColor : 'black', // an option!
 								editable : false
 							}, {
@@ -136,51 +145,57 @@
 								$('#calendar').fullCalendar('option',
 										'contentHeight', h);
 							},
-							longPressDelay : 300,
+							longPressDelay : 600,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
 								//var title = prompt('일정 제목:');
 								//var eventData;
-								document.getElementById('modalTitle').style.display  = "none";
-								document.getElementById('modalNewTitle').style.display = ""; // 보임
-								if(checkOnedaySchedule(start, end))
-									$('#modalBody').html(
-											moment(start).format(
-											'YYYY/MM/DD'));
-								else{
-									if(end != null){
-										$('#modalBody').html(
-												moment(start).format(
-												'YYYY/MM/DD HH:mm') + " - " + 
-												moment(end).format(
-												'YYYY/MM/DD HH:mm'));
-									}
-									else{
-										$('#modalBody').html(
-												moment(start).format(
-												'YYYY/MM/DD HH:mm - '));
-									}
+								if(checkOnedaySchedule(start, end)){
+					                $('#calendar').fullCalendar('gotoDate', start);
+					                $('#calendar').fullCalendar('changeView', 'agendaDay');
 								}
-								$('#modalStart').val(JSON.stringify(start));
-								$('#modalEnd').val(JSON.stringify(end));
-								$('#modalButton').html("등록");
-								document.getElementById('modalButton').style.display = ""; // 보임
-								document.getElementById('modalForm').action = "insert";
-								$('#calendarModal').modal();
-								/* if (title) {
-									eventData = {
-										title : title,
-										start : start,
-										end : end
-									};
-									/addSchedule(JSON.stringify(title), JSON
-											.stringify(start), JSON
-											.stringify(end));
-									$('#calendar').fullCalendar('renderEvent',
-											eventData, true); // stick? = true
-								} */
-								$('#calendar').fullCalendar('unselect');
+								else{
+									document.getElementById('modalTitle').style.display  = "none";
+									document.getElementById('modalNewTitle').style.display = ""; // 보임
+									if(checkOnedaySchedule(start, end))
+										$('#modalBody').html(
+												moment(start).format(
+												'YYYY/MM/DD'));
+									else{
+										if(end != null){
+											$('#modalBody').html(
+													moment(start).format(
+													'YYYY/MM/DD HH:mm') + " - " + 
+													moment(end).format(
+													'YYYY/MM/DD HH:mm'));
+										}
+										else{
+											$('#modalBody').html(
+													moment(start).format(
+													'YYYY/MM/DD HH:mm - '));
+										}
+									}
+									$('#modalStart').val(JSON.stringify(start));
+									$('#modalEnd').val(JSON.stringify(end));
+									$('#modalButton').html("등록");
+									document.getElementById('modalButton').style.display = ""; // 보임
+									document.getElementById('modalForm').action = "insert";
+									$('#calendarModal').modal();
+									/* if (title) {
+										eventData = {
+											title : title,
+											start : start,
+											end : end
+										};
+										/addSchedule(JSON.stringify(title), JSON
+												.stringify(start), JSON
+												.stringify(end));
+										$('#calendar').fullCalendar('renderEvent',
+												eventData, true); // stick? = true
+									} */
+									$('#calendar').fullCalendar('unselect');
+								}
 							},
 							editable : true,
 							eventDragStart : function(event) {
@@ -297,7 +312,7 @@
 								}
 								$('#calendarModal').modal();
 							},
-							eventLimit : 4, // allow "more" link when too many events
+							eventLimit : 5, // allow "more" link when too many events
 						})
 			});
 </script>
@@ -364,6 +379,7 @@
 		</div>
 
 		<div id='calendar'></div>
+		
 		<div><br /><br /><br /></div>
 	</div>
 </body>
