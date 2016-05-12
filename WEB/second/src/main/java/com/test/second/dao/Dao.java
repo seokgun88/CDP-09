@@ -15,4 +15,5 @@ public interface Dao {
     public void insert(String id, String title, String start, String end);
     public void delete(String id, String title, String start, String end);
     public void update(String id, String title, String cstart, String cend, String start, String end); //cstart, cend : 변경전 시간
+    public void class_insert(String building , String room ,int day ,int start, int end, String schedule);
 }

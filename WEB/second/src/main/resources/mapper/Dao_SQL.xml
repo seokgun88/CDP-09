@@ -13,4 +13,7 @@
     <update id="update">
     	UPDATE CALENDAR SET START=#{param5}, END=#{param6} WHERE USER_ID=#{param1} AND TITLE=#{param2} AND START=#{param3} AND END=#{param4}
     </update>
+    <insert id="class_insert">
+    	INSERT INTO CLASSROOMTIMETABLE (BUILDING, ROOM, DAY, START, END, SCHEDULE) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})    
+    </insert>
 </mapper>

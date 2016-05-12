@@ -2,17 +2,23 @@ package com.test.second.parser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.*;
 
+import org.apache.ibatis.session.*;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.*;
 
-import com.test.second.object.LectureObj;
+import com.test.second.dao.*;
+import com.test.second.object.*;
 
 public class LecturePlan {
+	
 	private ArrayList<LectureObj> LectureList;
+	private ArrayList<ClassroomScheduleObj> classScheduleList;
 
 	public ArrayList<LectureObj> getLectureList() {
 		return LectureList;
@@ -22,11 +28,15 @@ public class LecturePlan {
 		LectureList = new ArrayList<LectureObj>();
 	}
 	
-	public void TotalParse(){
+	public ArrayList<ClassroomScheduleObj> TotalParse(){
 	    System.out.println("total pare start");
-		for(int i=1;i<=57;i++){
+	    classScheduleList = new ArrayList<ClassroomScheduleObj>();
+		SectionParse(1);
+		SectionParse(2);
+		for(int i=4;i<=57;i++){
 			SectionParse(i);
-		}		
+		}
+		return classScheduleList;
 	}
 	
 	// input : [1,57]
@@ -120,7 +130,13 @@ public class LecturePlan {
 					
 					LectureList.add(Aobj);
 
-					System.out.println(Aobj.toString());
+					//System.out.println(Aobj.toString());
+					ArrayList<ClassroomScheduleObj> classObjList = 
+							getClassScheduleObj(Aobj.getPlace(), Aobj.getTime(), Aobj.getSubject_name(), Aobj.getProfessor(), Aobj.getLectureExplainUrl());
+					if(classObjList != null)
+						for(ClassroomScheduleObj classObj : classObjList){
+							classScheduleList.add(classObj);
+						}
 					
 					subcnt = 0;
 					hrefcnt+=1;
@@ -204,7 +220,13 @@ public class LecturePlan {
 						
 						LectureList.add(Aobj);
 
-						System.out.println(Aobj.toString());
+						//System.out.println(Aobj.toString());
+						ArrayList<ClassroomScheduleObj> classObjList = 
+								getClassScheduleObj(Aobj.getPlace(), Aobj.getTime(), Aobj.getSubject_name(), Aobj.getProfessor(), Aobj.getLectureExplainUrl());
+						if(classObjList != null)
+							for(ClassroomScheduleObj classObj : classObjList){
+								classScheduleList.add(classObj);
+							}
 						
 						cnt = 0;
 					}
@@ -268,7 +290,13 @@ public class LecturePlan {
 							Aobj.setLectureExplainUrl(temphref);
 							LectureList.add(Aobj);
 
-							System.out.println(Aobj.toString());
+							//System.out.println(Aobj.toString());
+							ArrayList<ClassroomScheduleObj> classObjList = 
+									getClassScheduleObj(Aobj.getPlace(), Aobj.getTime(), Aobj.getSubject_name(), Aobj.getProfessor(), Aobj.getLectureExplainUrl());
+							if(classObjList != null)
+								for(ClassroomScheduleObj classObj : classObjList){
+									classScheduleList.add(classObj);
+								}
 							
 							subcnt = 0;
 						}
@@ -284,5 +312,83 @@ public class LecturePlan {
 		return true;
 
 	}
-
+	
+	public ArrayList<ClassroomScheduleObj> getClassScheduleObj(String place, String time, String subject_name, String professor, String url){
+		ArrayList<ClassroomScheduleObj> classScheduleList = new ArrayList<ClassroomScheduleObj>();
+		String[] splited_place = place.split("-");
+		if(splited_place.length < 2)
+			return null;
+		final String day_regex = "[ㄱ-ㅎㅏ-ㅣ가-힣]";
+		final String time_regex = "(\\d{1,2})([AB])";
+		Pattern p = Pattern.compile(time_regex);
+		String[] splited_time = time.split(" ");
+		String curDay = "";
+		String start = "";
+		String end = "";
+		String schedule_title = subject_name + " - " + professor;
+		for(int i=0; i<splited_time.length; i++){
+			String day = splited_time[i].substring(0, 1);
+			String[] splited2_time = splited_time[i].substring(1, splited_time[i].length()).split(",");
+			int lastTime = splited2_time.length - 1;
+			
+			if(splited2_time[0].equals("00"))
+				start = "000";
+			else{
+				Matcher m = p.matcher(splited2_time[0]);
+				m.matches();
+				if(m.group(2).equals("A"))
+					start = m.group(1) + "00";
+				else if(m.group(2).equals("B"))
+					start = m.group(1) + "30";
+				else
+					start = m.group(1) + "00";
+			}
+			if(splited2_time[lastTime].equals("00"))
+				end = "000";
+			else{
+				Matcher m = p.matcher(splited2_time[lastTime]);
+				m.matches();
+				if(m.group(2).equals("A"))
+					end = m.group(1) + "00";
+				else if(m.group(2).equals("B"))
+					end = m.group(1) + "30";
+				else
+					end = m.group(1) + "00";
+			}
+			if(curDay.equals(day)){
+				classScheduleList.get(classScheduleList.size()-1).setEnd(Integer.parseInt(end));
+			}
+			else{
+				classScheduleList.add(new ClassroomScheduleObj(splited_place[0], splited_place[1], getIntofDay(day), 
+						Integer.parseInt(start), Integer.parseInt(end), schedule_title));
+				curDay = day;
+			}
+		}
+		return classScheduleList;
+	}
+	
+	public int getIntofDay(String day){
+		if(day.equals("월")){
+			return 1;
+		}
+		else if(day.equals("화")){
+			return 2;
+		}
+		else if(day.equals("수")){
+			return 3;
+		}
+		else if(day.equals("목")){
+			return 4;
+		}
+		else if(day.equals("금")){
+			return 5;
+		}
+		else if(day.equals("토")){
+			return 6;
+		}
+		else if(day.equals("일")){
+			return 7;
+		}
+		return 0;		
+	}
 }
