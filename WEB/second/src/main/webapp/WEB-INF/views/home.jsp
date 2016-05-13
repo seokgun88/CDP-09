@@ -62,7 +62,7 @@ height: 100%;
 					</button>
 					<h4 id="modalTitle" class="modal-title">로그인 실패</h4>
 				</div>
-				<div id="modalBody" class="modal-body">YES ID와 비밀번호를 다시 입력해주세요.</div>
+				<div id="modalBody" class="modal-body">YES 아이디와 비밀번호를 다시 입력해주세요.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>

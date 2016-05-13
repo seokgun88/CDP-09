@@ -101,6 +101,30 @@
 			function() {
 				var currentStart = null;
 				var currentEnd = null;
+				var source = new Array();
+				source[0] = {
+						url : '${pageContext.request.contextPath}/calendarcollege', // use the `url` property
+						color : '#9ac2b7', // an option!
+						textColor : 'white', // an option!
+						editable : false
+				};
+				source[1] = {
+						url : '${pageContext.request.contextPath}/calendarholiday', // use the `url` property
+						color : '#F98E9D', // an option!
+						textColor : 'white', // an option!
+						editable : false
+				};
+				source[2] =  {
+						url : '${pageContext.request.contextPath}/calendartimetable', // use the `url` property
+						color : '#A5DBEE', // an option!
+						textColor : 'white', // an option!
+						editable : false
+				};
+				source[3] ={
+						url : '${pageContext.request.contextPath}/calendarusertime',
+						color : '#A3A6BD', // an option!
+						textColor : 'white' // an option!
+				};
 				// page is now ready, initialize the calendar...
 				$('#calendar').fullCalendar({
 							header : {
@@ -108,27 +132,7 @@
 								center : 'title',
 								right : 'month,agendaWeek,agendaDay'
 							},
-							eventSources : [ // your event source
-							{
-								url : '${pageContext.request.contextPath}/calendarcollege', // use the `url` property
-								color : '#9ac2b7', // an option!
-								textColor : 'white', // an option!
-								editable : false
-							}, {
-								url : '${pageContext.request.contextPath}/calendarholiday', // use the `url` property
-								color : '#F98E9D', // an option!
-								textColor : 'white', // an option!
-								editable : false
-							}, {
-								url : '${pageContext.request.contextPath}/calendartimetable', // use the `url` property
-								color : '#A5DBEE', // an option!
-								textColor : 'white', // an option!
-								editable : false
-							}, {
-								url : '${pageContext.request.contextPath}/calendarusertime',
-								color : '#A3A6BD', // an option!
-								textColor : 'white' // an option!
-							} ],
+							eventSources : [source[0], source[1], source[2], source[3]],
 							loading : function(isLoading) {
 								if (isLoading) {
 									$('#loading').show();
@@ -139,12 +143,15 @@
 							viewRender : function(view, element) {
 								var h;
 								if (view.name == "month") {
+							        $('#calendar').fullCalendar('removeEventSource', source[2]); //월 단위에서는 학교 시간표 숨김
 									if($( window ).height() < 800){
 										h = 'auto';
 									}
 									else
 										h = 800; // high enough to avoid scrollbars
 								} else {
+							        $('#calendar').fullCalendar('removeEventSource', source[2]);
+							        $('#calendar').fullCalendar('addEventSource', source[2]);
 									h = 'auto';
 								}
 								$('#calendar').fullCalendar('option',
@@ -350,7 +357,7 @@
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">일정</a></li>
-						<li><a href="knumap">빈강의실</a></li>
+						<!-- <li><a href="knumap">빈강의실</a></li> -->
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
