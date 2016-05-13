@@ -102,8 +102,7 @@
 				var currentStart = null;
 				var currentEnd = null;
 				// page is now ready, initialize the calendar...
-				$('#calendar').fullCalendar(
-						{
+				$('#calendar').fullCalendar({
 							header : {
 								left : 'prev,next today',
 								center : 'title',
@@ -155,9 +154,8 @@
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
-								//var title = prompt('일정 제목:');
-								//var eventData;
-								if(checkOnedaySchedule(start, end)){
+								if(checkOnedaySchedule(start, end) 
+										&& $('#calendar').fullCalendar('getView').name == "month"){
 					                $('#calendar').fullCalendar('gotoDate', start);
 					                $('#calendar').fullCalendar('changeView', 'agendaDay');
 								}
