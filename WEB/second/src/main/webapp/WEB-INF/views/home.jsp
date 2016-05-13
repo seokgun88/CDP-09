@@ -23,9 +23,43 @@ background-size: cover;
 -o-background-size: cover;
 height: 100%;
 }		
-</style>    
+.modal-vertical-centered {
+	transform: translate(0, 100%) !important;
+	-ms-transform: translate(0, 100%) !important; /* IE 9 */
+	-webkit-transform: translate(0, 100%) !important;
+	/* Safari and Chrome */
+}
+</style>
 </head>
 <body>
+	<c:if test="${param.success eq false}">
+	</c:if>
+	<!-- Modal -->
+	<div id="loginFailModal" class="modal fade">
+		<div class="modal-dialog modal-vertical-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span> <span class="sr-only">close</span>
+					</button>
+					<h4 id="modalTitle" class="modal-title">로그인 실패</h4>
+					<input id="modalNewTitle" type="text" class="form-control"
+						name="new_title" style="display: none"
+						placeholder="새로운 일정을 입력하세요" required>
+				</div>
+				<div class="modal-footer">
+					<input id="modalTitleData" type="hidden" class="form-control"
+						name="title"> <input id="modalStart" type="hidden"
+						class="form-control" name="start"> <input id="modalEnd"
+						type="hidden" class="form-control" name="end">
+					<button type="submit" id="modalButton" class="btn btn-default">삭제</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</c:if>
+	
 	<div class="container-fluid bgimage">
 		
 		<div style="height: 25%"></div>

@@ -71,7 +71,7 @@ public class HomeController {
 		if (command.excute(model))
 			return "redirect:fullcalendar";
 		else
-			return "redirect:home";
+			return "redirect:home?success=false";
 	}
 	
 	@RequestMapping("/logout")
