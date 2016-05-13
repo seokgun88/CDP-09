@@ -110,22 +110,22 @@
 							},
 							eventSources : [ // your event source
 							{
-								url : '/second/calendarcollege', // use the `url` property
+								url : '${pageContext.request.contextPath}/calendarcollege', // use the `url` property
 								color : '#9ac2b7', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
-								url : '/second/calendarholiday', // use the `url` property
+								url : '${pageContext.request.contextPath}/calendarholiday', // use the `url` property
 								color : '#F98E9D', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
-								url : '/second/calendartimetable', // use the `url` property
+								url : '${pageContext.request.contextPath}/calendartimetable', // use the `url` property
 								color : '#A5DBEE', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
-								url : '/second/calendarusertime',
+								url : '${pageContext.request.contextPath}/calendarusertime',
 								color : '#A3A6BD', // an option!
 								textColor : 'white' // an option!
 							} ],
@@ -347,37 +347,41 @@
 				<div id="loading"></div>
 			</div>
 		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">일정</a></li>
-				<li><a href="knumap">빈강의실</a></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<div class="hidden-xs">
-						<div style="float: right; margin: 15px 0 0 0;">
-							<script id="_waume7">
-								var _wau = _wau || [];
-								_wau.push([ "small", "rmvhnojtde5v", "me7" ]);
-								(function() {
-									var s = document.createElement("script");
-									s.async = true;
-									s.src = "http://widgets.amung.us/small.js";
-									document.getElementsByTagName("head")[0]
-											.appendChild(s);
-								})();
-							</script>
-						</div>
-					</div>
-				</li>
-				<li><a href="logout"><span
-						class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
-			</ul>
-		</div>
-	</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">일정</a></li>
+						<li><a href="knumap">빈강의실</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<div class="hidden-xs">
+								<div style="float: right; margin: 15px 0 0 0;">
+									<script id="_waume7">
+										var _wau = _wau || [];
+										_wau.push([ "small", "rmvhnojtde5v",
+												"me7" ]);
+										(function() {
+											var s = document
+													.createElement("script");
+											s.async = true;
+											s.src = "http://widgets.amung.us/small.js";
+											document
+													.getElementsByTagName("head")[0]
+													.appendChild(s);
+										})();
+									</script>
+								</div>
+							</div>
+						</li>
+						<li><a href="logout"><span
+								class="glyphicon glyphicon-log-out"></span> Lgout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 	</nav>
 
-	<!-- Modal -->
+		<!-- Modal -->
 		<div id="calendarModal" class="modal fade">
 			<div class="modal-dialog modal-vertical-centered">
 				<form id="modalForm" class="form-horizontal" role="form"
