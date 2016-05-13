@@ -18,42 +18,78 @@
 <title>OpenAPI 2.0 - 지도 생성</title>
 <script type="text/javascript"
 	src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
+<link rel="stylesheet" href="resources/bgImg.css" type="text/css">
 </head>
 
 <body>
-	<div class="container">
-		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-responsive" alt="Knu Plan">
-		</a>
-
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">KNU PLAN</a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li><a href="fullcalendar">일정</a>
-					<li><a href="timetable">시간표</a></li>
-					<li class="active"><a href="#">빈강의실</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout"><span
-							class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
-				</ul>
+	<div class="container-fluid bgimage" 
+	style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-mapbanner.png);">
+		<div class="row">
+			<div class="col-xs-1 col-md-4"></div>
+			<div class="col-xs-10 col-md-4">
+				<img class="img-responsive"
+					src="${pageContext.request.contextPath}/resources/images/knuplan-title.png"
+					alt="KNU PLAN" style="min-height: 50px;">
 			</div>
 		</div>
-		</nav>
+	</div>
 
+	<nav class="navbar navbar-inverse navbar-static-top">
+	<div class="container-fluid">
+		<div class="row navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<div class="col-xs-1">
+				<div id="loading"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-1"></div>
+			<div class="col-xs-9">
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li><a href="fullcalendar">일정</a></li>
+						<li class="active"><a href="#">빈강의실</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<div class="hidden-xs">
+								<div style="float: right; margin: 15px 0 0 0;">
+									<script id="_waume7">
+										var _wau = _wau || [];
+										_wau.push([ "small", "rmvhnojtde5v",
+												"me7" ]);
+										(function() {
+											var s = document
+													.createElement("script");
+											s.async = true;
+											s.src = "http://widgets.amung.us/small.js";
+											document
+													.getElementsByTagName("head")[0]
+													.appendChild(s);
+										})();
+									</script>
+								</div>
+							</div>
+						</li>
+						<li><a href="logout"><span
+								class="glyphicon glyphicon-log-out"></span> Lgout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</nav>
+	
+	<div class="container">
 		<div id="testMap"
-			style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
-		<script type="text/javascript" src="resources/navermap.js"></script>
-
+				style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
+			<script type="text/javascript" src="resources/navermap.js"></script>
+		</div>
 	</div>
 </body>
 </html>

@@ -54,7 +54,7 @@ public class ClassTimetableController {
 	public String getClassTimetable(Model model, HttpServletRequest request){
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		classTimetable.printTimetable(dao.class_select("공대9호관", "417"));
+		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
 		
 		return "redirect:fullcalendar";
 	}

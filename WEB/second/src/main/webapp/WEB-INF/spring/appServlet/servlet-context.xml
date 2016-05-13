@@ -31,7 +31,7 @@
 			<mvc:mapping path="/**/*" />
 			<mvc:exclude-mapping path="/**/home" /> 
 			<mvc:exclude-mapping path="/**/login" />
-			<mvc:exclude-mapping path="/**/KNUPLAN.png" />
+			<mvc:exclude-mapping path="/**/images/*" />
 			<!-- 로그인체크 인터셉터 클래스 -->
 			<beans:bean class="com.test.second.interceptor.Interceptor"></beans:bean>
 		</mvc:interceptor>

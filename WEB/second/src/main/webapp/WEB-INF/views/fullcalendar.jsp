@@ -19,6 +19,7 @@
 <script
 	src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/fullcalendar.min.js'></script>
 <link rel="stylesheet" href="resources/loading.css" type="text/css">
+<link rel="stylesheet" href="resources/bgImg.css" type="text/css">
 <style type="text/css">
 .modal-vertical-centered {
 	transform: translate(0, 100%) !important;
@@ -34,6 +35,9 @@
 
 #calendar .fc-day-number:hover {
     cursor: pointer;
+}
+#calendar .fc-today{
+   background-color: #ECF5F5;
 }
 </style>
 <script>
@@ -108,7 +112,7 @@
 							eventSources : [ // your event source
 							{
 								url : '/second/calendarcollege', // use the `url` property
-								color : '#f7d17c', // an option!
+								color : '#0CD1B3', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
@@ -118,7 +122,7 @@
 								editable : false
 							}, {
 								url : '/second/calendartimetable', // use the `url` property
-								color : '#03a28b', // an option!
+								color : '#A8E3F7', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
@@ -145,7 +149,7 @@
 								$('#calendar').fullCalendar('option',
 										'contentHeight', h);
 							},
-							longPressDelay : 600,
+							longPressDelay : 1000,
 							selectable : true,
 							selectHelper : true,
 							select : function(start, end) {
@@ -319,35 +323,68 @@
 <title>full calendar</title>
 </head>
 <body>
-	<div class="container">
-		<a href="home"> <img src="resources/KNUPLAN.png"
-			class="img-responsive" alt="Knu Plan">
-		</a>
-
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">KNU PLAN</a>
-				<div id="loading"></div>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">일정</a></li>
-					<li><a href="timetable">시간표</a></li>
-					<li><a href="knumap">빈강의실</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout"><span
-							class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
-				</ul>
+	<div class="container-fluid bgimage" 
+	style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-homebanner.png);">
+		<div class="row">
+			<div class="col-xs-1 col-md-4"></div>
+			<div class="col-xs-10 col-md-4">
+				<img class="img-responsive"
+					src="${pageContext.request.contextPath}/resources/images/knuplan-title.png"
+					alt="KNU PLAN" style="min-height: 50px;">
 			</div>
 		</div>
-		</nav>
+	</div>
+
+	<nav class="navbar navbar-inverse navbar-static-top">
+	<div class="container-fluid">
+		<div class="row navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<div class="col-xs-1">
+				<div id="loading"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-1"></div>
+			<div class="col-xs-9">
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">일정</a></li>
+						<li><a href="knumap">빈강의실</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<div class="hidden-xs">
+								<div style="float: right; margin: 15px 0 0 0;">
+									<script id="_waume7">
+										var _wau = _wau || [];
+										_wau.push([ "small", "rmvhnojtde5v",
+												"me7" ]);
+										(function() {
+											var s = document
+													.createElement("script");
+											s.async = true;
+											s.src = "http://widgets.amung.us/small.js";
+											document
+													.getElementsByTagName("head")[0]
+													.appendChild(s);
+										})();
+									</script>
+								</div>
+							</div>
+						</li>
+						<li><a href="logout"><span
+								class="glyphicon glyphicon-log-out"></span> Lgout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</nav>
 
 		<!-- Modal -->
 		<div id="calendarModal" class="modal fade">
@@ -377,10 +414,12 @@
 				</form>
 			</div>
 		</div>
-
-		<div id='calendar'></div>
 		
-		<div><br /><br /><br /></div>
+	<div class="container">
+		<div id='calendar'></div>
+	</div>
+
+	<div><br /><br /><br /></div>
 	</div>
 </body>
 </html>
