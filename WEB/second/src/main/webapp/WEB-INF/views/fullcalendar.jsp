@@ -97,235 +97,372 @@
 			}
 		});
 	}
-	$(document).ready(
-			function() {
-				var currentStart = null;
-				var currentEnd = null;
-				var source = new Array();
-				source[0] = {
-						url : '${pageContext.request.contextPath}/calendarcollege', // use the `url` property
-						color : '#9ac2b7', // an option!
-						textColor : 'white', // an option!
-						editable : false
-				};
-				source[1] = {
-						url : '${pageContext.request.contextPath}/calendarholiday', // use the `url` property
-						color : '#F98E9D', // an option!
-						textColor : 'white', // an option!
-						editable : false
-				};
-				source[2] =  {
-						url : '${pageContext.request.contextPath}/calendartimetable', // use the `url` property
-						color : '#A5DBEE', // an option!
-						textColor : 'white', // an option!
-						editable : false
-				};
-				source[3] ={
-						url : '${pageContext.request.contextPath}/calendarusertime',
-						color : '#A3A6BD', // an option!
-						textColor : 'white' // an option!
-				};
-				// page is now ready, initialize the calendar...
-				$('#calendar').fullCalendar({
-							header : {
-								left : 'prev,next today',
-								center : 'title',
-								right : 'month,agendaWeek,agendaDay'
-							},
-							eventSources : [source[0], source[1], source[2], source[3]],
-							loading : function(isLoading) {
-								if (isLoading) {
-									$('#loading').show();
-								} else {
-									$('#loading').hide();
-								}
-							},
-							viewRender : function(view, element) {
-								var h;
-								if (view.name == "month") {
-							        $('#calendar').fullCalendar('removeEventSource', source[2]); //월 단위에서는 학교 시간표 숨김
-									if($( window ).height() < 800){
-										h = 'auto';
-									}
-									else
-										h = 800; // high enough to avoid scrollbars
-								} else {
-							        $('#calendar').fullCalendar('removeEventSource', source[2]);
-							        $('#calendar').fullCalendar('addEventSource', source[2]);
-									h = 'auto';
-								}
-								$('#calendar').fullCalendar('option',
-										'contentHeight', h);
-							},
-							longPressDelay : 1000,
-							selectable : true,
-							selectHelper : true,
-							select : function(start, end) {
-								if(checkOnedaySchedule(start, end) 
-										&& $('#calendar').fullCalendar('getView').name == "month"){
-					                $('#calendar').fullCalendar('gotoDate', start);
-					                $('#calendar').fullCalendar('changeView', 'agendaDay');
-								}
-								else{
-									document.getElementById('modalTitle').style.display  = "none";
-									document.getElementById('modalNewTitle').style.display = ""; // 보임
-									if(checkOnedaySchedule(start, end))
-										$('#modalBody').html(
-												moment(start).format(
-												'YYYY/MM/DD'));
-									else{
-										if(end != null){
-											$('#modalBody').html(
-													moment(start).format(
-													'YYYY/MM/DD HH:mm') + " - " + 
-													moment(end).format(
-													'YYYY/MM/DD HH:mm'));
-										}
-										else{
-											$('#modalBody').html(
-													moment(start).format(
-													'YYYY/MM/DD HH:mm - '));
-										}
-									}
-									$('#modalStart').val(JSON.stringify(start));
-									$('#modalEnd').val(JSON.stringify(end));
-									$('#modalButton').html("등록");
-									document.getElementById('modalButton').style.display = ""; // 보임
-									document.getElementById('modalForm').action = "insert";
-									$('#calendarModal').modal();
-									/* if (title) {
-										eventData = {
-											title : title,
-											start : start,
-											end : end
-										};
-										/addSchedule(JSON.stringify(title), JSON
-												.stringify(start), JSON
-												.stringify(end));
-										$('#calendar').fullCalendar('renderEvent',
-												eventData, true); // stick? = true
-									} */
-									$('#calendar').fullCalendar('unselect');
-								}
-							},
-							editable : true,
-							eventDragStart : function(event) {
-								currentStart = event.start;
-								currentEnd = event.end;
-							},
-							eventDrop : function(event, delta, revertFunc) {
-								$('#modalTitle').html(event.title + " 일정 변경");
-								document.getElementById('modalTitle').style.display  = "";
-								document.getElementById('modalNewTitle').style.display = "none";
-								document.getElementById('modalButton').style.display = "none"; // 숨김
-								if(event.allDay == true){
-									if(checkOnedaySchedule(currentStart, currentEnd))
-										$('#modalBody').html(
-												moment(event.start).format(
-												'YYYY/MM/DD'));
-									else
-										$('#modalBody').html(
-												moment(event.start).format(
-												'YYYY/MM/DD - ') + 
-												moment(event.end).format(
-												'YYYY/MM/DD'));										
-								}
-								else if(event.end == null){
-									$('#modalBody').html(
-											moment(event.start).format(
-											'YYYY/MM/DD HH:mm - '));
-								}
-								else{
-									$('#modalBody').html(
-											moment(event.start).format(
-											'YYYY/MM/DD HH:mm') + " - " + 
-											moment(event.end).format(
-											'YYYY/MM/DD HH:mm'));
-								}
-								$('#calendarModal').modal();
-								updateSchedule(JSON.stringify(event.title),
-										JSON.stringify(currentStart), JSON
-										.stringify(currentEnd),
-								JSON.stringify(event.start), JSON
-										.stringify(event.end));
-								/* if (confirm("일정을 변경 할까요?")) {									
-								} else {
-									revertFunc(); //cancel change
-								} */
-							},
-							eventResizeStart : function(event) {
-								currentStart = event.start;
-								currentEnd = event.end;
-							},
-							eventResize : function(event, delta, revertFunc) {
-								$('#modalTitle').html(event.title + " 시간 변경");
-								document.getElementById('modalTitle').style.display  = "";
-								document.getElementById('modalNewTitle').style.display = "none";
-								$('#modalBody').html(moment(event.start).format('YYYY/MM/DD HH:mm') + " - " + 
-										moment(event.end).format(
-										'YYYY/MM/DD HH:mm'));
-								document.getElementById('modalButton').style.display = "none"; // 숨김
-								$('#calendarModal').modal();
-								updateSchedule(JSON.stringify(event.title),
-										JSON.stringify(currentStart), JSON
-												.stringify(currentEnd),
-										JSON.stringify(event.start), JSON
-												.stringify(event.end));
-								/* if (confirm("시간을 변경 할까요?")) {
-								} else {
-									revertFunc(); //cancel change
-								} */
-							},
-							eventClick : function(event, jsEvent, view) {
-								$('#modalTitle').html(event.title);
-								document.getElementById('modalTitle').style.display  = "";
-								document.getElementById('modalNewTitle').style.display = "none";
-								document.getElementById('modalNewTitle').required = false;
-								if(event.allDay == true){
-									if(checkOnedaySchedule(event.start, event.end) || event.end == null)
-										$('#modalBody').html(
-												moment(event.start).format(
-												'YYYY/MM/DD'));
-									else
-										$('#modalBody').html(
-												moment(event.start).format(
-												'YYYY/MM/DD - ') + 
-												moment(event.end).format(
-												'YYYY/MM/DD'));
-								}
-								else{
-									$('#modalBody').html(
-											moment(event.start).format(
-											'YYYY/MM/DD HH:mm') + " - " + 
-											moment(event.end).format(
-											'YYYY/MM/DD HH:mm'));
-								}
-								if ("rgb(163, 166, 189)" == $(this).css(
-										'background-color')) { // check user event using bg-color
-									/* var r = confirm(event.title
-											+ " 일정을 삭제 할까요?");
-									if (r === true) {
-										$('#calendar').fullCalendar(
-												'removeEvents', event._id);
-										deleteSchedule(JSON
-												.stringify(event.title), JSON
-												.stringify(event.start), JSON
-												.stringify(event.end));
-									} */
-									$('#modalTitleData').val(JSON.stringify(event.title));
-									$('#modalStart').val(JSON.stringify(event.start));
-									$('#modalEnd').val(JSON.stringify(event.end));
-									$('#modalButton').html("삭제");
-									document.getElementById('modalButton').style.display = ""; // 보임
-									document.getElementById('modalForm').action = "delete";
-								} else {
-									document.getElementById('modalButton').style.display = "none"; // 숨김
-								}
-								$('#calendarModal').modal();
-							},
-							eventLimit : 4, // allow "more" link when too many events
-						})
-			});
+	function init_modal(modal) {
+		// Setup up the modal dialog
+		var $modal = $(modal)
+		
+		$(modalNewTitle).val('');
+		$(modalNewTitle).focus();
+		$modal.modal('show');
+	}
+	$(document)
+			.ready(
+					function() {
+						var currentStart = null;
+						var currentEnd = null;
+						var source = new Array();
+						source[0] = {
+							url : '${pageContext.request.contextPath}/calendarcollege', // use the `url` property
+							color : '#9ac2b7', // an option!
+							textColor : 'white', // an option!
+							editable : false
+						};
+						source[1] = {
+							url : '${pageContext.request.contextPath}/calendarholiday', // use the `url` property
+							color : '#F98E9D', // an option!
+							textColor : 'white', // an option!
+							editable : false
+						};
+						source[2] = {
+							url : '${pageContext.request.contextPath}/calendartimetable', // use the `url` property
+							color : '#C9B37D', // an option!
+							textColor : 'white', // an option!
+							editable : false
+						};
+						source[3] = {
+							url : '${pageContext.request.contextPath}/calendarusertime',
+							color : '#A3A6BD', // an option!
+							textColor : 'white' // an option!
+						};
+						// page is now ready, initialize the calendar...
+						$('#calendar')
+								.fullCalendar(
+										{
+											header : {
+												left : 'prev,next today',
+												center : 'title',
+												right : 'month,agendaWeek,agendaDay'
+											},
+											eventSources : [ source[0],
+													source[1], source[2],
+													source[3] ],
+											loading : function(isLoading) {
+												if (isLoading) {
+													$('#loading').show();
+												} else {
+													$('#loading').hide();
+												}
+											},
+											viewRender : function(view, element) {
+												var h;
+												if (view.name == "month") {
+													$('#calendar')
+															.fullCalendar(
+																	'removeEventSource',
+																	source[2]); //월 단위에서는 학교 시간표 숨김
+													if ($(window).height() < 800) {
+														h = 'auto';
+													} else
+														h = 800; // high enough to avoid scrollbars
+												} else {
+													$('#calendar')
+															.fullCalendar(
+																	'removeEventSource',
+																	source[2]);
+													$('#calendar')
+															.fullCalendar(
+																	'addEventSource',
+																	source[2]);
+													h = 'auto';
+												}
+												$('#calendar').fullCalendar(
+														'option',
+														'contentHeight', h);
+											},
+											longPressDelay : 1000,
+											selectable : true,
+											selectHelper : true,
+											select : function(start, end) {
+												if (checkOnedaySchedule(start,
+														end)
+														&& $('#calendar')
+																.fullCalendar(
+																		'getView').name == "month") {
+													$('#calendar')
+															.fullCalendar(
+																	'gotoDate',
+																	start);
+													$('#calendar')
+															.fullCalendar(
+																	'changeView',
+																	'agendaDay');
+												} else {
+													document
+															.getElementById('modalTitle').style.display = "none";
+													document
+															.getElementById('modalNewTitle').style.display = ""; // 보임
+													if (checkOnedaySchedule(
+															start, end))
+														$('#modalBody')
+																.html(
+																		moment(
+																				start)
+																				.format(
+																						'YYYY/MM/DD'));
+													else {
+														if (end != null) {
+															$('#modalBody')
+																	.html(
+																			moment(
+																					start)
+																					.format(
+																							'YYYY/MM/DD HH:mm')
+																					+ " - "
+																					+ moment(
+																							end)
+																							.format(
+																									'YYYY/MM/DD HH:mm'));
+														} else {
+															$('#modalBody')
+																	.html(
+																			moment(
+																					start)
+																					.format(
+																							'YYYY/MM/DD HH:mm - '));
+														}
+													}
+													$('#modalStart')
+															.val(
+																	JSON
+																			.stringify(start));
+													$('#modalEnd')
+															.val(
+																	JSON
+																			.stringify(end));
+													$('#modalButton')
+															.html("등록");
+													document
+															.getElementById('modalButton').style.display = ""; // 보임
+													document
+															.getElementById('modalForm').action = "insert";
+													init_modal('#calendarModal');
+													/* if (title) {
+														eventData = {
+															title : title,
+															start : start,
+															end : end
+														};
+														/addSchedule(JSON.stringify(title), JSON
+																.stringify(start), JSON
+																.stringify(end));
+														$('#calendar').fullCalendar('renderEvent',
+																eventData, true); // stick? = true
+													} */
+													$('#calendar')
+															.fullCalendar(
+																	'unselect');
+												}
+											},
+											editable : true,
+											eventDragStart : function(event) {
+												currentStart = event.start;
+												currentEnd = event.end;
+											},
+											eventDrop : function(event, delta,
+													revertFunc) {
+												$('#modalTitle').html(
+														event.title + " 일정 변경");
+												document
+														.getElementById('modalTitle').style.display = "";
+												document
+														.getElementById('modalNewTitle').style.display = "none";
+												document
+														.getElementById('modalButton').style.display = "none"; // 숨김
+												if (event.allDay == true) {
+													if (checkOnedaySchedule(
+															currentStart,
+															currentEnd))
+														$('#modalBody')
+																.html(
+																		moment(
+																				event.start)
+																				.format(
+																						'YYYY/MM/DD'));
+													else
+														$('#modalBody')
+																.html(
+																		moment(
+																				event.start)
+																				.format(
+																						'YYYY/MM/DD - ')
+																				+ moment(
+																						event.end)
+																						.format(
+																								'YYYY/MM/DD'));
+												} else if (event.end == null) {
+													$('#modalBody')
+															.html(
+																	moment(
+																			event.start)
+																			.format(
+																					'YYYY/MM/DD HH:mm - '));
+												} else {
+													$('#modalBody')
+															.html(
+																	moment(
+																			event.start)
+																			.format(
+																					'YYYY/MM/DD HH:mm')
+																			+ " - "
+																			+ moment(
+																					event.end)
+																					.format(
+																							'YYYY/MM/DD HH:mm'));
+												}
+												$('#calendarModal').modal();
+												updateSchedule(
+														JSON
+																.stringify(event.title),
+														JSON
+																.stringify(currentStart),
+														JSON
+																.stringify(currentEnd),
+														JSON
+																.stringify(event.start),
+														JSON
+																.stringify(event.end));
+												/* if (confirm("일정을 변경 할까요?")) {									
+												} else {
+													revertFunc(); //cancel change
+												} */
+											},
+											eventResizeStart : function(event) {
+												currentStart = event.start;
+												currentEnd = event.end;
+											},
+											eventResize : function(event,
+													delta, revertFunc) {
+												$('#modalTitle').html(
+														event.title + " 시간 변경");
+												document
+														.getElementById('modalTitle').style.display = "";
+												document
+														.getElementById('modalNewTitle').style.display = "none";
+												$('#modalBody')
+														.html(
+																moment(
+																		event.start)
+																		.format(
+																				'YYYY/MM/DD HH:mm')
+																		+ " - "
+																		+ moment(
+																				event.end)
+																				.format(
+																						'YYYY/MM/DD HH:mm'));
+												document
+														.getElementById('modalButton').style.display = "none"; // 숨김
+												$('#calendarModal').modal();
+												updateSchedule(
+														JSON
+																.stringify(event.title),
+														JSON
+																.stringify(currentStart),
+														JSON
+																.stringify(currentEnd),
+														JSON
+																.stringify(event.start),
+														JSON
+																.stringify(event.end));
+												/* if (confirm("시간을 변경 할까요?")) {
+												} else {
+													revertFunc(); //cancel change
+												} */
+											},
+											eventClick : function(event,
+													jsEvent, view) {
+												$('#modalTitle').html(
+														event.title);
+												document
+														.getElementById('modalTitle').style.display = "";
+												document
+														.getElementById('modalNewTitle').style.display = "none";
+												document
+														.getElementById('modalNewTitle').required = false;
+												if (event.allDay == true) {
+													if (checkOnedaySchedule(
+															event.start,
+															event.end)
+															|| event.end == null)
+														$('#modalBody')
+																.html(
+																		moment(
+																				event.start)
+																				.format(
+																						'YYYY/MM/DD'));
+													else
+														$('#modalBody')
+																.html(
+																		moment(
+																				event.start)
+																				.format(
+																						'YYYY/MM/DD - ')
+																				+ moment(
+																						event.end)
+																						.format(
+																								'YYYY/MM/DD'));
+												} else {
+													$('#modalBody')
+															.html(
+																	moment(
+																			event.start)
+																			.format(
+																					'YYYY/MM/DD HH:mm')
+																			+ " - "
+																			+ moment(
+																					event.end)
+																					.format(
+																							'YYYY/MM/DD HH:mm'));
+												}
+												if ("rgb(163, 166, 189)" == $(
+														this).css(
+														'background-color')) { // check user event using bg-color
+													/* var r = confirm(event.title
+															+ " 일정을 삭제 할까요?");
+													if (r === true) {
+														$('#calendar').fullCalendar(
+																'removeEvents', event._id);
+														deleteSchedule(JSON
+																.stringify(event.title), JSON
+																.stringify(event.start), JSON
+																.stringify(event.end));
+													} */
+													$('#modalTitleData')
+															.val(
+																	JSON
+																			.stringify(event.title));
+													$('#modalStart')
+															.val(
+																	JSON
+																			.stringify(event.start));
+													$('#modalEnd')
+															.val(
+																	JSON
+																			.stringify(event.end));
+													$('#modalButton')
+															.html("삭제");
+													document
+															.getElementById('modalButton').style.display = ""; // 보임
+													document
+															.getElementById('modalForm').action = "delete";
+												} else {
+													document
+															.getElementById('modalButton').style.display = "none"; // 숨김
+												}
+												init_modal('#calendarModal');
+											},
+											eventLimit : 5, // allow "more" link when too many events
+										})
+					});
 </script>
 <title>full calendar</title>
 </head>
