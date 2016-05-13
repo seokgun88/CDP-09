@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 import com.test.second.object.ClassroomScheduleObj;
 import com.test.second.object.ScheduleAttr;
 
+//강의실 시간표 관련 클래스
 public class ClassTimetable {
+	//db에서 받아온 해당 강의실 데이터를 이용하여 28행 7열로 출력
 	private ArrayList<ScheduleAttr> ScheduleList;
 	
 	public ArrayList<ScheduleAttr> printTimetable(ArrayList<ClassroomScheduleObj> classScheduleList){
@@ -20,7 +22,7 @@ public class ClassTimetable {
 		for(ClassroomScheduleObj classObj : classScheduleList){
 			int i=classObj.getStart();
 			while(i<=classObj.getEnd()){
-				timetable[getTime(i)][classObj.getDay()-1] = classObj.getSchedule();
+				timetable[getTime(i)][classObj.getDay()] = classObj.getSchedule();
 				if(i%100 ==0)
 					i += 30;
 				else
@@ -44,6 +46,7 @@ public class ClassTimetable {
 		}
 		return ScheduleList;
 	}
+	//30분 단위로 새로운 행 생성을 위한 변환 함수
 	public int getTime(int time){
 		if(time%100 == 0){
 			return time/100 * 2;
@@ -52,6 +55,7 @@ public class ClassTimetable {
 			return time/100 * 2 + 1;			
 		}
 	}
+	//db에 넣는 형식인 ClassroomScheduleObj의 List를 생성
 	public ArrayList<ClassroomScheduleObj> getClassScheduleObj(String place, String time, String subject_name, String professor, String url){
 		ArrayList<ClassroomScheduleObj> classScheduleList = new ArrayList<ClassroomScheduleObj>();
 		
@@ -60,6 +64,7 @@ public class ClassTimetable {
 		Pattern p = Pattern.compile(time_regex);
 		String[] splited_time = time.split(" ");
 		String curDay = "";
+		int curEnd = 0;
 		String start = "";
 		String end = "";
 		String schedule_title = subject_name + " - " + professor;
@@ -144,19 +149,23 @@ public class ClassTimetable {
 					else
 						end = m.group(1) + "00";
 				}
-				if(curDay.equals(day)){
+				if(curDay.equals(day) && 
+						(Integer.parseInt(start) == curEnd+30) || 
+						(Integer.parseInt(start) == curEnd+70)){
 					classScheduleList.get(classScheduleList.size()-1).setEnd(Integer.parseInt(end));
+					curEnd = Integer.parseInt(end);
 				}
 				else{
 					classScheduleList.add(new ClassroomScheduleObj(splited_place[0], splited_place[1], getIntofDay(day), 
 							Integer.parseInt(start), Integer.parseInt(end), schedule_title));
 					curDay = day;
+					curEnd = Integer.parseInt(end);
 				}
 			}
 		}
 		return classScheduleList;
 	}
-	
+	//요일을 숫자로 변환
 	public int getIntofDay(String day){
 		if(day.equals("월")){
 			return 1;

@@ -17,6 +17,20 @@
     	INSERT INTO CLASSROOMTIMETABLE (BUILDING, ROOM, DAY, START, END, SCHEDULE) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})    
     </insert>
     <select id="class_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
-    	SELECT BUILDING, ROOM, DAY, START, END, SCHEDULE FROM CLASSROOMTIMETABLE WHERE BUILDING=#{param1} AND ROOM=#{param2}
+    	SELECT BUILDING, ROOM, DAY, START, END, SCHEDULE 
+    	FROM CLASSROOMTIMETABLE 
+    	WHERE BUILDING=#{param1} AND ROOM=#{param2}
+    </select>
+    <select id="building_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
+    	SELECT BUILDING, ROOM, DAY, START, END, SCHEDULE 
+    	FROM CLASSROOMTIMETABLE 
+    	WHERE BUILDING=#{param1} AND DAY=#{param2} AND START &lt;=#{param3} AND END &gt;=#{param3} 
+    	ORDER BY ROOM
+    </select>
+    <select id="room_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
+    	SELECT DISTINCT ROOM 
+    	FROM CLASSROOMTIMETABLE 
+    	WHERE BUILDING=#{param1}
+    	ORDER BY ROOM
     </select>
 </mapper>
