@@ -112,21 +112,23 @@
 							eventSources : [ // your event source
 							{
 								url : '/second/calendarcollege', // use the `url` property
-								color : '#0CD1B3', // an option!
+								color : '#9ac2b7', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
 								url : '/second/calendarholiday', // use the `url` property
-								color : '#eb5d71', // an option!
+								color : '#F98E9D', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
 								url : '/second/calendartimetable', // use the `url` property
-								color : '#A8E3F7', // an option!
+								color : '#A5DBEE', // an option!
 								textColor : 'white', // an option!
 								editable : false
 							}, {
-								url : '/second/calendarusertime'
+								url : '/second/calendarusertime',
+								color : '#A3A6BD', // an option!
+								textColor : 'white' // an option!
 							} ],
 							loading : function(isLoading) {
 								if (isLoading) {
@@ -293,7 +295,7 @@
 											moment(event.end).format(
 											'YYYY/MM/DD HH:mm'));
 								}
-								if ("rgb(58, 135, 173)" == $(this).css(
+								if ("rgb(163, 166, 189)" == $(this).css(
 										'background-color')) { // check user event using bg-color
 									/* var r = confirm(event.title
 											+ " 일정을 삭제 할까요?");
@@ -316,7 +318,7 @@
 								}
 								$('#calendarModal').modal();
 							},
-							eventLimit : 5, // allow "more" link when too many events
+							eventLimit : 4, // allow "more" link when too many events
 						})
 			});
 </script>
