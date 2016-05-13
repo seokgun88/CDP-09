@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.test.second.object.ClassroomScheduleObj;
 import com.test.second.object.LectureObj;
 import com.test.second.parser.LecturePlan;
 
@@ -62,4 +63,6 @@ public class TimetableController {
 		
 		return "timetable";
 	}
+	
+	
 }
