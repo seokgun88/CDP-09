@@ -30,11 +30,29 @@ height: 100%;
 	/* Safari and Chrome */
 }
 </style>
+<script type="text/javascript">
+	var getParameter = function getParameter(param) {
+		var returnValue;
+		var url = location.href;
+		var parameters = (url.slice(url.indexOf('?') + 1, url.length))
+				.split('&');
+		for (var i = 0; i < parameters.length; i++) {
+			var varName = parameters[i].split('=')[0];
+			if (varName.toUpperCase() == param.toUpperCase()) {
+				returnValue = parameters[i].split('=')[1];
+				return decodeURIComponent(returnValue);
+			}
+		}
+	};
+	$(window).load(function() {
+		if (getParameter("success") == "false") {
+			$('#loginFailModal').modal('show');
+		}
+	});
+</script>
 </head>
 <body>
-	<c:if test="${param.success eq false}">
-	</c:if>
-	<!-- Modal -->
+	<!-- Login Failed Modal -->
 	<div id="loginFailModal" class="modal fade">
 		<div class="modal-dialog modal-vertical-centered">
 			<div class="modal-content">
@@ -43,22 +61,14 @@ height: 100%;
 						<span aria-hidden="true">×</span> <span class="sr-only">close</span>
 					</button>
 					<h4 id="modalTitle" class="modal-title">로그인 실패</h4>
-					<input id="modalNewTitle" type="text" class="form-control"
-						name="new_title" style="display: none"
-						placeholder="새로운 일정을 입력하세요" required>
 				</div>
+				<div id="modalBody" class="modal-body">YES ID와 비밀번호를 다시 입력해주세요.</div>
 				<div class="modal-footer">
-					<input id="modalTitleData" type="hidden" class="form-control"
-						name="title"> <input id="modalStart" type="hidden"
-						class="form-control" name="start"> <input id="modalEnd"
-						type="hidden" class="form-control" name="end">
-					<button type="submit" id="modalButton" class="btn btn-default">삭제</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	</c:if>
 	
 	<div class="container-fluid bgimage">
 		

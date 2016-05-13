@@ -336,7 +336,7 @@
 	</div>
 
 	<nav class="navbar navbar-inverse navbar-static-top">
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target="#myNavbar">
@@ -347,46 +347,37 @@
 				<div id="loading"></div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-1"></div>
-			<div class="col-xs-9">
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">일정</a></li>
-						<li><a href="knumap">빈강의실</a></li>
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<div class="hidden-xs">
-								<div style="float: right; margin: 15px 0 0 0;">
-									<script id="_waume7">
-										var _wau = _wau || [];
-										_wau.push([ "small", "rmvhnojtde5v",
-												"me7" ]);
-										(function() {
-											var s = document
-													.createElement("script");
-											s.async = true;
-											s.src = "http://widgets.amung.us/small.js";
-											document
-													.getElementsByTagName("head")[0]
-													.appendChild(s);
-										})();
-									</script>
-								</div>
-							</div>
-						</li>
-						<li><a href="logout"><span
-								class="glyphicon glyphicon-log-out"></span> Lgout</a>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">일정</a></li>
+				<li><a href="knumap">빈강의실</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<div class="hidden-xs">
+						<div style="float: right; margin: 15px 0 0 0;">
+							<script id="_waume7">
+								var _wau = _wau || [];
+								_wau.push([ "small", "rmvhnojtde5v", "me7" ]);
+								(function() {
+									var s = document.createElement("script");
+									s.async = true;
+									s.src = "http://widgets.amung.us/small.js";
+									document.getElementsByTagName("head")[0]
+											.appendChild(s);
+								})();
+							</script>
+						</div>
+					</div>
+				</li>
+				<li><a href="logout"><span
+						class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
+			</ul>
 		</div>
 	</div>
 	</nav>
 
-		<!-- Modal -->
+	<!-- Modal -->
 		<div id="calendarModal" class="modal fade">
 			<div class="modal-dialog modal-vertical-centered">
 				<form id="modalForm" class="form-horizontal" role="form"
