@@ -107,14 +107,5 @@ public class HomeController {
 		return "fullcalendar";
 	}
 	
-	@RequestMapping(value = "/buildingdata", method = RequestMethod.GET)
-	@ResponseBody
-	public ArrayList<PlaceObj> buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
-		
-		System.out.println(place);
-		System.out.println("**************************");
-		PlaceManage PM = new PlaceManage();
-				
-		return PM.getElementPlaceList(place);		
-	}
+	
 }

@@ -15,12 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.second.ClassTimetable;
+import com.test.second.PlaceManage;
 import com.test.second.dao.Dao;
 import com.test.second.object.CalendarObj;
 import com.test.second.object.ClassroomScheduleObj;
+import com.test.second.object.PlaceObj;
 import com.test.second.object.ScheduleAttr;
 import com.test.second.parser.LecturePlan;
 
@@ -93,13 +96,29 @@ public class ClassTimetableController {
 	
 	//해당 건물의 강의실들 전부 가져오기
 	@RequestMapping("/getRoom")
-	public String getRoom(Model model, HttpServletRequest request){
+	@ResponseBody
+	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request){
+		
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
-			System.out.println(classObj.getRoom());
-		}
+		ArrayList<ClassroomScheduleObj> ClassroomList = dao.room_select("공대9호관");
 		
-		return "redirect:fullcalendar";
+//		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
+//			System.out.println(classObj.getRoom());
+//		}
+		
+		return ClassroomList;
 	}
+	
+	@RequestMapping(value = "/buildingdata", method = RequestMethod.GET)
+	@ResponseBody
+	public ArrayList<PlaceObj> buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
+		
+		System.out.println(place);
+		System.out.println("**************************");
+		PlaceManage PM = new PlaceManage();
+				
+		return PM.getElementPlaceList(place);		
+	}
+	
 }

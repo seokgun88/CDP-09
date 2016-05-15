@@ -1,11 +1,26 @@
 
 var GetData;
-var PlaceLink = new Array();
-var PlaceSubName = new Array();
-var PlaceSubNum = new Array();
-var Place = new Array();
 
 //과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
+function getJsonData(parameter){
+	$.ajax({
+		url: "/second/buildingdata?place="+parameter,
+		type: 'GET',
+		async: false, // 동기
+		timout: 10000,
+		dataType: 'JSON',
+		success: function (data){			
+			GetData = "";
+			console.log(data);
+			$.each(data, function(key,subdata){
+				console.log(subdata.room);
+				GetData += subdata.room
+				GetData += '<span style="font-weight:bold;">'+subdata.placeName + "-" + subdata.placeNum + "</span></br>";;
+				
+			});
+		}		
+	})
+};
 
 function getJsonData(parameter){
 	$.ajax({
