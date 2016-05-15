@@ -22,8 +22,8 @@
 </head>
 
 <body>
-	<div class="container-fluid bgimage" 
-	style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-mapbanner.png);">
+	<div class="container-fluid bgimage"
+		style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-mapbanner.png);">
 		<div class="row">
 			<div class="col-xs-1 col-md-4"></div>
 			<div class="col-xs-10 col-md-4">
@@ -34,7 +34,8 @@
 		</div>
 	</div>
 
-	<nav class="navbar navbar-inverse navbar-static-top" style="margin-bottom: 0;">
+	<nav class="navbar navbar-inverse navbar-static-top"
+		style="margin-bottom: 0;">
 	<div class="container">
 		<div class="row navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -75,11 +76,16 @@
 		</div>
 	</div>
 	</nav>
-	
+
 	<div class="container">
 		<div id="testMap"
-				style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
-			<script type="text/javascript" src="resources/navermap.js"></script>
+			style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
+		<script type="text/javascript" src="resources/navermap.js"></script>
+	</div>
+		
+	<div class="container">
+		<div id="ClasstimetableDiv" 
+			style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;">
 		</div>
 	</div>
 </body>

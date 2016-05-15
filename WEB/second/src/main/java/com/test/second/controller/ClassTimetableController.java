@@ -67,13 +67,15 @@ public class ClassTimetableController {
 	}
 	
 	@RequestMapping("/classtimetable")
-	public String classtimetable(HttpServletRequest request, Model model) {
+	public String classtimetable(HttpServletRequest request, Model model,
+			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place,
+			@RequestParam(value="placenum",required=false,defaultValue="417") String placenum) {
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
 
-		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
+//		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
 		
-		model.addAttribute("list", classTimetable.printTimetable(dao.class_select("공대9호관", "417")));
+		model.addAttribute("list", classTimetable.printTimetable(dao.class_select(place, placenum)));
 		
 		return "classtimetable";
 	}
@@ -97,13 +99,14 @@ public class ClassTimetableController {
 	}
 	
 	//해당 건물의 강의실들 전부 가져오기
-	@RequestMapping("/getRoom")
+	@RequestMapping(value = "/getroom" , method = RequestMethod.GET)
 	@ResponseBody
-	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request){
-		
+	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request,
+			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
+				
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		ArrayList<ClassroomScheduleObj> ClassroomList = dao.room_select("공대9호관");
+		ArrayList<ClassroomScheduleObj> ClassroomList = dao.room_select(place);
 		
 //		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
 //			System.out.println(classObj.getRoom());

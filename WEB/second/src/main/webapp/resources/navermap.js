@@ -1,62 +1,70 @@
 
 var GetData;
+function getClassTimetable(place,placenum){
+	console.log(place);
+	console.log(placenum);
+	var classtimetable_URL = "http://127.0.0.1:8181/second/classtimetable?place="+place+"&placenum="+placenum;
+	console.log(classtimetable_URL);
+	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style=" +'"max-height: 400px; max-width: 500px;"'+"></iframe>";
+	document.getElementById('ClasstimetableDiv').innerHTML = place+placenum +"<br/>"+ classtimetable_HTML;
+//	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
+};
 
 //과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
 function getJsonData(parameter){
 	$.ajax({
-		url: "/second/buildingdata?place="+parameter,
+		url: "/second/getroom?place="+parameter,
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
 		dataType: 'JSON',
 		success: function (data){			
 			GetData = "";
-			console.log(data);
+			
 			$.each(data, function(key,subdata){
 				console.log(subdata.room);
-				GetData += subdata.room
-				GetData += '<span style="font-weight:bold;">'+subdata.placeName + "-" + subdata.placeNum + "</span></br>";;
-				
+
+				GetData += '<input type="button" onclick="getClassTimetable('+ "'"+parameter+"'" + ','+ subdata.room + ')" value=' + subdata.room +' style="border-radius: 4px;width: 100px">    ' +"</br>";
 			});
 		}		
 	})
 };
 
-function getJsonData(parameter){
-	$.ajax({
-		url: "/second/buildingdata?place="+parameter,
-		type: 'GET',
-		async: false, // 동기
-		timout: 10000,
-		dataType: 'JSON',
-		success: function (data){			
-			GetData = "";
-
-			console.log(data);
-			$.each(data, function(key,subdata){
-
-				GetData += '<span style="font-weight:bold;">'+subdata.placeName + "-" + subdata.placeNum + "</span></br>";;
-				//  과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>			
-				$.each(subdata.classList, function(key,state){
-					obj = state;
-					console.log(obj.professor);
-					GetData += '<input type="button" value=' + obj.subjectNum +' style="border-radius: 4px;width: 100px">    ' + '  <a href="'+obj.link+'" target="_blank">'+obj.subject+"</a></br>";
-
-//					GetData += "[*]";
-//					GetData += obj.time + "/";
-//					GetData += obj.professor + "/";
-//					GetData += obj.subject + "/";
-//					GetData += obj.subjectNum + "/";
-//					GetData += obj.reg_college + "/";
-//					GetData += obj.link + "/\n";
-
-				});
-			});
-
-
-		}		
-	})
-};
+//function getJsonData(parameter){
+//	$.ajax({
+//		url: "/second/buildingdata?place="+parameter,
+//		type: 'GET',
+//		async: false, // 동기
+//		timout: 10000,
+//		dataType: 'JSON',
+//		success: function (data){			
+//			GetData = "";
+//
+//			console.log(data);
+//			$.each(data, function(key,subdata){
+//
+//				GetData += '<span style="font-weight:bold;">'+subdata.placeName + "-" + subdata.placeNum + "</span></br>";;
+//				//  과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>			
+//				$.each(subdata.classList, function(key,state){
+//					obj = state;
+//					console.log(obj.professor);
+//					GetData += '<input type="button" value=' + obj.subjectNum +' style="border-radius: 4px;width: 100px">    ' + '  <a href="'+obj.link+'" target="_blank">'+obj.subject+"</a></br>";
+//
+////					GetData += "[*]";
+////					GetData += obj.time + "/";
+////					GetData += obj.professor + "/";
+////					GetData += obj.subject + "/";
+////					GetData += obj.subjectNum + "/";
+////					GetData += obj.reg_college + "/";
+////					GetData += obj.link + "/\n";
+//
+//				});
+//			});
+//
+//
+//		}		
+//	})
+//};
 
 
 
@@ -120,8 +128,9 @@ oMap.attach('click', function(oCustomEvent) {
 		if (oCustomEvent.clickCoveredMarker) {
 			return;
 		}
+		console.log(oTarget.getTitle());
 		getJsonData(oTarget.getTitle());
-		console.log(GetData);
+
 		// - InfoWindow 에 들어갈 내용은 setContent 로 자유롭게 넣을 수 있습니다. 외부 css를 이용할 수 있으며,
 		// - 외부 css에 선언된 class를 이용하면 해당 class의 스타일을 바로 적용할 수 있습니다.
 		// - 단, DIV 의 position style 은 absolute 가 되면 안되며,

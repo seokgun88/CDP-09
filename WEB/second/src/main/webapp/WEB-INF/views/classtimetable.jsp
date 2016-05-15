@@ -16,33 +16,6 @@
 </head>
 <body>
 	<div class="container">
-		<a href="home"><img src="resources/KNUPLAN.png"
-			class="img-responsive" alt="Knu Plan"> </a>
-
-		<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">KNU PLAN</a>
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li><a href="fullcalendar">일정</a>
-					<li class="active"><a href="#">시간표</a></li>
-					<li><a href="knumap">빈강의실</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout"><span
-							class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
-				</ul>
-			</div>
-		</div>
-		</nav>
-
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
