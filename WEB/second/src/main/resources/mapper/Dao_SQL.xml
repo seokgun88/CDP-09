@@ -22,9 +22,9 @@
     	WHERE BUILDING=#{param1} AND ROOM=#{param2}
     </select>
     <select id="building_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
-    	SELECT BUILDING, ROOM, DAY, START, END, SCHEDULE 
+    	SELECT DISTINCT BUILDING, ROOM, DAY, START, END, SCHEDULE 
     	FROM CLASSROOMTIMETABLE 
-    	WHERE BUILDING=#{param1} AND DAY=#{param2} AND START &lt;=#{param3} AND END &gt;=#{param3} 
+    	WHERE BUILDING=#{param1} AND DAY=#{param2} AND START &lt;=#{param3}-15 AND END &gt;=#{param3}+15 
     	ORDER BY ROOM
     </select>
     <select id="room_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">

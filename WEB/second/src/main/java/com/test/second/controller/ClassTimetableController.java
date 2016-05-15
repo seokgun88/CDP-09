@@ -70,6 +70,8 @@ public class ClassTimetableController {
 	public String classtimetable(HttpServletRequest request, Model model) {
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
+
+		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
 		
 		model.addAttribute("list", classTimetable.printTimetable(dao.class_select("공대9호관", "417")));
 		
