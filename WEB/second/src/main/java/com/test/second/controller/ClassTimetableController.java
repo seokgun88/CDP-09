@@ -94,15 +94,12 @@ public class ClassTimetableController {
         String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1120" 11시 20분
         System.out.println(day);
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-<<<<<<< HEAD
+
         time = "1120";
         day = "월";
         System.out.println("[*]"+Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
         
         for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
-=======
-		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", classTimetable.getIntofDay(day), Integer.parseInt(time) - 8)){
->>>>>>> origin/Yseok
 			System.out.println(classObj.getRoom());
 		}
 		
