@@ -103,6 +103,7 @@ public class ClassTimetableController {
 	@ResponseBody
 	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request,
 			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
+		System.out.println("call getroom : " + place);
 				
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();

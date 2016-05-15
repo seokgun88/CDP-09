@@ -287,6 +287,7 @@
 								})
 			});
 </script>
+<link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
 <title>나의 일정</title>
 </head>
 <body>

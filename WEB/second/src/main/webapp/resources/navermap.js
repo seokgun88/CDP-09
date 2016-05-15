@@ -24,7 +24,8 @@ function getJsonData(parameter){
 			$.each(data, function(key,subdata){
 				console.log(subdata.room);
 
-				GetData += '<input type="button" onclick="getClassTimetable('+ "'"+parameter+"'" + ','+ subdata.room + ')" value=' + subdata.room +' style="border-radius: 4px;width: 100px">    ' +"</br>";
+				GetData += '<input type="button" onclick="getClassTimetable(' + "'" + parameter + "'" + ',' + "'" + subdata.room + "'" + ')" value='
+						+ subdata.room + ' style="border-radius: 4px;width: 100px">    ' + "</br>";
 			});
 		}		
 	})

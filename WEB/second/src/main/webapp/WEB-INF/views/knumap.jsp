@@ -10,6 +10,7 @@
 <script src='${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
+<link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
 <title>빈 강의실 찾기</title>
 </head>
 
