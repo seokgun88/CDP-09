@@ -319,7 +319,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<div class="hidden-xs">
-						<div style="float: right; margin: 15px 0 0 0;">
+						<div style="float: right; margin: 18px 0 0 0;">
 							<script id="_waume7">
 								var _wau = _wau || [];
 								_wau.push([ "small", "rmvhnojtde5v", "me7" ]);
