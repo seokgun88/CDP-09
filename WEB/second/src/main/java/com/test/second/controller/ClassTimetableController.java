@@ -91,7 +91,7 @@ public class ClassTimetableController {
         String day = (new SimpleDateFormat("E").format(date)); //현재 요일
         String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", classTimetable.getIntofDay(day), Integer.parseInt(time))){
+		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", classTimetable.getIntofDay(day), Integer.parseInt(time) - 8)){
 			System.out.println(classObj.getRoom());
 		}
 		

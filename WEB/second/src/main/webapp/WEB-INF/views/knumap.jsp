@@ -11,11 +11,16 @@
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
 <link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
+<script type="text/javascript">
+	document.oncontextmenu = function() { // 컨텍스트 메뉴금지
+		return false;
+	};
+</script>
 <title>빈 강의실 찾기</title>
 </head>
 
-<body>
-	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-mapbanner.png);">
+<body style="overflow-x:hidden; overflow-y:auto;">
+	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-mapbanner.jpg);">
 		<div class="row">
 			<div class="col-xs-1 col-md-4"></div>
 			<div class="col-xs-10 col-md-4">
@@ -60,8 +65,9 @@
 	</nav>
 
 	<div class="container">
-		<div id="testMap"></div>
-		<script type="text/javascript" src="resources/navermap.js"></script>
+		<div id="testMap">
+			<script type="text/javascript" src="resources/navermap.js"></script>
+		</div>
 	</div>
 
 	<div class="container">

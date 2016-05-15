@@ -1,7 +1,7 @@
 
 var GetData;
 function resizeIframe(obj) {
-	obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+	obj.style.height = 1200 + 'px';
 	obj.style.width = '100%';
 }
 function getClassTimetable(place,placenum){
@@ -9,7 +9,7 @@ function getClassTimetable(place,placenum){
 	console.log(placenum);
 	var classtimetable_URL = "http://127.0.0.1:8181/second/classtimetable?place="+place+"&placenum="+placenum;
 	console.log(classtimetable_URL);
-	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style= \"display:block;\" scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
+	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
 	document.getElementById('ClasstimetableDiv').innerHTML = place+placenum +"<br/>"+ classtimetable_HTML;
 //	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
 };
@@ -84,7 +84,7 @@ oMap = new nhn.api.map.Map('testMap' ,{
 	mapMode : 0,
 	activateTrafficMap : false,
 	activateBicycleMap : false,
-	minMaxLevel : [ 1, 14 ],
+	minMaxLevel : [ 11, 14 ],
 	size : new nhn.api.map.Size(1100, 600)
 });
 var markerCount = 0;

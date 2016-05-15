@@ -286,6 +286,9 @@
 									eventLimit : 5, // allow "more" link when too many events
 								})
 			});
+	document.oncontextmenu = function() { // 컨텍스트 메뉴금지
+		return false;
+	};
 </script>
 <link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
 <title>나의 일정</title>
@@ -293,7 +296,7 @@
 <body>
 	<div id="loading"></div>
 	
-	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-homebanner.png);">
+	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-homebanner.jpg);">
 		<div class="row">
 			<div class="col-xs-1 col-md-4"></div>
 			<div class="col-xs-10 col-md-4">
