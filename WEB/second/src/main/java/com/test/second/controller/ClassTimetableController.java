@@ -91,11 +91,11 @@ public class ClassTimetableController {
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
         String day = (new SimpleDateFormat("E").format(date)); //현재 요일 ex) "월" 또는 "화"
-        String time = (new SimpleDateFormat("HH").format(date)); //현재 시간 ex) "11" 11시
-        String minitue = (new SimpleDateFormat("mm").format(date)); //현재 분 ex) "10" 10분
+        String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1130" 11시30분
+        //String minitue = (new SimpleDateFormat("mm").format(date)); //현재 분 ex) "10" 10분
         
         
-        //시간 조정 -8을 이용
+       /* //시간 조정 -8을 이용
         int subtime = Integer.parseInt(time) - 8;
                 
         if(subtime < 0) time = "2300";
@@ -103,9 +103,30 @@ public class ClassTimetableController {
         System.out.println(subtime);
         System.out.println(time);
         //시간 조정 -8을 이용
-        
+*/        
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-        
+        int intTime = Integer.parseInt(time);
+        int startTime, endTime;
+        if(intTime > 2340){
+        	startTime = 2340;
+        	endTime = 2340;
+        }
+        else if(intTime < 20){
+        	startTime = 20;
+        	endTime = 20;
+        }
+        else{
+			if (intTime % 100 < 45) {
+				endTime = intTime - 85;
+			} else {
+				endTime = intTime - 45;
+			}
+			if(intTime % 100 > 45){
+				startTime = intTime + 55;
+			} else{
+				startTime = intTime + 15;
+			}
+        }
         /* 테스트 하드 코딩
         time = "0320";
         day = "월";
@@ -116,8 +137,8 @@ public class ClassTimetableController {
       /*  for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
 			System.out.println(classObj.getRoom());
 		}*/
-		
-		return dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time));
+		System.out.println(startTime + " " + endTime);
+		return dao.building_select(place, classTimetable.getIntofDay(day), startTime, endTime);
 	}
 	
 	//해당 건물의 강의실들 전부 가져오기

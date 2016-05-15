@@ -51,10 +51,10 @@ public class ClassTimetable {
 	//30분 단위로 새로운 행 생성을 위한 변환 함수
 	public int getTime(int time){
 		if(time%100 == 0){
-			return time/100 * 2;
+			return ((time/100) - 8) * 2;
 		}
 		else{
-			return time/100 * 2 + 1;			
+			return ((time/100) - 8) * 2 + 1;
 		}
 	}
 	//db에 넣는 형식인 ClassroomScheduleObj의 List를 생성
