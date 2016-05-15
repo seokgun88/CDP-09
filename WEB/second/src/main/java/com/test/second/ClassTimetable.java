@@ -39,7 +39,7 @@ public class ClassTimetable {
 				time = cnt/2+"B";
 			}
 			
-		    System.out.println((Arrays.toString(row)));
+//		    System.out.println((Arrays.toString(row)));
 //		    ScheduleAttr schobj = new ScheduleAttr(time, row[0], row[1], row[2], row[3], row[4], row[5], row[6]);
 		    ScheduleAttr schobj = new ScheduleAttr(time, row[1], row[2],
 		    		row[3], row[4], row[5], row[6], row[0]);

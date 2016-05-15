@@ -99,9 +99,9 @@ public class ClassTimetableController {
         day = "월";
         System.out.println("[*]"+Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
         
-        for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
+      /*  for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
 			System.out.println(classObj.getRoom());
-		}
+		}*/
 		
 		return dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time));
 	}
