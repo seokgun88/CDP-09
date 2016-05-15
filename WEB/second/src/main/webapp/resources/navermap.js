@@ -2,7 +2,12 @@
 var GetData;
 
 function resizeIframe(obj) {
-	obj.style.height = 1200 + 'px';
+	if($(window).width() < 800){
+		obj.style.height = obj.contentWindow.document.body.scrollHeight+500 + 'px';
+	}
+	else{
+		obj.style.height = 1500 + 'px';	
+	}
 	obj.style.width = '100%';
 }
 function getClassTimetable(place,placenum){
@@ -11,15 +16,45 @@ function getClassTimetable(place,placenum){
 	var classtimetable_URL = "http://127.0.0.1:8181/second/classtimetable?place="+place+"&placenum="+placenum;
 	
 	console.log(classtimetable_URL);
-	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style=" +'"max-height: 400px; max-width: 500px;"'+"></iframe>";	
-	
-	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
-	document.getElementById('ClasstimetableDiv').innerHTML = place+placenum +"<br/>"+ classtimetable_HTML;
+	var classtimetable_HTML = "<iframe id=\'timetableIframe\' src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
+	document.getElementById('ClasstimetableDiv').innerHTML = "<br /> <h2 align=\'center\'>" + place+placenum +"</h2>"+ classtimetable_HTML;
 		
 //	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
-};
+}; 
+var w = 100, h = 100;
+$(document).ready(function(){
+	if($(window).height() < 800 && $(window).width() < 400 ){
+		w = $(window).width() - 95;
+		h = $(window).height() - 50;		
+	}
+	else{
+		w = $(window).width()*0.6;
+		h = $(window).height()*0.6;		
+	}
+	oMap.setSize(new nhn.api.map.Size(w, h));
+	$(window).resize(function() {
+		if($(window).height() < 800 && $(window).width() < 400 ){
+			w = $(window).width() - 95;
+			h = $(window).height() - 50;		
+		}
+		else{
+			w = $(window).width()*0.6;
+			h = $(window).height()*0.6;		
+		}
+		oMap.setSize(new nhn.api.map.Size(w, h));
+		if($(window).width() < 300){
+			document.getElementById('timetableIframe').style.height = '5000px';
+		}
+		else if($(window).width() < 500){
+			document.getElementById('timetableIframe').style.height = '3000px';			
+		}
+		else{
+			document.getElementById('timetableIframe').style.height = '1500px';
+		}
+	});
+});
 
-//과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
+// 과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
 function getJsonData(parameter){
 	var BuildingList = new Array();
 	$.ajax({		
@@ -118,6 +153,10 @@ oMap = new nhn.api.map.Map('testMap' ,{
 	minMaxLevel : [ 1, 14 ],
 	size : new nhn.api.map.Size(1100, 600)
 });
+var mapZoom = new nhn.api.map.ZoomControl(); // - 줌 컨트롤 선언
+mapZoom.setPosition({left:40, bottom:40}); // - 줌 컨트롤 위치 지정
+oMap.addControl(mapZoom); // - 줌 컨트롤 추가.
+
 var markerCount = 0;
 
 var oSize = new nhn.api.map.Size(28, 37);
@@ -189,6 +228,8 @@ oMap.attach('click', function(oCustomEvent) {
 //	oMarker.setPoint(oPoint);
 //	oMap.addOverlay(oMarker);
 });
+
+
 
 //공대9호관,정보전산원(전자계산소),IT대학4호관(제2학생회관),공대12호관,IT대학3호관(공대11호관)
 //키 : 공대9호관, 값 : PLACE : 128.608503, 35.8868758
