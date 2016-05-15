@@ -23,8 +23,9 @@ function getClassTimetable(place,placenum){
 var w = 100, h = 100;
 $(document).ready(function(){
 	if($(window).height() < 800 && $(window).width() < 500 ){
-		w = $(window).width() - 95;
+		w = $(window).width() - 50;
 		h = $(window).height() - 50;		
+		oMap.setLevel(12);
 	}
 	else{
 		w = 1200;
@@ -33,8 +34,8 @@ $(document).ready(function(){
 	oMap.setSize(new nhn.api.map.Size(w, h));
 	$(window).resize(function() {
 		if($(window).height() < 800 && $(window).width() < 500 ){
-			w = $(window).width() - 95;
-			h = $(window).height() - 50;		
+			w = $(window).width() - 50;
+			h = $(window).height() - 50;
 		}
 		else{
 			w = 1200;

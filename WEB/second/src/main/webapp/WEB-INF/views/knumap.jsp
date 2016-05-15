@@ -4,18 +4,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11">
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11"> -->
 <script src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/jquery.min.js'></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/css/bootstrap.min.css" />
 <script src='${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>
 <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
-<link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
 <script type="text/javascript">
 	document.oncontextmenu = function() { // 컨텍스트 메뉴금지
 		return false;
 	};
 </script>
+<link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
 <title>빈 강의실 찾기</title>
 </head>
 
