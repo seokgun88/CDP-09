@@ -60,12 +60,12 @@
 	</nav>
 
 	<div class="container">
-		<div id="testMap" style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
+		<div id="testMap"></div>
 		<script type="text/javascript" src="resources/navermap.js"></script>
 	</div>
 
 	<div class="container">
-		<div id="ClasstimetableDiv" style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
+		<div id="ClasstimetableDiv"></div>
 	</div>
 </body>
 </html>
