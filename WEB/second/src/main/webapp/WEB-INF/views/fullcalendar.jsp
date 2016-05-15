@@ -19,16 +19,13 @@
 	-webkit-transform: translate(0, 100%) !important;
 	/* Safari and Chrome */
 }
-
 #calendar .fc-day-number {
 	text-decoration: underline;
 	text-align: right;
 }
-
 #calendar .fc-day-number:hover {
 	cursor: pointer;
 }
-
 #calendar .fc-today {
 	background-color: #ECF5F5;
 }
@@ -371,7 +368,6 @@
 
 	<div>
 		<br /> <br /> <br />
-	</div>
 	</div>
 </body>
 </html>
