@@ -92,10 +92,14 @@ public class ClassTimetableController {
         java.util.Date date = calendar.getTime();
         String day = (new SimpleDateFormat("E").format(date)); //현재 요일 ex) "월" 또는 "화"
         String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1120" 11시 20분
+        int subtime = Integer.parseInt(time.substring(0, 2)) - 8;
+        if(subtime < 0) subtime = 0;
+        time = Integer.toString(subtime)+time.substring(2); 
+        
         System.out.println(day);
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
 
-        time = "1120";
+        time = "0320";
         day = "월";
         System.out.println("[*]"+Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
         
