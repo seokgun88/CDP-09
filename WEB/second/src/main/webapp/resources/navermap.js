@@ -14,7 +14,19 @@ function getClassTimetable(place,placenum){
 //	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
 };
 
-//과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
+$(document).ready(function(){
+	$(window).resize(function() {
+		var height = window.outerHeight;
+		var weight = window.outerWeight;
+		if (height <= 800) {
+			oMap.setSize(new nhn.api.map.Size(200, 200));
+		} else{
+			oMap.setSize(new nhn.api.map.Size(1100, 600));
+		}
+ });
+});
+
+// 과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
 function getJsonData(parameter){
 	$.ajax({
 		url: "/second/getroom?place="+parameter,
