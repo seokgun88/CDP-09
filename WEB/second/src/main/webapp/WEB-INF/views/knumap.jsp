@@ -73,5 +73,6 @@
 	<div class="container">
 		<div id="ClasstimetableDiv"></div>
 	</div>
+	
 </body>
 </html>

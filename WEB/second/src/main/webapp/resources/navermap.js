@@ -1,5 +1,6 @@
 
 var GetData;
+
 function resizeIframe(obj) {
 	obj.style.height = 1200 + 'px';
 	obj.style.width = '100%';
@@ -8,9 +9,13 @@ function getClassTimetable(place,placenum){
 	console.log(place);
 	console.log(placenum);
 	var classtimetable_URL = "http://127.0.0.1:8181/second/classtimetable?place="+place+"&placenum="+placenum;
+	
 	console.log(classtimetable_URL);
+	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style=" +'"max-height: 400px; max-width: 500px;"'+"></iframe>";	
+	
 	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
 	document.getElementById('ClasstimetableDiv').innerHTML = place+placenum +"<br/>"+ classtimetable_HTML;
+		
 //	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
 };
 
@@ -28,6 +33,21 @@ $(document).ready(function(){
 
 // 과목넘버 <a href="링크">과목이름</a> <button>버튼</button></br>
 function getJsonData(parameter){
+	var BuildingList = new Array();
+	$.ajax({		
+		url: "http://127.0.0.1:8181/second/getroomusalbe?place="+parameter,
+		type: 'GET',
+		async: false, // 동기
+		timout: 10000,
+		dataType: 'JSON',
+		success: function (data){			
+			GetData = "";			
+			$.each(data, function(key,subdata){
+				console.log(subdata.room);
+				BuildingList.push(subdata.room);
+			});
+		}		
+	})
 	$.ajax({
 		url: "/second/getroom?place="+parameter,
 		type: 'GET',
@@ -38,10 +58,21 @@ function getJsonData(parameter){
 			GetData = "";
 			
 			$.each(data, function(key,subdata){
-				console.log(subdata.room);
+				var color = "9ac2b7";
+				for( var i = 0 ; i < BuildingList.length ; i++){
+					// 사용중인 방일 때 red
+					if(subdata.room == BuildingList[i]){ 
+						color = "F98E9D";
+						break;
+					}
+				}
+//				console.log(subdata.room);
+//				console.log(color);
+				//green : style="background-color:#9ac2b7;border-color:#9ac2b7;
+				//red   : style="background-color:#F98E9D;border-color:#F98E9D;
 
 				GetData += '<input type="button" onclick="getClassTimetable(' + "'" + parameter + "'" + ',' + "'" + subdata.room + "'" + ')" value='
-						+ subdata.room + ' style="border-radius: 4px;width: 100px">    ' + "</br>";
+						+ subdata.room + ' style="border-radius: 4px; width: 100px;background-color:#'+color+';border-color:#'+color+';">' + "</br>";
 			});
 		}		
 	})
@@ -96,7 +127,7 @@ oMap = new nhn.api.map.Map('testMap' ,{
 	mapMode : 0,
 	activateTrafficMap : false,
 	activateBicycleMap : false,
-	minMaxLevel : [ 11, 14 ],
+	minMaxLevel : [ 1, 14 ],
 	size : new nhn.api.map.Size(1100, 600)
 });
 var markerCount = 0;
