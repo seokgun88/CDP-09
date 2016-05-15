@@ -3,6 +3,8 @@ package com.test.second.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +15,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.test.second.ClassTimetable;
+import com.test.second.PlaceManage;
 import com.test.second.dao.Dao;
 import com.test.second.object.CalendarObj;
 import com.test.second.object.ClassroomScheduleObj;
+import com.test.second.object.PlaceObj;
+import com.test.second.object.ScheduleAttr;
 import com.test.second.parser.LecturePlan;
 
 @Controller
@@ -51,13 +58,28 @@ public class ClassTimetableController {
 	
 	//특정 강의실 시간표 DB에서 가져오기
 	@RequestMapping("/getClassTimetable")
-	public String getClassTimetable(Model model, HttpServletRequest request){
+	@ResponseBody
+	public List<ScheduleAttr> getClassTimetable(HttpServletRequest request){
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
-		
-		return "redirect:fullcalendar";
+				
+		return classTimetable.printTimetable(dao.class_select("공대9호관", "417"));
 	}
+	
+	@RequestMapping("/classtimetable")
+	public String classtimetable(HttpServletRequest request, Model model,
+			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place,
+			@RequestParam(value="placenum",required=false,defaultValue="417") String placenum) {
+		Dao dao = sqlSession.getMapper(Dao.class);
+		ClassTimetable classTimetable = new ClassTimetable();
+
+//		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
+		
+		model.addAttribute("list", classTimetable.printTimetable(dao.class_select(place, placenum)));
+		
+		return "classtimetable";
+	}
+	
 	
 	//현재 시간에 해당 건물의 강의실들 사용 여부 알아오기
 	@RequestMapping("/getRoomUsalbe")
@@ -77,14 +99,31 @@ public class ClassTimetableController {
 	}
 	
 	//해당 건물의 강의실들 전부 가져오기
-	@RequestMapping("/getRoom")
-	public String getRoom(Model model, HttpServletRequest request){
+	@RequestMapping(value = "/getroom" , method = RequestMethod.GET)
+	@ResponseBody
+	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request,
+			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
+				
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
-			System.out.println(classObj.getRoom());
-		}
+		ArrayList<ClassroomScheduleObj> ClassroomList = dao.room_select(place);
 		
-		return "redirect:fullcalendar";
+//		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
+//			System.out.println(classObj.getRoom());
+//		}
+		
+		return ClassroomList;
 	}
+	
+	@RequestMapping(value = "/buildingdata", method = RequestMethod.GET)
+	@ResponseBody
+	public ArrayList<PlaceObj> buildingdata( @RequestParam(value="place",required=false,defaultValue="공대9호관") String place) {
+		
+		System.out.println(place);
+		System.out.println("**************************");
+		PlaceManage PM = new PlaceManage();
+				
+		return PM.getElementPlaceList(place);		
+	}
+	
 }

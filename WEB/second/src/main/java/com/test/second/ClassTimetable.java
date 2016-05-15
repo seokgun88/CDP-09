@@ -6,12 +6,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.test.second.object.ClassroomScheduleObj;
+import com.test.second.object.ScheduleAttr;
 
 //강의실 시간표 관련 클래스
 public class ClassTimetable {
 	//db에서 받아온 해당 강의실 데이터를 이용하여 28행 7열로 출력
-	public void printTimetable(ArrayList<ClassroomScheduleObj> classScheduleList){
+	private ArrayList<ScheduleAttr> ScheduleList;
+	
+	public ArrayList<ScheduleAttr> printTimetable(ArrayList<ClassroomScheduleObj> classScheduleList){
+		
+		ScheduleList = new ArrayList<ScheduleAttr>();
+		
 		String[][] timetable = new String [28][7];
+		
 		for(ClassroomScheduleObj classObj : classScheduleList){
 			int i=classObj.getStart();
 			while(i<=classObj.getEnd()){
@@ -22,9 +29,22 @@ public class ClassTimetable {
 					i += 70;
 			}
 		}
+		int cnt = 0;
+		String time = "";
+		
 		for (String[] row: timetable) {
+			if( cnt%2 == 0){
+				time = cnt/2+"A";
+			}else{
+				time = cnt/2+"B";
+			}
+			
 		    System.out.println((Arrays.toString(row)));
+		    ScheduleAttr schobj = new ScheduleAttr(time, row[0], row[1], row[2], row[3], row[4], row[5], row[6]);
+		    ScheduleList.add(schobj);
+		    cnt++;
 		}
+		return ScheduleList;
 	}
 	//30분 단위로 새로운 행 생성을 위한 변환 함수
 	public int getTime(int time){
