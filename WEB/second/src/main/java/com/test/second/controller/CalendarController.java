@@ -33,7 +33,7 @@ public class CalendarController {
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
+		//System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
 		dao.insert((String)map.get("user_id"), title, start, end);
 		return "redirect:fullcalendar";
@@ -45,7 +45,7 @@ public class CalendarController {
 		title = title.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
+		//System.out.println((String)map.get("user_id") + ' ' + title + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
 		dao.delete((String)map.get("user_id"),  title, start, end);
 		return "redirect:fullcalendar";
@@ -60,7 +60,7 @@ public class CalendarController {
 		cend = cend.replace("\"", "");
 		start = start.replace("\"", "");
 		end = end.replace("\"", "");
-		System.out.println("update " + (String)map.get("user_id") + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
+		//System.out.println("update " + (String)map.get("user_id") + ' ' + title + ' ' + cstart + ' ' + cend + ' ' + start + ' ' + end);
 		Dao dao = sqlSession.getMapper(Dao.class);
 		dao.update((String)map.get("user_id"), title, cstart, cend, start, end);
 		return "redirect:fullcalendar";
@@ -294,9 +294,9 @@ public class CalendarController {
 		Dao dao = sqlSession.getMapper(Dao.class);
 		calList = dao.select((String)map.get("user_id"));
 
-		for(CalendarObj list : calList){
+		/*for(CalendarObj list : calList){
 			System.out.println(list);
-		}
+		}*/
 		return calList;
 	}
 }

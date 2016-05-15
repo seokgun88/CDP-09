@@ -3,22 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-<title>KNU PLAN</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1 user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-<title>OpenAPI 2.0 - 지도 생성</title>
-<script type="text/javascript"
-	src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
+<title>빈 강의실 찾기</title>
 </head>
 
 <body>
