@@ -92,16 +92,25 @@ public class ClassTimetableController {
         java.util.Date date = calendar.getTime();
         String day = (new SimpleDateFormat("E").format(date)); //현재 요일 ex) "월" 또는 "화"
         String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1120" 11시 20분
+        
+        /* 시간 조정 -8을 이용*/
         int subtime = Integer.parseInt(time.substring(0, 2)) - 8;
-        if(subtime < 0) subtime = 0;
-        time = Integer.toString(subtime)+time.substring(2); 
+                
+        if(subtime < 0) subtime = 0;        
+        String tempstr = String.format("%02d", subtime);
+        System.out.println(tempstr);
+        tempstr = tempstr + time.substring(2);
+        time = tempstr;
+        /* 시간 조정 -8을 이용*/
         
         System.out.println(day);
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-
+        /* 테스트 하드 코딩*/
         time = "0320";
         day = "월";
+        
         System.out.println("[*]"+Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
+        /* 테스트 하드 코딩*/
         
         for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
 			System.out.println(classObj.getRoom());
