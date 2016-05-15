@@ -293,6 +293,8 @@
 <title>나의 일정</title>
 </head>
 <body>
+	<div id="loading"></div>
+	
 	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-homebanner.png);">
 		<div class="row">
 			<div class="col-xs-1 col-md-4"></div>
@@ -308,14 +310,11 @@
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<div class="col-xs-1">
-				<div id="loading"></div>
-			</div>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">일정</a></li>
-				<!-- <li><a href="knumap">빈강의실</a></li> -->
+				<li><a href="knumap">빈강의실</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li>

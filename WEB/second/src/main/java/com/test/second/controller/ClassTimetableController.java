@@ -88,10 +88,10 @@ public class ClassTimetableController {
 		ClassTimetable classTimetable = new ClassTimetable();
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
-        String time = (new SimpleDateFormat("HHmm").format(date));
-        String day = (new SimpleDateFormat("E").format(date));
+        String day = (new SimpleDateFormat("E").format(date)); //현재 요일
+        String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", 1, 130)){
+		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", classTimetable.getIntofDay(day), Integer.parseInt(time))){
 			System.out.println(classObj.getRoom());
 		}
 		
