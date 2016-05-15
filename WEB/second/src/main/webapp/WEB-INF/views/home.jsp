@@ -13,7 +13,7 @@
 <title>Home</title>
 <style type="text/css">
 .bgimage{
-background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-main.png);
+background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-main.jpg);
 background-size: 100%;
 background-repeat: no-repeat;
 background-position: bottom;
@@ -49,6 +49,10 @@ height: 100%;
 			$('#loginFailModal').modal('show');
 		}
 	});
+
+	document.oncontextmenu = function() { // 컨텍스트 메뉴금지
+		return false;
+	};
 </script>
 </head>
 <body>

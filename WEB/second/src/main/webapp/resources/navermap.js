@@ -1,6 +1,10 @@
 
 var GetData;
 
+function resizeIframe(obj) {
+	obj.style.height = 1200 + 'px';
+	obj.style.width = '100%';
+}
 function getClassTimetable(place,placenum){
 	console.log(place);
 	console.log(placenum);
@@ -9,6 +13,7 @@ function getClassTimetable(place,placenum){
 	console.log(classtimetable_URL);
 	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style=" +'"max-height: 400px; max-width: 500px;"'+"></iframe>";	
 	
+	var classtimetable_HTML = "<iframe src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
 	document.getElementById('ClasstimetableDiv').innerHTML = place+placenum +"<br/>"+ classtimetable_HTML;
 		
 //	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
