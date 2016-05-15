@@ -1,8 +1,7 @@
-
 var GetData;
 
 function resizeIframe(obj) {
-	if($(window).width() < 800){
+	if($(window).width() < 800 && $(window).width() < 500 ){
 		obj.style.height = obj.contentWindow.document.body.scrollHeight+500 + 'px';
 	}
 	else{
@@ -23,23 +22,23 @@ function getClassTimetable(place,placenum){
 }; 
 var w = 100, h = 100;
 $(document).ready(function(){
-	if($(window).height() < 800 && $(window).width() < 400 ){
+	if($(window).height() < 800 && $(window).width() < 500 ){
 		w = $(window).width() - 95;
 		h = $(window).height() - 50;		
 	}
 	else{
-		w = $(window).width()*0.6;
-		h = $(window).height()*0.6;		
+		w = 1200;
+		h = 600;		
 	}
 	oMap.setSize(new nhn.api.map.Size(w, h));
 	$(window).resize(function() {
-		if($(window).height() < 800 && $(window).width() < 400 ){
+		if($(window).height() < 800 && $(window).width() < 500 ){
 			w = $(window).width() - 95;
 			h = $(window).height() - 50;		
 		}
 		else{
-			w = $(window).width()*0.6;
-			h = $(window).height()*0.6;		
+			w = 1200;
+			h = 600;
 		}
 		oMap.setSize(new nhn.api.map.Size(w, h));
 		if($(window).width() < 300){
@@ -150,7 +149,7 @@ oMap = new nhn.api.map.Map('testMap' ,{
 	mapMode : 0,
 	activateTrafficMap : false,
 	activateBicycleMap : false,
-	minMaxLevel : [ 1, 14 ],
+	minMaxLevel : [ 11, 14 ],
 	size : new nhn.api.map.Size(1100, 600)
 });
 var mapZoom = new nhn.api.map.ZoomControl(); // - 줌 컨트롤 선언
@@ -268,7 +267,7 @@ var TitleList = [ "공대9호관" , "정보전산원(전자계산소)" , "IT대�
                   "예술대학" , "농대1호관" , "농대2호관" , "농대3호관", "수영장",
                   "복지관" , "수의과대학1" , "외국어교육관" , "화학관" , "종합정보센타",
                   "사회과학대학" , "동물병원" , "농대사과센타" , "인문대학" , "자연과학대학",
-                  "경상대학" , "우동교육관" , "조소동" , "생활과학대학" , "대강당" ,
+                  "경상대학" , "우당교육관" , "조소동" , "생활과학대학" , "대강당" ,
                   "제2과학관" , "제1과학관" , "교육대학원" , "사범대학" , "운동장" ,
                   "법과대학" , "제4합동강의동" , "조형관(제3합동강의동)" , "약학대학(제2합동강의동)" , "국제경상관" ,
                   "제1체육관" , "제2체육관" , "수의대해부학실습실" , "복현회관" , "대학원동"];

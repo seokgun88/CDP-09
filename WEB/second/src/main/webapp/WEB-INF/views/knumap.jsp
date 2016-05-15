@@ -64,7 +64,7 @@
 	</div>
 	</nav>
 
-	<div class="container">
+	<div class="container" style="padding:0;">
 		<div id="testMap">
 			<script type="text/javascript" src="resources/navermap.js"></script>
 		</div>
