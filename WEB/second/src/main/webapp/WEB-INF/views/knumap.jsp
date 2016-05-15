@@ -67,5 +67,6 @@
 	<div class="container">
 		<div id="ClasstimetableDiv" style="border: 1px solid #000; width: 500px; height: 400px; margin: 20px;"></div>
 	</div>
+	
 </body>
 </html>

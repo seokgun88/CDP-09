@@ -82,20 +82,27 @@ public class ClassTimetableController {
 	
 	
 	//현재 시간에 해당 건물의 강의실들 사용 여부 알아오기
-	@RequestMapping("/getRoomUsalbe")
-	public String getRoomUsalbe(Model model, HttpServletRequest request){
+	@RequestMapping(value = "/getroomusalbe", method = RequestMethod.GET)
+	@ResponseBody
+	public List<ClassroomScheduleObj> getRoomUsalbe(Model model, HttpServletRequest request,
+			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
-        String day = (new SimpleDateFormat("E").format(date)); //현재 요일
-        String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간
+        String day = (new SimpleDateFormat("E").format(date)); //현재 요일 ex) "월" 또는 "화"
+        String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1120" 11시 20분
+        System.out.println(day);
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-		for(ClassroomScheduleObj classObj: dao.building_select("공대9호관", classTimetable.getIntofDay(day), Integer.parseInt(time))){
+        time = "1120";
+        day = "월";
+        System.out.println("[*]"+Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
+        
+        for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
 			System.out.println(classObj.getRoom());
 		}
 		
-		return "redirect:fullcalendar";
+		return dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time));
 	}
 	
 	//해당 건물의 강의실들 전부 가져오기
