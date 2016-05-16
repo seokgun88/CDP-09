@@ -8,7 +8,8 @@
 <script src='${pageContext.request.contextPath}/resources/fullcalendar-2.7.1/lib/jquery.min.js'></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/css/bootstrap.min.css" />
 <script src='${pageContext.request.contextPath}/resources/bootstrap-3.3.6-dist/js/bootstrap.min.js'></script>
-<script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script>
+<!-- <script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=DelRqlwXcLGUB3dteF2y"></script><!-- 로컬 테스트용 -->
+<script type="text/javascript" src="http://openapi.map.naver.com/openapi/v2/maps.js?clientId=OzmfHojBhndgBPBpvIiv"></script><!-- 웹 서버용-->
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
 <script type="text/javascript">
 	document.oncontextmenu = function() { // 컨텍스트 메뉴금지

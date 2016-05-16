@@ -1,18 +1,32 @@
 var GetData;
 
+//현재 주소를 가져오는 것 같다: http://localhost:8083/myproj/view/my.jsp
+var curWwwPath=window.document.location.href;
+//호스트 주소 목록 가져오기 후 같다: myproj/view/my.jsp
+var pathName=window.document.location.pathname;
+var pos=curWwwPath.indexOf(pathName);
+//호스트 주소 가져오는 것 같다: http://localhost:8083
+var localhostPaht=curWwwPath.substring(0,pos);
+//테이프 가져오는 '/' 프로젝트 이름, 만일: /myproj
+var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+//받다 http://localhost:8083/myproj
+var realPath=localhostPaht+projectName;
+
+var timetable_height;
 function resizeIframe(obj) {
 	if($(window).width() < 800 && $(window).width() < 500 ){
-		obj.style.height = obj.contentWindow.document.body.scrollHeight+500 + 'px';
+		timetable_height= obj.contentWindow.document.body.scrollHeight*1.3 + 'px';
 	}
 	else{
-		obj.style.height = 1500 + 'px';	
+		timetable_height = 1500 + 'px';	
 	}
+	obj.style.height = timetable_height;
 	obj.style.width = '100%';
 }
 function getClassTimetable(place,placenum){
 	console.log(place);
 	console.log(placenum);
-	var classtimetable_URL = "http://127.0.0.1:8181/second/classtimetable?place="+place+"&placenum="+placenum;
+	var classtimetable_URL = realPath + "/classtimetable?place="+place+"&placenum="+placenum;
 	
 	console.log(classtimetable_URL);
 	var classtimetable_HTML = "<iframe id=\'timetableIframe\' src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
@@ -43,10 +57,10 @@ $(document).ready(function(){
 		}
 		oMap.setSize(new nhn.api.map.Size(w, h));
 		if($(window).width() < 300){
-			document.getElementById('timetableIframe').style.height = '5000px';
+			document.getElementById('timetableIframe').style.height = timetable_height;
 		}
 		else if($(window).width() < 500){
-			document.getElementById('timetableIframe').style.height = '3000px';			
+			document.getElementById('timetableIframe').style.height = timetable_height;
 		}
 		else{
 			document.getElementById('timetableIframe').style.height = '1500px';
@@ -58,7 +72,7 @@ $(document).ready(function(){
 function getJsonData(parameter){
 	var BuildingList = new Array();
 	$.ajax({		
-		url: "http://127.0.0.1:8181/second/getroomusalbe?place="+parameter,
+		url: realPath+"/getroomusalbe?place="+parameter,
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
@@ -72,7 +86,7 @@ function getJsonData(parameter){
 		}		
 	})
 	$.ajax({
-		url: "/second/getroom?place="+parameter,
+		url: realPath+"/getroom?place="+parameter,
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
