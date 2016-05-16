@@ -19,9 +19,7 @@ public class LoginCommand implements Command {
 			HttpServletRequest request = (HttpServletRequest) map.get("request");
 			String id = request.getParameter("id");
 			String pwd = request.getParameter("pwd");
-			System.out.println("[*]"+id);
-			System.out.println("[*]"+pwd);
-			
+						
 			UserSchedulePlan UserTime = new UserSchedulePlan();
 
 			if(UserTime.StartRequest(id, pwd) == false){

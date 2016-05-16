@@ -33,8 +33,19 @@ public class UserSchedulePlan {
 	}
 	
 	public boolean StartRequest(String id, String pw){
-		System.out.println("[**]"+id);
-		System.out.println("[**]"+pw);
+		
+		
+		// +랑 =등 기호 핸들링
+		String temp = "";
+		for(int i=0;i<pw.length() ; i++){
+			char c = pw.charAt(i);
+			if(c == '+'||c == '='||c == '-'||c == '/'||c == '*'){
+				temp += "%"+String.valueOf(c);				
+			}
+			temp += String.valueOf(c);
+		}
+		
+		pw = temp;
 		
 		if(YesLoginPOSTRequest(id, pw) == false){
 			System.out.println("로그인 실패!!");
@@ -115,9 +126,7 @@ public class UserSchedulePlan {
 			String parameter = URLEncoder.encode("usr_id", "UTF-8") + "=" + URLEncoder.encode(user_id, "UTF-8");
 			parameter += "&" + URLEncoder.encode("usr_pwd", "UTF-8") + "=" + URLEncoder.encode(user_pw, "UTF-8");
 			parameter += "&" + URLEncoder.encode("encoding", "UTF-8") + "=" + URLEncoder.encode("utf-8", "UTF-8");
-
-			System.out.println("[***]"+parameter);
-			
+						
 			OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
 			wr.write(parameter);
 			wr.flush();  // 꼭 flush를 호출해야 한다.			
