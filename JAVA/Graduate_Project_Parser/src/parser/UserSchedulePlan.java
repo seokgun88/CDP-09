@@ -111,6 +111,7 @@ public class UserSchedulePlan {
 			parameter += "&" + URLEncoder.encode("usr_pwd", "UTF-8") + "=" + URLEncoder.encode(user_pw, "UTF-8");
 			parameter += "&" + URLEncoder.encode("encoding", "UTF-8") + "=" + URLEncoder.encode("utf-8", "UTF-8");
 
+			System.out.println("[***]"+parameter);
 			OutputStreamWriter wr = new OutputStreamWriter(con.getOutputStream());
 			wr.write(parameter);
 			wr.flush();  // 꼭 flush를 호출해야 한다.			
