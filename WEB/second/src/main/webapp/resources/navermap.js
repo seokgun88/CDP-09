@@ -72,7 +72,7 @@ $(document).ready(function(){
 function getJsonData(parameter){
 	var BuildingList = new Array();
 	$.ajax({		
-		url: realPath+"/getroomusalbe?place="+parameter,
+		url: realPath+"/getroomusalbe?place="+encodeURI(encodeURIComponent(parameter)),
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
@@ -86,14 +86,13 @@ function getJsonData(parameter){
 		}		
 	})
 	$.ajax({
-		url: realPath+"/getroom?place="+parameter,
+		url: realPath+"/getroom?place="+encodeURI(encodeURIComponent(parameter)),
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
 		dataType: 'JSON',
-		success: function (data){			
+		success: function (data){
 			GetData = "";
-			
 			$.each(data, function(key,subdata){
 				var color = "9ac2b7";
 				for( var i = 0 ; i < BuildingList.length ; i++){

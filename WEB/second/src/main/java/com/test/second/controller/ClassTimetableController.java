@@ -1,5 +1,7 @@
 package com.test.second.controller;
 
+import java.io.*;
+import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,10 +84,16 @@ public class ClassTimetableController {
 	
 	
 	//현재 시간에 해당 건물의 강의실들 사용 여부 알아오기
-	@RequestMapping(value = "/getroomusalbe", method = RequestMethod.GET)
+	@RequestMapping(value = "/getroomusalbe", method = RequestMethod.GET, produces = "application/json; text/plain; charset=UTF-8")
 	@ResponseBody
 	public List<ClassroomScheduleObj> getRoomUsalbe(Model model, HttpServletRequest request,
 			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
+		try {
+			place = URLDecoder.decode(place, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
 		Calendar calendar = Calendar.getInstance();
@@ -138,23 +146,32 @@ public class ClassTimetableController {
 			System.out.println(classObj.getRoom());
 		}*/
 		System.out.println(startTime + " " + endTime);
+/*		for(ClassroomScheduleObj obj : dao.building_select(place, classTimetable.getIntofDay(day), startTime, endTime)){
+			System.out.println(obj.getRoom());
+		}*/
 		return dao.building_select(place, classTimetable.getIntofDay(day), startTime, endTime);
 	}
 	
 	//해당 건물의 강의실들 전부 가져오기
-	@RequestMapping(value = "/getroom" , method = RequestMethod.GET)
+	@RequestMapping(value = "/getroom" , method = RequestMethod.GET, produces = "application/json; text/plain; charset=UTF-8")
 	@ResponseBody
 	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request,
 			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
-		System.out.println("call getroom : " + place);
+		try {
+			place = URLDecoder.decode(place, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		ArrayList<ClassroomScheduleObj> ClassroomList = dao.room_select(place);
+		ArrayList<ClassroomScheduleObj> ClassroomList = null;
+		ClassroomList = dao.room_select(place);
 		
-//		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
-//			System.out.println(classObj.getRoom());
-//		}
+/*		for (ClassroomScheduleObj classObj : ClassroomList) {
+			System.out.println(classObj.getRoom());
+		}*/
 		
 		return ClassroomList;
 	}
