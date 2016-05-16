@@ -1,5 +1,7 @@
 package com.test.second.controller;
 
+import java.io.*;
+import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,57 +84,94 @@ public class ClassTimetableController {
 	
 	
 	//현재 시간에 해당 건물의 강의실들 사용 여부 알아오기
-	@RequestMapping(value = "/getroomusalbe", method = RequestMethod.GET)
+	@RequestMapping(value = "/getroomusalbe", method = RequestMethod.GET, produces = "application/json; text/plain; charset=UTF-8")
 	@ResponseBody
 	public List<ClassroomScheduleObj> getRoomUsalbe(Model model, HttpServletRequest request,
 			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
+		try {
+			place = URLDecoder.decode(place, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
         String day = (new SimpleDateFormat("E").format(date)); //현재 요일 ex) "월" 또는 "화"
-        String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1120" 11시 20분
+        String time = (new SimpleDateFormat("HHmm").format(date)); //현재 시간 ex) "1130" 11시30분
+        //String minitue = (new SimpleDateFormat("mm").format(date)); //현재 분 ex) "10" 10분
         
-        /* 시간 조정 -8을 이용*/
-        int subtime = Integer.parseInt(time.substring(0, 2)) - 8;
+        
+       /* //시간 조정 -8을 이용
+        int subtime = Integer.parseInt(time) - 8;
                 
-        if(subtime < 0) subtime = 0;        
-        String tempstr = String.format("%02d", subtime);
-        System.out.println(tempstr);
-        tempstr = tempstr + time.substring(2);
-        time = tempstr;
-        /* 시간 조정 -8을 이용*/
-        
-        System.out.println(day);
+        if(subtime < 0) time = "2300";
+        else time = String.format("%02d", subtime) + minitue;
+        System.out.println(subtime);
+        System.out.println(time);
+        //시간 조정 -8을 이용
+*/        
         System.out.println(Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-        /* 테스트 하드 코딩*/
+        int intTime = Integer.parseInt(time);
+        int startTime, endTime;
+        if(intTime > 2340){
+        	startTime = 2340;
+        	endTime = 2340;
+        }
+        else if(intTime < 20){
+        	startTime = 20;
+        	endTime = 20;
+        }
+        else{
+			if (intTime % 100 < 45) {
+				endTime = intTime - 85;
+			} else {
+				endTime = intTime - 45;
+			}
+			if(intTime % 100 > 45){
+				startTime = intTime + 55;
+			} else{
+				startTime = intTime + 15;
+			}
+        }
+        /* 테스트 하드 코딩
         time = "0320";
         day = "월";
         
         System.out.println("[*]"+Integer.parseInt(time) +"-"+ classTimetable.getIntofDay(day));
-        /* 테스트 하드 코딩*/
+         테스트 하드 코딩*/
         
       /*  for(ClassroomScheduleObj classObj: dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time))){
 			System.out.println(classObj.getRoom());
 		}*/
-		
-		return dao.building_select(place, classTimetable.getIntofDay(day), Integer.parseInt(time));
+		System.out.println(startTime + " " + endTime);
+/*		for(ClassroomScheduleObj obj : dao.building_select(place, classTimetable.getIntofDay(day), startTime, endTime)){
+			System.out.println(obj.getRoom());
+		}*/
+		return dao.building_select(place, classTimetable.getIntofDay(day), startTime, endTime);
 	}
 	
 	//해당 건물의 강의실들 전부 가져오기
-	@RequestMapping(value = "/getroom" , method = RequestMethod.GET)
+	@RequestMapping(value = "/getroom" , method = RequestMethod.GET, produces = "application/json; text/plain; charset=UTF-8")
 	@ResponseBody
 	public List<ClassroomScheduleObj> getRoom(Model model, HttpServletRequest request,
 			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place){
-		System.out.println("call getroom : " + place);
+		try {
+			place = URLDecoder.decode(place, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 		Dao dao = sqlSession.getMapper(Dao.class);
 		ClassTimetable classTimetable = new ClassTimetable();
-		ArrayList<ClassroomScheduleObj> ClassroomList = dao.room_select(place);
+		ArrayList<ClassroomScheduleObj> ClassroomList = null;
+		ClassroomList = dao.room_select(place);
 		
-//		for(ClassroomScheduleObj classObj: dao.room_select("공대9호관")){
-//			System.out.println(classObj.getRoom());
-//		}
+/*		for (ClassroomScheduleObj classObj : ClassroomList) {
+			System.out.println(classObj.getRoom());
+		}*/
 		
 		return ClassroomList;
 	}

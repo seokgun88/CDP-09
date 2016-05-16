@@ -1,19 +1,32 @@
-
 var GetData;
 
+//현재 주소를 가져오는 것 같다: http://localhost:8083/myproj/view/my.jsp
+var curWwwPath=window.document.location.href;
+//호스트 주소 목록 가져오기 후 같다: myproj/view/my.jsp
+var pathName=window.document.location.pathname;
+var pos=curWwwPath.indexOf(pathName);
+//호스트 주소 가져오는 것 같다: http://localhost:8083
+var localhostPaht=curWwwPath.substring(0,pos);
+//테이프 가져오는 '/' 프로젝트 이름, 만일: /myproj
+var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+//받다 http://localhost:8083/myproj
+var realPath=localhostPaht+projectName;
+
+var timetable_height;
 function resizeIframe(obj) {
-	if($(window).width() < 800){
-		obj.style.height = obj.contentWindow.document.body.scrollHeight+500 + 'px';
+	if($(window).width() < 800 && $(window).width() < 500 ){
+		timetable_height= obj.contentWindow.document.body.scrollHeight*1.3 + 'px';
 	}
 	else{
-		obj.style.height = 1500 + 'px';	
+		timetable_height = 1500 + 'px';	
 	}
+	obj.style.height = timetable_height;
 	obj.style.width = '100%';
 }
 function getClassTimetable(place,placenum){
 	console.log(place);
 	console.log(placenum);
-	var classtimetable_URL = "http://127.0.0.1:8181/second/classtimetable?place="+place+"&placenum="+placenum;
+	var classtimetable_URL = realPath + "/classtimetable?place="+place+"&placenum="+placenum;
 	
 	console.log(classtimetable_URL);
 	var classtimetable_HTML = "<iframe id=\'timetableIframe\' src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
@@ -23,30 +36,31 @@ function getClassTimetable(place,placenum){
 }; 
 var w = 100, h = 100;
 $(document).ready(function(){
-	if($(window).height() < 800 && $(window).width() < 400 ){
-		w = $(window).width() - 95;
+	if($(window).height() < 800 && $(window).width() < 500 ){
+		w = $(window).width() - 50;
 		h = $(window).height() - 50;		
+		oMap.setLevel(12);
 	}
 	else{
-		w = $(window).width()*0.6;
-		h = $(window).height()*0.6;		
+		w = 1200;
+		h = 600;		
 	}
 	oMap.setSize(new nhn.api.map.Size(w, h));
 	$(window).resize(function() {
-		if($(window).height() < 800 && $(window).width() < 400 ){
-			w = $(window).width() - 95;
-			h = $(window).height() - 50;		
+		if($(window).height() < 800 && $(window).width() < 500 ){
+			w = $(window).width() - 50;
+			h = $(window).height() - 50;
 		}
 		else{
-			w = $(window).width()*0.6;
-			h = $(window).height()*0.6;		
+			w = 1200;
+			h = 600;
 		}
 		oMap.setSize(new nhn.api.map.Size(w, h));
 		if($(window).width() < 300){
-			document.getElementById('timetableIframe').style.height = '5000px';
+			document.getElementById('timetableIframe').style.height = timetable_height;
 		}
 		else if($(window).width() < 500){
-			document.getElementById('timetableIframe').style.height = '3000px';			
+			document.getElementById('timetableIframe').style.height = timetable_height;
 		}
 		else{
 			document.getElementById('timetableIframe').style.height = '1500px';
@@ -58,7 +72,7 @@ $(document).ready(function(){
 function getJsonData(parameter){
 	var BuildingList = new Array();
 	$.ajax({		
-		url: "http://127.0.0.1:8181/second/getroomusalbe?place="+parameter,
+		url: realPath+"/getroomusalbe?place="+encodeURI(encodeURIComponent(parameter)),
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
@@ -72,14 +86,13 @@ function getJsonData(parameter){
 		}		
 	})
 	$.ajax({
-		url: "/second/getroom?place="+parameter,
+		url: realPath+"/getroom?place="+encodeURI(encodeURIComponent(parameter)),
 		type: 'GET',
 		async: false, // 동기
 		timout: 10000,
 		dataType: 'JSON',
-		success: function (data){			
+		success: function (data){
 			GetData = "";
-			
 			$.each(data, function(key,subdata){
 				var color = "9ac2b7";
 				for( var i = 0 ; i < BuildingList.length ; i++){
@@ -150,7 +163,7 @@ oMap = new nhn.api.map.Map('testMap' ,{
 	mapMode : 0,
 	activateTrafficMap : false,
 	activateBicycleMap : false,
-	minMaxLevel : [ 1, 14 ],
+	minMaxLevel : [ 11, 14 ],
 	size : new nhn.api.map.Size(1100, 600)
 });
 var mapZoom = new nhn.api.map.ZoomControl(); // - 줌 컨트롤 선언
@@ -268,7 +281,7 @@ var TitleList = [ "공대9호관" , "정보전산원(전자계산소)" , "IT대�
                   "예술대학" , "농대1호관" , "농대2호관" , "농대3호관", "수영장",
                   "복지관" , "수의과대학1" , "외국어교육관" , "화학관" , "종합정보센타",
                   "사회과학대학" , "동물병원" , "농대사과센타" , "인문대학" , "자연과학대학",
-                  "경상대학" , "우동교육관" , "조소동" , "생활과학대학" , "대강당" ,
+                  "경상대학" , "우당교육관" , "조소동" , "생활과학대학" , "대강당" ,
                   "제2과학관" , "제1과학관" , "교육대학원" , "사범대학" , "운동장" ,
                   "법과대학" , "제4합동강의동" , "조형관(제3합동강의동)" , "약학대학(제2합동강의동)" , "국제경상관" ,
                   "제1체육관" , "제2체육관" , "수의대해부학실습실" , "복현회관" , "대학원동"];
