@@ -314,7 +314,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">일정</a></li>
+				<li class="active"><a href="fullcalendar">일정</a></li>
 				<li><a href="knumap">빈강의실</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

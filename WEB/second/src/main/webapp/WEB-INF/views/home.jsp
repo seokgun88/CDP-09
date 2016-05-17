@@ -53,6 +53,7 @@ height: 100%;
 	document.oncontextmenu = function() { // 컨텍스트 메뉴금지
 		return false;
 	};
+	history.go(1);
 </script>
 </head>
 <body>
