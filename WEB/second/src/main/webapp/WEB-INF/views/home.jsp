@@ -10,7 +10,6 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<title>Home</title>
 <style type="text/css">
 .bgimage{
 background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-main.jpg);
@@ -55,6 +54,8 @@ height: 100%;
 	};
 	history.go(1);
 </script>
+<link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
+<title>KNU PLAN</title>
 </head>
 <body>
 	<!-- Login Failed Modal -->
