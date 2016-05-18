@@ -220,7 +220,8 @@
 										document.getElementById('modalTitle').style.display = "";
 										document.getElementById('modalNewTitle').style.display = "none";
 										if (event.allDay == true) {
-											if (checkOnedaySchedule(currentStart, currentEnd))
+											if (checkOnedaySchedule(currentStart, currentEnd)
+													|| event.end == null)
 												$('#modalBody').html(moment(event.start).format('YYYY/MM/DD'));
 											else
 												$('#modalBody').html(
@@ -248,10 +249,16 @@
 										$('#modalTitle').html(event.title + " 시간 변경");
 										document.getElementById('modalTitle').style.display = "";
 										document.getElementById('modalNewTitle').style.display = "none";
-										$('#modalBody')
-												.html(
-														moment(event.start).format('YYYY/MM/DD HH:mm') + " - "
-																+ moment(event.end).format('YYYY/MM/DD HH:mm'));
+
+										if (event.end != null) {
+											$('#modalBody')
+													.html(
+															moment(event.start).format('YYYY/MM/DD HH:mm') + " - "
+																	+ moment(event.end).format('YYYY/MM/DD HH:mm'));
+										} else {
+											$('#modalBody').html(moment(event.start).format('YYYY/MM/DD HH:mm - '));
+										}
+										
 										init_modal('#calendarModal', 'update');
 										updateSchedule(JSON.stringify(event.title), JSON.stringify(currentStart), JSON.stringify(currentEnd), JSON
 												.stringify(event.start), JSON.stringify(event.end));
@@ -270,9 +277,14 @@
 														moment(event.start).format('YYYY/MM/DD - ')
 																+ moment(event.end).subtract(1, 'day').format('YYYY/MM/DD'));
 										} else {
-											$('#modalBody').html(
-													moment(event.start).format('YYYY/MM/DD HH:mm') + " - "
-															+ moment(event.end).format('YYYY/MM/DD HH:mm'));
+											if (event.end != null) {
+												$('#modalBody')
+														.html(
+																moment(event.start).format('YYYY/MM/DD HH:mm') + " - "
+																		+ moment(event.end).format('YYYY/MM/DD HH:mm'));
+											} else {
+												$('#modalBody').html(moment(event.start).format('YYYY/MM/DD HH:mm - '));
+											}
 										}
 										if ("rgb(163, 166, 189)" == $(this).css('background-color')
 												|| "rgb(58, 135, 173)" == $(this).css('background-color')) { // check user event using bg-color
