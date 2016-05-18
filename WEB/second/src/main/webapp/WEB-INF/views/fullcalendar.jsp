@@ -56,7 +56,8 @@
 					start : currentStart,
 					end : currentEnd,
 				};
-				$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				// stick? = false : when month wiil be changed event will disappear.
+				$('#calendar').fullCalendar('renderEvent', eventData, false);
 			},
 			error : function() {
 				alert("failure");
@@ -178,7 +179,7 @@
 										}
 										$('#calendar').fullCalendar('option', 'contentHeight', h);
 									},
-									longPressDelay : 1000,
+									longPressDelay : 800,
 									selectable : true,
 									selectHelper : true,
 									select : function(start, end) {
