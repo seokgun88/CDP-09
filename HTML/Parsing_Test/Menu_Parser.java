@@ -1,6 +1,7 @@
 package parsing;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,21 +22,25 @@ public class Menu_Parser
 		Elements titles = doc.select("ul.menu_im li.first p");
 				
 		for(Element e: titles){									
-			System.out.println(e.text());			
+			System.out.println(e.text());
 		}
 	}
 
 	public static void main(String[] args) throws Exception
 	{
 		Menu_Parser m = new Menu_Parser(); // 객체 생성
-		int num = 35;
+		ArrayList<Integer> menu_num = new ArrayList<Integer>();
+
+		menu_num.add(46);	// GP감꽃푸드코트
+		menu_num.add(40);	// 공학관 학생식당
+		menu_num.add(37);	// 복지관 학생식당
+		menu_num.add(56);	// 복현회관 학생식당
+		menu_num.add(35);	// 정보센터식당
 		
-		// GP감꽃푸드코트  num = 46
-		// 공학관 학생식당  num = 40
-		// 복지관 학생식당  num = 37
-		// 복현회관 학생식당  num = 56
-		// 정보센터식당  num = 35
-		
-		m.ParseStart(num);
+		for(int cnt = 0; cnt < menu_num.size(); cnt++)
+		{
+			m.ParseStart(menu_num.get(cnt));
+			System.out.println();
+		}
 	}
 }
