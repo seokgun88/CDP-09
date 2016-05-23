@@ -30,11 +30,11 @@ public class Menu_Parser
 		Menu_Parser m = new Menu_Parser(); // 객체 생성
 		int num = 35;
 		
-		// GP감꽃푸드코트	num = 46
-		// 공학관 학생식당	num = 40
-		// 복지관 학생식당	num = 37
-		// 복현회관 학생식당	num = 56
-		// 정보센터식당		num = 35
+		// GP감꽃푸드코트  num = 46
+		// 공학관 학생식당  num = 40
+		// 복지관 학생식당  num = 37
+		// 복현회관 학생식당  num = 56
+		// 정보센터식당  num = 35
 		
 		m.ParseStart(num);
 	}
