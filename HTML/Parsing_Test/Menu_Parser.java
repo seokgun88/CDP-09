@@ -27,14 +27,14 @@ public class Menu_Parser
 
 	public static void main(String[] args) throws Exception
 	{
-		Menu_Parser m = new Menu_Parser(); // °´Ã¼ »ı¼º
+		Menu_Parser m = new Menu_Parser(); // ê°ì²´ ìƒì„±
 		int num = 35;
 		
-		// GP°¨²ÉÇªµåÄÚÆ®	num = 46
-		// °øÇĞ°ü ÇĞ»ı½Ä´ç		num = 40
-		// º¹Áö°ü ÇĞ»ı½Ä´ç		num = 37
-		// º¹ÇöÈ¸°ü ÇĞ»ı½Ä´ç	num = 56
-		// Á¤º¸¼¾ÅÍ½Ä´ç		num = 35
+		// GPê°ê½ƒí‘¸ë“œì½”íŠ¸	num = 46
+		// ê³µí•™ê´€ í•™ìƒì‹ë‹¹	num = 40
+		// ë³µì§€ê´€ í•™ìƒì‹ë‹¹	num = 37
+		// ë³µí˜„íšŒê´€ í•™ìƒì‹ë‹¹	num = 56
+		// ì •ë³´ì„¼í„°ì‹ë‹¹		num = 35
 		
 		m.ParseStart(num);
 	}
