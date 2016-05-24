@@ -19,10 +19,10 @@ public class Menu_Parser
 			e1.printStackTrace();
 		}
 
-		Elements titles = doc.select("ul.menu_im li.first p");
-				
-		for(Element e: titles){									
-			System.out.println(e.text());
+		Elements titles = doc.select("table.tac caption, table.tac td.on ul.menu_im li");
+		
+		for(Element e: titles){
+				System.out.println(e.text());
 		}
 	}
 
