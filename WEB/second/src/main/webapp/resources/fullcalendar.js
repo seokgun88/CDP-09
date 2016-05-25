@@ -11,6 +11,11 @@ var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
 //받다 http://localhost:8083/myproj
 var realPath=localhostPaht+projectName;
 
+/*--컨텍스트 메뉴금지--*/
+document.oncontextmenu = function() { 
+	return false;
+};
+
 var curEvent = null;
 	var currentStart = null;
 	var currentEnd = null;
@@ -97,12 +102,15 @@ function init_modal(modal, action) {
 }
 $(document).ready(
 		function() {
+			//ban enter key
 			$(window).keydown(function(event) {
 				if (event.keyCode == 13) {
 					event.preventDefault();
 					return false;
 				}
 			});
+			
+			/*--calendar event sources--*/
 			var source = new Array();
 			source[0] = {
 				url : realPath+'/calendarcollege', // use the `url` property
@@ -127,6 +135,7 @@ $(document).ready(
 				color : '#A3A6BD', // an option!
 				textColor : 'white' // an option!
 			};
+			
 			// page is now ready, initialize the calendar...
 			$('#calendar')
 					.fullCalendar(
@@ -279,6 +288,3 @@ $(document).ready(
 								eventLimit : 5, // allow "more" link when too many events
 							})
 		});
-document.oncontextmenu = function() { // 컨텍스트 메뉴금지
-	return false;
-};
