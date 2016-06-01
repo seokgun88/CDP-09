@@ -1,8 +1,7 @@
 package com.test.second.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.*;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -109,13 +108,18 @@ public class CalendarController {
 	@RequestMapping("/getallevent")
 	@ResponseBody
 	public List<CalendarObj> getallevent(HttpServletRequest request) {
+		/*---calculate current month's first and last day---*/
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
+        Date lastDayOfMonth = cal.getTime();
+
+        String start = new SimpleDateFormat("yyyy-MM").format(lastDayOfMonth) + "-01";
+        String end = new SimpleDateFormat("yyyy-MM-dd").format(lastDayOfMonth);
+        
 		ArrayList<CalendarObj> calList = new ArrayList<CalendarObj>();
-		calList.addAll(calendarCommand.getHolidayEvent("", ""));
-		calList.addAll(calendarCommand.getCollegeEvent("", ""));
+		calList.addAll(calendarCommand.getHolidayEvent(start, end));
+		calList.addAll(calendarCommand.getCollegeEvent(start, end));
 		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
-		Constant con = new Constant();
-		ArrayList<CalendarObj> calobj = con.getCalList((ArrayList<ScheduleAttr>) map.get("scheduleList"));
-		calList.addAll(calendarCommand.getTimetableEvent("2016-05-01", "2016-06-04", calobj));
 		Dao dao = sqlSession.getMapper(Dao.class);
 		calList.addAll(dao.select((String)map.get("user_id")));
 		return calList;		

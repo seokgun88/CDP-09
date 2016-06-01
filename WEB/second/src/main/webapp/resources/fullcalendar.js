@@ -20,7 +20,7 @@ var curEvent = null;
 	var currentStart = null;
 	var currentEnd = null;
 	function checkOnedaySchedule(sdate, edate) {
-		var s_Date = Number(moment(sdate).format('MMDD'));
+	var s_Date = Number(moment(sdate).format('MMDD'));
 	var s_Time = Number(moment(sdate).format('HHmm'));
 	var e_Date = Number(moment(edate).format('MMDD'));
 	var e_Time = Number(moment(edate).format('HHmm'));
