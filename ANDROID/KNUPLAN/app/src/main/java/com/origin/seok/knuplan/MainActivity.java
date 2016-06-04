@@ -3,7 +3,6 @@ package com.origin.seok.knuplan;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -15,14 +14,16 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     private WebView webview;
     private SharedPreferences pref; //to save login data
+    private PasswordCoder pwdCoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         pref = getSharedPreferences("pref" ,MODE_PRIVATE);
+        pwdCoder = new PasswordCoder();
         String id = pref.getString("id", "");
-        String pwd = decodePassword(pref.getString("pwd", ""));
+        String pwd = pwdCoder.decodePassword(pref.getString("pwd", ""));
 
         //if don't have a login preference
         if(id.equals("") || pwd.equals("")) {
@@ -36,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
                     EditText loginPwd = (EditText) findViewById(R.id.loginPwd);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString("id", loginId.getText().toString());
-                    editor.putString("pwd", encodePassword(loginPwd.getText().toString()));
+                    editor.putString("pwd", pwdCoder.encodePassword(loginPwd.getText().toString()));
                     editor.commit();
                     setContentView(R.layout.activity_main);
-                    login(pref.getString("id", ""), decodePassword(pref.getString("pwd", "")));
+                    login(pref.getString("id", ""), pwdCoder.decodePassword(pref.getString("pwd", "")));
                 }
             });
         }
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         webview = (WebView) findViewById(R.id.webview); //웹뷰 생성
         webview.getSettings().setJavaScriptEnabled(true); //자바 스크립트 enable
         webview.setWebViewClient(new WebViewClient() { //웹뷰 클라이언트(주소창 없애기 위해)
-
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
@@ -112,16 +112,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public String encodePassword(String pw){
-        if(pw.length() == 0)
-            return "";
-        return "dud" + pw + "tjr8";
-    }
-    public String decodePassword(String pw){
-        if(pw.length() == 0)
-            return "";
-        return pw.substring(3, pw.length()-4);
     }
 }
