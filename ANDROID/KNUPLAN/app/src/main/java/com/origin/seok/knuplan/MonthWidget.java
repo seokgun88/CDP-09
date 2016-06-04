@@ -142,7 +142,8 @@ public class MonthWidget extends AppWidgetProvider {
             if(day == curDay)
                 weekViews.setInt(dayLayoutArray[row], "setBackgroundColor", Color.parseColor("#66b0b0b0"));
             weekViews.setTextViewText(dayArray[row], data);
-            weekViews.setTextViewText(dayEventArray[row], getDayEvent(eventArray, day));
+            if(addSpaceComplete)
+                weekViews.setTextViewText(dayEventArray[row], getDayEvent(eventArray, day));
             if (row % 7 == 0 || day == mCal.getActualMaximum(Calendar.DAY_OF_MONTH)){
                 views.addView(R.id.month_layout, weekViews);
                 weekViews = new RemoteViews(context.getPackageName(), R.layout.weekitem_month);
@@ -166,8 +167,13 @@ public class MonthWidget extends AppWidgetProvider {
         ArrayList<DayEventData> eventArray = new ArrayList<>();
 
         //login information false
-        if(id.equals("") || pwd.equals(""))
-            return new ArrayList<>();
+        if(id.equals("") || pwd.equals("")) {
+            DayEventData ed = new DayEventData();
+            ed.setDay(1);
+            ed.setEvent("어플에서 로그인 후 위젯을 띄우세요!");
+            eventArray.add(ed);
+            return eventArray;
+        }
 
         try {
             //login using id and password
