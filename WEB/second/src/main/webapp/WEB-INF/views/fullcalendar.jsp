@@ -31,6 +31,7 @@
 }
 </style>
 <script>
+
 	var curEvent = null;
 	var currentStart = null;
 	var currentEnd = null;
@@ -373,5 +374,6 @@
 	<div>
 		<br /> <br /> <br />
 	</div>
+		
 </body>
 </html>
