@@ -106,6 +106,10 @@ public class HomeController {
 	public String fullcalendar(Model model) {
 		return "fullcalendar";
 	}
-	
+
+	@RequestMapping("/help")
+	public String help(Model model) {
+		return "help";
+	}
 	
 }

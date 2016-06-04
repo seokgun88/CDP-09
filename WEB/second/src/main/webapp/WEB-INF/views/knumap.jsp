@@ -59,6 +59,7 @@
 						</div>
 					</div>
 				</li>
+				<li><a href="help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
 				<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Lgout</a></li>
 			</ul>
 		</div>
