@@ -16,11 +16,12 @@
 <style type="text/css">
 .video-container { 
     margin: 0;
-    padding-bottom: 800px; 
+    padding-bottom: 1000px; 
     max-width: 100%; 
     height: 0;  
     position: relative;
-    overflow: hidden;
+	overflow:auto !important;
+	-webkit-overflow-scrolling:touch !important;
 } 
 .video-container iframe, 
 .video-container object,
@@ -87,9 +88,9 @@
 	</nav>
 
 	<div class="container" >
-	<div class="video-container">
-		<iframe frameborder="0" src="http://libseat.knu.ac.kr"></iframe>
-	</div>
+		<div class="video-container">
+			<iframe frameborder="0" src="http://libseat.knu.ac.kr"></iframe>
+		</div>
 	</div>
 </body>
 </html>
