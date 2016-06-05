@@ -41,6 +41,8 @@
 			<ul class="nav navbar-nav">
 				<li><a href="fullcalendar">일정</a></li>
 				<li class="active"><a href="knumap">빈강의실</a></li>
+				<li><a href="knumenu">오늘의 식단표</a></li>
+				<li><a href="knulibrary">도서관 빈자리</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li>

@@ -111,5 +111,10 @@ public class HomeController {
 	public String help(Model model) {
 		return "help";
 	}
+
+	@RequestMapping("/knulibrary")
+	public String knulibrary(Model model) {
+		return "knulibrary";
+	}
 	
 }

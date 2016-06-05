@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,12 +13,33 @@
 		return false;
 	};
 </script>
-<link rel="icon" type="image/ico" href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico" />
-<title>오늘의 식단표</title>
+<style type="text/css">
+.video-container { 
+    margin: 0;
+    padding-bottom: 800px; 
+    max-width: 100%; 
+    height: 0;  
+    position: relative;
+    overflow: hidden;
+} 
+.video-container iframe, 
+.video-container object,
+.video-container embed {
+    margin: 0;
+    padding: 0;  
+    width: 100%; 
+    height: 100%;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+}
+</style>
+<link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
+<title>도서관 빈자리</title>
 </head>
 
-<body style="overflow-x: hidden; overflow-y: auto;">
-	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-cartebanner.jpg);">
+<body style="overflow-x:hidden; overflow-y:auto;">
+	<div class="container-fluid bgimage" style="background-image: url(${pageContext.request.contextPath}/resources/images/knuplan-librarybanner.jpg);">
 		<div class="row">
 			<div class="col-xs-1 col-md-4"></div>
 			<div class="col-xs-10 col-md-4">
@@ -39,8 +59,8 @@
 			<ul class="nav navbar-nav">
 				<li><a href="fullcalendar">일정</a></li>
 				<li><a href="knumap">빈강의실</a></li>
-				<li class="active"><a href="#">오늘의 식단표</a></li>
-				<li><a href="knulibrary">도서관 빈자리</a></li>
+				<li><a href="knumenu">오늘의 식단표</a></li>
+				<li class="active"><a href="#">도서관 빈자리</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
@@ -66,35 +86,10 @@
 	</div>
 	</nav>
 
-	<div class="container">
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th width="45"><center></center></th>
-					<c:forEach items="${buildinglist}" var="buildinglist">
-						<th><center>${buildinglist}</center></th>
-					</c:forEach>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<c:forEach items="${breakfastlist}" var="breakfastlist">
-						<td>${breakfastlist}</td>
-					</c:forEach>
-				</tr>
-				<tr>
-					<c:forEach items="${lunchlist}" var="lunchlist">
-						<td>${lunchlist}</td>
-					</c:forEach>
-				</tr>
-				<tr>
-					<c:forEach items="${dinnerlist}" var="dinnerlist">
-						<td>${dinnerlist}</td>
-					</c:forEach>
-				</tr>
-
-			</tbody>
-		</table>
+	<div class="container" >
+	<div class="video-container">
+		<iframe frameborder="0" src="http://libseat.knu.ac.kr"></iframe>
+	</div>
 	</div>
 </body>
 </html>

@@ -14,46 +14,11 @@
 <link rel="stylesheet" href="resources/loading.css" type="text/css">
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
 <style type="text/css">
-<<<<<<< HEAD
-.modal-vertical-centered {
-	transform: translate(0, 100%) !important;
-	-ms-transform: translate(0, 100%) !important; /* IE 9 */
-	-webkit-transform: translate(0, 100%) !important;
-	/* Safari and Chrome */
-}
-#calendar .fc-day-number {
-	text-decoration: underline;
-	text-align: right;
-}
-#calendar .fc-day-number:hover {
-	cursor: pointer;
-}
-#calendar .fc-today {
-	background-color: #ECF5F5;
-}
-</style>
-<script>
-
-	var curEvent = null;
-	var currentStart = null;
-	var currentEnd = null;
-	function checkOnedaySchedule(sdate, edate) {
-		var s_Date = Number(moment(sdate).format('MMDD'));
-		var s_Time = Number(moment(sdate).format('HHmm'));
-		var e_Date = Number(moment(edate).format('MMDD'));
-		var e_Time = Number(moment(edate).format('HHmm'));
-
-		if (s_Date == e_Date - 1 && s_Time == e_Time)
-			return true;
-		else
-			return false;
-=======
 	.modal-vertical-centered {
 		transform: translate(0, 100%) !important;
 		-ms-transform: translate(0, 100%) !important; /* IE 9 */
 		-webkit-transform: translate(0, 100%) !important;
 		/* Safari and Chrome */
->>>>>>> origin/Yseok
 	}
 	#calendar .fc-day-number {
 		text-decoration: underline;
@@ -92,6 +57,8 @@
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="fullcalendar">일정</a></li>
 				<li><a href="knumap">빈강의실</a></li>
+				<li><a href="knumenu">오늘의 식단표</a></li>
+				<li><a href="knulibrary">도서관 빈자리</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li>
