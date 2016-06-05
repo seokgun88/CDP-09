@@ -112,13 +112,27 @@
                     <td><center><font size=5><b>2. 빈강의실 페이지</b></font></center></td>
 				</tr>
 				<tr>
-                    <td><center><font size=4>학교건물</font></center></td>
-				</tr>
-				<tr>
 					<td>
                         1 학교건물을 클릭했을 때, 초록 색은 비어있는 강의실, 붉은 색은 수업 중인 강의실이에요.<br>
                         2 강의실 호수를 클릭했을 때, 그 강의실의 시간표를 볼 수 있어요.<br>
                         3 지도 확대축소 및 이동이 가능해요.</td>
+				</tr>
+				
+				<tr>
+                    <td><center><font size=5><b>3. 오늘의 식단표</b></font></center></td>
+				</tr>
+				<tr>
+					<td>
+                        *모든 학생식당의 오늘 식단표를 한번에 모아 볼 수 있어요.
+				</tr>
+				
+				
+				<tr>
+                    <td><center><font size=5><b>4. 도서관 빈 자리 찾기</b></font></center></td>
+				</tr>
+				<tr>
+					<td>
+                        *모든 열람실의 현재 빈 자리 상황을 볼 수 있어요.
 				</tr>
 			</tbody>
 		</table>
