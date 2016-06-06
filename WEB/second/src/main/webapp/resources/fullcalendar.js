@@ -82,21 +82,57 @@ function updateSchedule(title, cstart, cend, start, end) {
 		}
 	});
 }
+function changeScheduleTitle() {
+	$.ajax({
+		type : "POST",
+		url : "delete",
+		data : $('#modalForm').serialize(),
+		success : function() {
+			$('#calendar').fullCalendar('removeEvents', curEvent._id);
+		},
+		error : function() {
+			alert("failure");
+		}
+	});
+	$.ajax({
+		type : "POST",
+		url : "insert",
+		data : $('#modalForm').serialize(),
+		success : function() {
+			eventData = {
+				title : $('#modalNewTitle').val(),
+				start : curEvent._start,
+				end : curEvent._end,
+			};
+			// stick? = false : when month wiil be changed event will disappear.
+			$('#calendar').fullCalendar('renderEvent', eventData, false);
+		},
+		error : function() {
+			alert("failure");
+		}
+	});
+	$("#calendarModal").modal('hide');
+	$("#deleteButton").hide();
+	$("#insertButton").hide();
+}
 function init_modal(modal, action) {
 	// Setup up the modal dialog
 	var $modal = $(modal)
 
 	if (action == 'insert') {
 		$(insertButton).show();
+		$(changeButton).hide();
 		$(deleteButton).hide();
+		$(modalNewTitle).val('');
 	} else if (action == 'delete') {
-		$(deleteButton).show();
+		$(changeButton).show();
 		$(insertButton).hide();
+		$(deleteButton).show();
 	} else if (action == 'update' || action == 'show') {
+		$(changeButton).hide();
 		$(insertButton).hide();
 		$(deleteButton).hide();
 	}
-	$(modalNewTitle).val('');
 	$(modalNewTitle).focus();
 	$modal.modal('show');
 }
@@ -235,7 +271,7 @@ $(document).ready(
 									currentEnd = event.end;
 								},
 								eventResize : function(event, delta, revertFunc) {
-									$('#modalTitle').html(event.title + " 시간 변경");
+									$('#modalTitle').html(event.title + " 일정 변경");
 									document.getElementById('modalTitle').style.display = "";
 									document.getElementById('modalNewTitle').style.display = "none";
 
@@ -277,6 +313,9 @@ $(document).ready(
 									}
 									if ("rgb(163, 166, 189)" == $(this).css('background-color')
 											|| "rgb(58, 135, 173)" == $(this).css('background-color')) { // check user event using bg-color
+										document.getElementById('modalTitle').style.display = "none";
+										document.getElementById('modalNewTitle').style.display = "";
+										$('#modalNewTitle').val(event.title);
 										$('#modalTitleData').val(JSON.stringify(event.title));
 										$('#modalStart').val(JSON.stringify(event.start));
 										$('#modalEnd').val(JSON.stringify(event.end))

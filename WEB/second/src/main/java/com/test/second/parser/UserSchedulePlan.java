@@ -39,7 +39,7 @@ public class UserSchedulePlan {
 		String temp = "";
 		for(int i=0;i<pw.length() ; i++){
 			char c = pw.charAt(i);
-			if(c == '+'||c == '='||c == '-'||c == '/'||c == '*'){
+			if(c == '+'||c == '='||c == '-'||c == '/'||c == '*'||c == '\''){
 				temp += "%"+String.valueOf(c);				
 			}
 			temp += String.valueOf(c);

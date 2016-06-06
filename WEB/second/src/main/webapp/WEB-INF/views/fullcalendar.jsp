@@ -102,6 +102,7 @@
 						<input id="modalStart" type="hidden" class="form-control" name="start">
 						<input id="modalEnd" type="hidden" class="form-control" name="end">
 						<input type="button" id="insertButton" class="btn btn-default" value="등록"  onclick="insertSchedule()" />
+						<input type="button" id="changeButton" class="btn btn-default" value="수정"  onclick="changeScheduleTitle()" />
 						<input type="button" id="deleteButton" class="btn btn-default" value="삭제"  onclick="deleteSchedule()" />
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					</div>
