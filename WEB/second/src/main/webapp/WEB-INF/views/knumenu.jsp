@@ -14,6 +14,22 @@
 		return false;
 	};
 </script>
+<style type="text/css">
+@media (min-width: 400px) {
+	.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
+	    max-width:150px;
+	}
+}
+@media (max-width: 500px) {
+    td{
+		font-size: 5px;
+    }
+	.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
+	    padding: 1px;
+		max-width:150px;
+	}
+}
+</style>
 <link rel="icon" type="image/ico" href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico" />
 <title>오늘의 식단표</title>
 </head>
@@ -67,10 +83,10 @@
 	</nav>
 
 	<div class="container">
-		<table class="table table-striped table-bordered">
+		<table class="table table-striped table-bordered  table-condensed">
 			<thead>
 				<tr>
-					<th width="45"><center></center></th>
+					<th width="15"><center></center></th>
 					<c:forEach items="${buildinglist}" var="buildinglist">
 						<th><center>${buildinglist}</center></th>
 					</c:forEach>

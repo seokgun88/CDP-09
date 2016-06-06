@@ -46,6 +46,8 @@ public class Menu_Parser
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	    doc.outputSettings(new Document.OutputSettings().prettyPrint(false));//makes html() preserve linebreaks and spacing
+	    doc.select("br").append("/");
 
 		Elements titles = doc.select("table.tac caption, table.tac td.on ul.menu_im li");
 		
@@ -87,16 +89,24 @@ public class Menu_Parser
 				}else{
 					// 원소 오브젝트 초기화
 					Temp_MenuElement.setMenu_str(temp);
+					Temp_MenuElement.setPrice("");
 
 					// 리스트에 추가
 					element_MenuList.add(Temp_MenuElement);
-				}				
+				}
 			}			
 		}
-		if(tempMenuList.getDinner() == true && element_MenuList.size() != 0){
-			tempMenuList.setDinner_MenuList(element_MenuList);
+		if(element_MenuList.size() != 0){
+			if(tempMenuList.getDinner() == true){
+				tempMenuList.setDinner_MenuList(element_MenuList);
+			} 
+			//점심은 있는데 저녁은 없는 경우
+			else{
+				if(tempMenuList.getLunch() == true){
+					tempMenuList.setLunch_MenuList(element_MenuList);			
+				}
+			}
 		}
-		
 		
 		if(tempMenuList.getBreakfast_MenuList() == null){
 			tempMenuList.setBreakfast(false);
