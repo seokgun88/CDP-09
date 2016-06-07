@@ -72,9 +72,6 @@
 		<div id="testMap">
 			<script type="text/javascript" src="resources/navermap.js"  charset="UTF-8"></script>
 		</div>
-	</div>
-
-	<div class="container">
 		<div id="ClasstimetableDiv"></div>
 	</div>
 	

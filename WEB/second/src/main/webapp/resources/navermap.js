@@ -29,8 +29,10 @@ function getClassTimetable(place,placenum){
 	var classtimetable_URL = realPath + "/classtimetable?place="+place+"&placenum="+placenum;
 	
 	console.log(classtimetable_URL);
-	var classtimetable_HTML = "<iframe id=\'timetableIframe\' src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" onload=\"resizeIframe(this)\"></iframe>";
+	var classtimetable_HTML = "<iframe id=\'timetableIframe\' src="+classtimetable_URL+" style= \"display:block;\" frameBorder=\'0\' scrolling=\"no\" marginwidth=\'0\' marginheight=\'0\' onload=\"resizeIframe(this)\"></iframe>";
 	document.getElementById('ClasstimetableDiv').innerHTML = "<br /> <h2 align=\'center\'>" + place+placenum +"</h2>"+ classtimetable_HTML;
+	$(window).scrollTop($('#ClasstimetableDiv').position().top);
+	//.animate({ scrollTop: $("#ClasstimetableDiv").offset().top }, 100);
 		
 //	document.getElementById('ClasstimetableDiv').innerHTML(place+placenum);
 }; 

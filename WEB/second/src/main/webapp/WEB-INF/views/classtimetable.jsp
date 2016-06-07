@@ -12,14 +12,23 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style type="text/css">
+@media (max-width: 500px) {
+	.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{
+	    padding: 1px;
+		font-size: 5px;
+		min-width:5px;
+	}
+}
+</style>
 <title>시간표</title>
 </head>
 <body>
 	<div class="container">
-		<table class="table table-striped table-bordered">
+		<table class="table table-striped table-bordered table-condensed">
 			<thead>
 				<tr>
-					<th width="45"><center>시간</center></th>
+					<th><center></center></th>
 					<th><center>월</center></th>
 					<th><center>화</center></th>
 					<th><center>수</center></th>
@@ -31,13 +40,13 @@
 			<tbody>
 				<c:forEach items="${list}" var="schedule">
 					<tr>
-						<td>${schedule.time}</td>
-						<td>${schedule.monday}</td>
-						<td>${schedule.tuesday}</td>
-						<td>${schedule.wednesday}</td>
-						<td>${schedule.thirsday}</td>
-						<td>${schedule.friday}</td>
-						<td>${schedule.saturday}</td>
+						<td><center>${schedule.time}</center></td>
+						<td><center>${schedule.monday}</center></td>
+						<td><center>${schedule.tuesday}</center></td>
+						<td><center>${schedule.wednesday}</center></td>
+						<td><center>${schedule.thirsday}</center></td>
+						<td><center>${schedule.friday}</center></td>
+						<td><center>${schedule.saturday}</center></td>
 					</tr>
 				</c:forEach>
 			</tbody>
