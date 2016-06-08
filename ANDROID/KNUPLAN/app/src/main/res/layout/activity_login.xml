@@ -5,43 +5,57 @@
     android:id="@+id/login_layout"
     android:gravity="center"
     android:padding="20dp"
-    android:background="@drawable/knuplanbg">
+    android:background="@drawable/knuplanbg"
+    android:layout_weight="1">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:src="@drawable/knuplantitle"/>
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loginId"
-        android:hint="YES ID를 입력하세요"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:textColorHint="#B0B0B0"
-        android:background="@drawable/backwithborder"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginPwd"
-        android:hint="YES 비밀번호를 입력하세요"
-        android:layout_marginBottom="30dp"
-        android:padding="5dp"
-        android:textSize="20dp"
-        android:textColor="#000000"
-        android:password="true"
-        android:textColorHint="#B0B0B0"
-        android:background="@drawable/backwithborder"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginBtn"
-        android:textSize="20dp"
-        android:text="로그인"
-        android:textColor="#000000"
-        android:background="#ffffff"/>
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginId"
+                android:hint="YES ID를 입력하세요"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:textColorHint="#B0B0B0"
+                android:background="@drawable/backwithborder"
+                android:imeOptions="actionNext"
+                android:singleLine="true" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loginPwd"
+                android:hint="YES PW를 입력하세요"
+                android:padding="5dp"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:password="true"
+                android:textColorHint="#B0B0B0"
+                android:background="@drawable/backwithborder"
+                android:imeOptions="actionDone"
+                android:singleLine="true" />
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loginBtn"
+            android:textSize="20dp"
+            android:text="로그인"
+            android:textColor="#000000"
+            android:background="#ffffff"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
 </LinearLayout>

@@ -1,6 +1,11 @@
 package com.origin.seok.knuplan;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,6 +15,9 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
     private WebView webview;
@@ -61,10 +69,12 @@ public class MainActivity extends AppCompatActivity {
                         if (webview.canGoBack()) {
                             webview.goBack();
                         } else {
+                            updateWidgets(getApplicationContext());
                             finish();
                         }
                     }
                     else{
+                        updateWidgets(getApplicationContext());
                         finish();
                     }
                     return true;
@@ -83,7 +93,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         String url = "http://knuplan.kert.or.kr/login";
-        String postData = "id=" + id + "&pwd=" + pwd;
+        String postData = null;
+        try {
+            postData = "id=" + id + "&pwd=" + URLEncoder.encode(pwd, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         webview.postUrl(url, postData.getBytes()); //주소입력
 
         //check url when page is loaded
@@ -112,5 +127,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public static void updateWidgets(Context context) {
+        Intent intent = new Intent(context.getApplicationContext(), MonthWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+        int[] ids = widgetManager.getAppWidgetIds(new ComponentName(context, MonthWidget.class));
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+            widgetManager.notifyAppWidgetViewDataChanged(ids, android.R.id.list);
+
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        context.sendBroadcast(intent);
     }
 }
