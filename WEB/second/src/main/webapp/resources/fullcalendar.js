@@ -204,6 +204,19 @@ $(document).ready(
 									}
 									$('#calendar').fullCalendar('option', 'contentHeight', h);
 								},
+								eventRender: function (event, element, view) {
+									if(event.allDay == false){
+										if (view.name == "agendaWeek") {
+											$(element).css("margin-top", "8px");
+											$(element).css("margin-bottom", "8px");
+											$(element).css("margin-right", "5px");
+										}
+										if (view.name == "agendaDay") {
+											$(element).css("margin-top", "8px");
+											$(element).css("margin-bottom", "8px");
+										}
+									}
+								},
 								longPressDelay : 800,
 								selectable : true,
 								selectHelper : true,

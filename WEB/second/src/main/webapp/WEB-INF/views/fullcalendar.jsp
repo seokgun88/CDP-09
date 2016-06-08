@@ -14,22 +14,30 @@
 <link rel="stylesheet" href="resources/loading.css" type="text/css">
 <link rel="stylesheet" href="resources/bgImg.css" type="text/css">
 <style type="text/css">
-	.modal-vertical-centered {
-		transform: translate(0, 100%) !important;
-		-ms-transform: translate(0, 100%) !important; /* IE 9 */
-		-webkit-transform: translate(0, 100%) !important;
-		/* Safari and Chrome */
+.modal-vertical-centered {
+	transform: translate(0, 100%) !important;
+	-ms-transform: translate(0, 100%) !important; /* IE 9 */
+	-webkit-transform: translate(0, 100%) !important;
+	/* Safari and Chrome */
+}
+#calendar .fc-day-number {
+	text-decoration: underline;
+	text-align: right;
+}
+#calendar .fc-day-number:hover {
+	cursor: pointer;
+}
+#calendar .fc-today {
+	background-color: #ECF5F5;
+}
+@media (max-width: 500px) {
+	body .fc-event { 
+	   font-size: 5px;
 	}
-	#calendar .fc-day-number {
-		text-decoration: underline;
-		text-align: right;
-	}
-	#calendar .fc-day-number:hover {
-		cursor: pointer;
-	}
-	#calendar .fc-today {
-		background-color: #ECF5F5;
-	}
+	body .fc-day-number { 
+	   font-size: 8px;
+	}	
+}
 </style>
 <link rel="icon" type="image/ico"  href="${pageContext.request.contextPath}/resources/images/hobanwoo.ico"/>
 <title>나의 일정</title>
