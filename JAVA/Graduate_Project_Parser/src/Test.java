@@ -15,6 +15,7 @@ import object.ScheduleAttr;
 import parser.CollegePlan;
 import parser.HolidayPlan;
 import parser.LecturePlan;
+import parser.Menu_Parser;
 import parser.UserSchedulePlan;
 
 // TEST
@@ -58,28 +59,46 @@ public class Test {
 //			System.out.println("[List] "+ e.toString());
 //		}
 
-		//		-----------------------------------------
-		//		[*]유저 스케줄 파싱(lms)
-		//		String id = "aa0507a";
-		//		String pw = "ss885522..";
-		//		UserSchedulePlan UserTime = new UserSchedulePlan();
-		//		
-		//		
-		//		if(UserTime.StartRequest(id, pw) == false){
-		//			System.out.println("Request 실패 !!");
-		//		}
-		//		else{
-		//			System.out.println("Request 성공 !!");
-		//			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
-		//
-		//			for(int i = 0 ;i<attrList.size();i++){			
-		//				System.out.println(attrList.get(i).toString());
-		//			}
-		//		}
+//		-----------------------------------------
+//		[*]유저 스케줄 파싱(lms)
+//		String id = "aa0507a";
+//		String pw = "*******";
+//		UserSchedulePlan UserTime = new UserSchedulePlan();
+//		
+//		String temp = "";
+//		for(int i=0;i<pw.length() ; i++){
+//			char c = pw.charAt(i);
+//			if(c == '+'||c == '='||c == '-'||c == '/'||c == '*'){
+//				temp += "%"+String.valueOf(c);				
+//			}
+//			temp += String.valueOf(c);
+//		}
+//		System.out.println(temp);
+//
+//		if(UserTime.StartRequest(id, temp) == false){
+//			System.out.println("Request 실패 !!");
+//		}
+//		else{
+//			System.out.println("Request 성공 !!");
+//			ArrayList<ScheduleAttr> attrList = UserTime.getScheduleList();
+//
+//			for(int i = 0 ;i<attrList.size();i++){			
+//				System.out.println(attrList.get(i).toString());
+//			}
+//		}
 		
-		System.out.println("**************************");
-		PlaceManage PM = new PlaceManage();
-
+//		System.out.println("**************************");
+//		PlaceManage PM = new PlaceManage();
+		
+		Menu_Parser m = new Menu_Parser(); // 객체 생성
+		int []numList = {
+				46,40,37,56,35
+		};
+		for(int cnt = 0; cnt < numList.length; cnt++)
+		{
+			m.ParseStart(numList[cnt]);		
+			System.out.println(m.getTempMenuList()+"\n");
+		}
 
 	}
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.second.dao.Dao">
+    <select id="select" parameterType="hashmap" resultType="com.test.second.object.CalendarObj">
+        SELECT * FROM CALENDAR WHERE USER_ID=#{param1}
+    </select>
+    <insert id="insert">
+    	INSERT INTO CALENDAR (USER_ID, TITLE, START, END) VALUES (#{param1}, #{param2}, #{param3}, #{param4})
+    </insert>
+    <delete id="delete">
+    	DELETE FROM CALENDAR WHERE USER_ID=#{param1} AND TITLE=#{param2} AND START=#{param3} AND END=#{param4}
+    </delete>
+    <update id="update">
+    	UPDATE CALENDAR SET START=#{param5}, END=#{param6} WHERE USER_ID=#{param1} AND TITLE=#{param2} AND START=#{param3} AND END=#{param4}
+    </update>
+    <insert id="class_insert">
+    	INSERT INTO CLASSROOMTIMETABLE (BUILDING, ROOM, DAY, START, END, SCHEDULE) VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})    
+    </insert>
+    <select id="class_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
+    	SELECT BUILDING, ROOM, DAY, START, END, SCHEDULE 
+    	FROM CLASSROOMTIMETABLE 
+    	WHERE BUILDING=#{param1} AND ROOM=#{param2}
+    </select>
+    <select id="building_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
+    	SELECT DISTINCT BUILDING, ROOM, DAY, START, END, SCHEDULE 
+    	FROM CLASSROOMTIMETABLE 
+    	WHERE BUILDING=#{param1} AND DAY=#{param2} AND START &lt;=#{param3} AND END &gt;=#{param4}
+    	ORDER BY ROOM
+    </select>
+    <select id="room_select" parameterType="hashmap" resultType="com.test.second.object.ClassroomScheduleObj">
+    	SELECT DISTINCT ROOM 
+    	FROM CLASSROOMTIMETABLE 
+    	WHERE BUILDING=#{param1}
+    	ORDER BY ROOM
+    </select>
+</mapper>
