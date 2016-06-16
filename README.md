@@ -3,7 +3,7 @@
 
 url : knuplan.kert.or.kr  
 안드로이드 플레이스토어 : '크누플랜' 검색
- ->https://play.google.com/store/apps/details?id=com.origin.seok.knuplan
+ ->https://play.google.com/store/apps/details?id=com.origin.seok.knuplan  
 시연 영상 : https://www.youtube.com/playlist?list=PL4k01O6qGFNKLoG_pivDCYRRs9QY4edDh  
 
 Directory  
