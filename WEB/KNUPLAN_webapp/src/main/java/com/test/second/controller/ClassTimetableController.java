@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.test.second.ClassTimetable;
+import com.test.second.ClassTimetableManage;
 import com.test.second.PlaceManage;
 import com.test.second.dao.Dao;
 import com.test.second.object.CalendarObj;
@@ -63,7 +63,7 @@ public class ClassTimetableController {
 	@ResponseBody
 	public List<ScheduleAttr> getClassTimetable(HttpServletRequest request){
 		Dao dao = sqlSession.getMapper(Dao.class);
-		ClassTimetable classTimetable = new ClassTimetable();
+		ClassTimetableManage classTimetable = new ClassTimetableManage();
 				
 		return classTimetable.printTimetable(dao.class_select("공대9호관", "417"));
 	}
@@ -73,7 +73,7 @@ public class ClassTimetableController {
 			@RequestParam(value="place",required=false,defaultValue="공대9호관") String place,
 			@RequestParam(value="placenum",required=false,defaultValue="417") String placenum) {
 		Dao dao = sqlSession.getMapper(Dao.class);
-		ClassTimetable classTimetable = new ClassTimetable();
+		ClassTimetableManage classTimetable = new ClassTimetableManage();
 
 //		classTimetable.printTimetable(dao.class_select("공대9호관", "418"));
 		
@@ -95,7 +95,7 @@ public class ClassTimetableController {
 			e.printStackTrace();
 		}
 		Dao dao = sqlSession.getMapper(Dao.class);
-		ClassTimetable classTimetable = new ClassTimetable();
+		ClassTimetableManage classTimetable = new ClassTimetableManage();
 		Calendar calendar = Calendar.getInstance();
         java.util.Date date = calendar.getTime();
         String day = (new SimpleDateFormat("E").format(date)); //현재 요일 ex) "월" 또는 "화"
@@ -165,7 +165,7 @@ public class ClassTimetableController {
 		}
 				
 		Dao dao = sqlSession.getMapper(Dao.class);
-		ClassTimetable classTimetable = new ClassTimetable();
+		ClassTimetableManage classTimetable = new ClassTimetableManage();
 		ArrayList<ClassroomScheduleObj> ClassroomList = null;
 		ClassroomList = dao.room_select(place);
 		

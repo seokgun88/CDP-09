@@ -5,7 +5,7 @@ import java.util.*;
 import com.test.second.object.*;
 import com.test.second.parser.*;
 
-public class CalendarCommand {
+public class CalendarManage {
 	public ArrayList<CalendarObj> getHolidayEvent(String start, String end){
 		int styear,stmonth,edyear,edmonth;		
 		HolidayPlan obj;
@@ -101,7 +101,7 @@ public class CalendarCommand {
 	}
 	
 	public ArrayList<CalendarObj> getTimetableEvent(String start, String end, ArrayList<CalendarObj> calobj){
-		TimetableCommand con = new TimetableCommand();
+		TimetableManage con = new TimetableManage();
 		ArrayList<CalendarObj> resultcalobj = new ArrayList<CalendarObj>();
 
 		String x = Integer.toString(con.getDateDay(start, "yyyy-MM-dd"));

@@ -25,7 +25,7 @@ public class CalendarController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private CalendarCommand calendarCommand = new CalendarCommand();
+	private CalendarManage calendarCommand = new CalendarManage();
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insert(HttpServletRequest request, @RequestParam("new_title") String title, @RequestParam("start") String start, @RequestParam("end") String end) {
@@ -85,7 +85,7 @@ public class CalendarController {
 	public List<CalendarObj> calendartimetable(HttpServletRequest request, @RequestParam(value="start",required=false,defaultValue="2016-05-01") String start,
 			@RequestParam(value="end",required=false,defaultValue="2016-06-04") String end) {
 		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
-		TimetableCommand con = new TimetableCommand();
+		TimetableManage con = new TimetableManage();
 		ArrayList<CalendarObj> calobj = con.getCalList((ArrayList<ScheduleAttr>) map.get("scheduleList"));
 		return calendarCommand.getTimetableEvent(start, end, calobj);
 	}	

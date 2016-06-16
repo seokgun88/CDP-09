@@ -9,7 +9,7 @@ import com.test.second.object.ClassroomScheduleObj;
 import com.test.second.object.ScheduleAttr;
 
 //강의실 시간표 관련 클래스
-public class ClassTimetable {
+public class ClassTimetableManage {
 	//db에서 받아온 해당 강의실 데이터를 이용하여 29행 7열로 출력
 	private ArrayList<ScheduleAttr> ScheduleList;
 	

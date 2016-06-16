@@ -12,14 +12,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.*;
 
-import com.test.second.ClassTimetable;
+import com.test.second.ClassTimetableManage;
 import com.test.second.dao.*;
 import com.test.second.object.*;
 
 public class LecturePlan {
 	private ArrayList<LectureObj> LectureList;
 	private ArrayList<ClassroomScheduleObj> classScheduleList;
-	ClassTimetable classTimetable = new ClassTimetable();
+	ClassTimetableManage classTimetable = new ClassTimetableManage();
 
 	public ArrayList<LectureObj> getLectureList() {
 		return LectureList;

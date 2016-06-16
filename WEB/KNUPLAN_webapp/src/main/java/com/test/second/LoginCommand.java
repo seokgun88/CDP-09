@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.test.second.parser.UserSchedulePlan;
 import com.test.second.object.ScheduleAttr;
-import com.test.second.TimetableCommand;
+import com.test.second.TimetableManage;
 
 public class LoginCommand{
 

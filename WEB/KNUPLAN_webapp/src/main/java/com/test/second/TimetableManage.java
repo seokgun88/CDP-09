@@ -9,7 +9,7 @@ import java.util.Date;
 import com.test.second.object.CalendarObj;
 import com.test.second.object.ScheduleAttr;
 
-public class TimetableCommand {
+public class TimetableManage {
 	public ArrayList<CalendarObj> calList;
 
 	public String ConvertTimesymbol(String time){
