@@ -33,7 +33,7 @@
 			<mvc:exclude-mapping path="/**/login" />
 			<mvc:exclude-mapping path="/**/images/*" />
 			<!-- 로그인체크 인터셉터 클래스 -->
-			<beans:bean class="com.test.second.interceptor.Interceptor"></beans:bean>
+			<beans:bean class="com.test.second.interceptor.LoginInterceptor"></beans:bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**/classRoomParse" />
