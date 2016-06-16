@@ -85,7 +85,7 @@ public class CalendarController {
 	public List<CalendarObj> calendartimetable(HttpServletRequest request, @RequestParam(value="start",required=false,defaultValue="2016-05-01") String start,
 			@RequestParam(value="end",required=false,defaultValue="2016-06-04") String end) {
 		HashMap<String, Object> map = (HashMap<String, Object>) request.getSession().getAttribute("login");
-		Constant con = new Constant();
+		TimetableCommand con = new TimetableCommand();
 		ArrayList<CalendarObj> calobj = con.getCalList((ArrayList<ScheduleAttr>) map.get("scheduleList"));
 		return calendarCommand.getTimetableEvent(start, end, calobj);
 	}	

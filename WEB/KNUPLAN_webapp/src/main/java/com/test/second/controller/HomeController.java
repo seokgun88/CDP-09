@@ -38,8 +38,6 @@ public class HomeController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	Command command;	
-	
 	boolean isClassRoomParse = true;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -67,8 +65,8 @@ public class HomeController {
 		System.out.println("login()");
 
 		model.addAttribute("request", request);
-		command = new LoginCommand();
-		if (command.excute(model))
+		LoginCommand loginComand = new LoginCommand();
+		if (loginComand.excute(model))
 			return "redirect:fullcalendar";
 		else
 			return "redirect:home?success=false";

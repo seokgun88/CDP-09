@@ -101,7 +101,7 @@ public class CalendarCommand {
 	}
 	
 	public ArrayList<CalendarObj> getTimetableEvent(String start, String end, ArrayList<CalendarObj> calobj){
-		Constant con = new Constant();
+		TimetableCommand con = new TimetableCommand();
 		ArrayList<CalendarObj> resultcalobj = new ArrayList<CalendarObj>();
 
 		String x = Integer.toString(con.getDateDay(start, "yyyy-MM-dd"));

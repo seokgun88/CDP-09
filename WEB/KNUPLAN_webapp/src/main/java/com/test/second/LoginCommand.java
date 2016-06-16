@@ -8,11 +8,10 @@ import org.springframework.ui.Model;
 
 import com.test.second.parser.UserSchedulePlan;
 import com.test.second.object.ScheduleAttr;
-import com.test.second.Constant;
+import com.test.second.TimetableCommand;
 
-public class LoginCommand implements Command {
+public class LoginCommand{
 
-	@Override
 	public boolean excute(Model model) {
 		// TODO Auto-generated method stub
 			Map<String, Object> map = model.asMap();
